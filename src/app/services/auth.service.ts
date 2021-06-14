@@ -18,7 +18,11 @@ export class AuthService {
     return !!this.userChange;
   }
 
-  constructor(private auth: AngularFireAuth) { 
+  getUserEmail(): string {
+    return this.userChange.email;
+  }
+
+  constructor(private auth: AngularFireAuth) {
     this.auth.onAuthStateChanged((user) => {
       console.log(user);
       this.userChange = user;
@@ -26,19 +30,19 @@ export class AuthService {
   }
 
 
-  signInUser({email, password}: SignInFormUser){
+  signInUser({ email, password }: SignInFormUser) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
-  signUpUser({email, password}: SignUpFormUser){
-      return this.auth.createUserWithEmailAndPassword(email, password);
+  signUpUser({ email, password }: SignUpFormUser) {
+    return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  signOutUser(){
+  signOutUser() {
     return this.auth.signOut();
   }
 
-  resetUserPassword({email}: ResetFormUser){
+  resetUserPassword({ email }: ResetFormUser) {
     return this.auth.sendPasswordResetEmail(email);
   }
 }

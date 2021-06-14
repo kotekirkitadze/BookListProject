@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { faBookReader } from '@fortawesome/free-solid-svg-icons';
-
+import { AngularFireAuth } from '@angular/fire/auth';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,6 +13,9 @@ import { faBookReader } from '@fortawesome/free-solid-svg-icons';
 export class HeaderComponent implements OnInit {
 
   faBook = faBookReader;
+  fauser = faUser;
+  userEmail: string;
+
 
   get isKa() {
     return this.isLanguage('ka');
@@ -20,9 +24,14 @@ export class HeaderComponent implements OnInit {
   get isEn() {
     return this.isLanguage('en');
   }
+
   constructor(private navRouting: Router,
     private translateService: TranslateService,
-    private auth: AuthService) { }
+    private auth: AuthService, private qq: AngularFireAuth) {
+    qq.onAuthStateChanged(() => {
+      this.userEmail = this.auth.getUserEmail();
+    });
+  }
 
   ngOnInit(): void {
   }
