@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-
-export interface ResetFormUser{
+export interface ResetFormUser {
   email: string;
 }
 
@@ -14,19 +13,19 @@ export interface ResetFormUser{
 export class ResetPasswComponent implements OnInit {
 
   constructor(private route: Router,
-              private auth: AuthService) { }
+    private auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  resetPassword({email}: ResetFormUser) {
-    if(!email) {
+  resetPassword({ email }: ResetFormUser) {
+    if (!email) {
       return;
     }
-    this.auth.resetUserPassword({email}).
-    then(() => {
-      this.route.navigate(['sign-in']);
-    });
+    this.auth.resetUserPassword({ email }).
+      then(() => {
+        this.route.navigate(['sign-in']);
+      });
   }
 
 }

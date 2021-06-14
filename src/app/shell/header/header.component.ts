@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { faBookReader } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  faBook = faBookReader;
 
   get isKa() {
     return this.isLanguage('ka');
@@ -51,8 +54,8 @@ export class HeaderComponent implements OnInit {
     return currLang ? currLang == lang : defLang == lang;
   }
 
-  signOut(){
-    this.auth.signOutUser().then(()=>{
+  signOut() {
+    this.auth.signOutUser().then(() => {
       this.navRouting.navigate(['sign-in']);
     })
   }
