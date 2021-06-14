@@ -1,0 +1,11 @@
+<div class="box">
+    <form #formData="ngForm"
+          (ngSubmit)='resetPassword(formData.value)'>
+	    <h1>{{ "auth.RESET_PASSWORD_TITLE" | translate}}</h1>
+	    <input ngModel type="text" name="email"
+           placeholder="{{ 'auth.EMAIL' | translate}}">
+	    <button class="logIn">{{ "auth.RESET_BUTTON" | translate}}</button>
+    </form>
+</div>
+
+ 

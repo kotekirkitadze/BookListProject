@@ -1,0 +1,25 @@
+{
+  "TITLE": "წიგნების კატალოგი",
+   "auth": {
+     "LOGIN_TITLE": "პროფილზე შესვლა",
+     "LOGIN": "შესვლა",
+     "EMAIL": "იმეილი",
+     "PASSWORD": "პაროლი",
+     "REGISTRATION_TITLE": "რეგისტრაცია",
+     "REGISTRATION_BUTTIN": "ანგარიშის შექმნა",
+     "FULL_NAME": "სრული სახელი",
+     "FORGET_PASSWORD_BUTTON": "დაგავიწყდათ პაროლი?",
+     "REPEAT_PASSWORD": "გაიმეორეთ პაროლი",
+     "RESET_PASSWORD_TITLE": "პაროლის განახლება",
+     "RESET_BUTTON" : "იმეილის გაგზავნა"
+   },
+   "SIGN_IN_HEADER": "შესვლა",
+   "SIGN_UP_HEADER": "რეგისტრაცია",
+   "SIGN_OUT_HEADER": "გამოსვლა",
+   "CATAL_HEADER": "კატალოგი",
+   "errors": {
+    "NOT_FOUND_TITLE": "404 გვერდი ვერ მოიძებნა",
+    "NOT_FOUND_TEXT_FIRST": "გვერდო, რომელსაც თქვენ ეძებთ, შეიძლება წაშლილია, ",
+    "NOT_FOUND_TEXT_SECOND": "შეიძ₾ება სახელი აქვს შეცვლილი ან დროებით ხელმიუწვდომელია."
+  }
+}

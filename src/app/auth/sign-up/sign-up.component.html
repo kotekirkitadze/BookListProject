@@ -1,0 +1,22 @@
+<form class="box"
+      #signUpFromData="ngForm"
+      (ngSubmit)="signUp(signUpFromData.value)">
+    <h1>{{ "auth.REGISTRATION_TITLE" | translate}}</h1>
+    <input type="text"
+           name="fullName"
+          placeholder="{{ 'auth.FULL_NAME' | translate }}"
+          ngModel>
+    <input type="text"
+           name="email"
+           placeholder="{{ 'auth.EMAIL' | translate}}"
+           ngModel>
+    <input type="password"
+           name="password"
+           placeholder="{{ 'auth.PASSWORD' | translate}}"
+           ngModel>
+    <input type="password"
+           name="repeate_password"
+           placeholder="{{ 'auth.REPEAT_PASSWORD' | translate}}"
+           ngModel>
+    <button class="logIn">{{ "auth.REGISTRATION_BUTTIN" | translate}}</button>
+</form>

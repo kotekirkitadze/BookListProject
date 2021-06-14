@@ -1,0 +1,25 @@
+{
+  "TITLE": "Book Catalogue",
+   "auth": {
+     "LOGIN_TITLE": "LOGIN",
+     "LOGIN": "Log In",
+     "EMAIL": "Email",
+     "PASSWORD": "Password",
+     "REGISTRATION_TITLE": "REGISTRATION",
+     "REGISTRATION_BUTTIN": "Create account",
+     "FULL_NAME": "Full Name",
+     "REPEAT_PASSWORD": "Repeat Password",
+     "FORGET_PASSWORD_BUTTON": "Forget password?",
+     "RESET_PASSWORD_TITLE": "RESET PASSWORD",
+     "RESET_BUTTON" : "Send email"
+   },
+   "SIGN_IN_HEADER": "Sign In",
+   "SIGN_UP_HEADER": "Sign Up",
+   "SIGN_OUT_HEADER": "Sign Out",
+   "CATAL_HEADER": "Catalogue",
+   "errors": {
+     "NOT_FOUND_TITLE": "404 PAGE NOT FOUND",
+     "NOT_FOUND_TEXT_FIRST": "The page you are looking for might have been removed,",
+     "NOT_FOUND_TEXT_SECOND": "had its name changed or is temporarily unavailable."
+   }
+}
