@@ -11,7 +11,8 @@ export const environment = {
     storageBucket: "book-catalogue-d3599.appspot.com",
     messagingSenderId: "345230584948",
     appId: "1:345230584948:web:002af33ec3e271682d3521"
-  }
+  },
+  bookApi: 'https://www.googleapis.com/books/v1/volumes?q',
 };
 
 /*

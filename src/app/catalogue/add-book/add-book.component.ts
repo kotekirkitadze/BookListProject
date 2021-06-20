@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs/operators';
+import { LoadingService } from 'src/app/services/loading.service';
+import { BookApiService } from '../services/book-api.services';
 
 @Component({
   selector: 'app-add-book',
@@ -16,10 +19,15 @@ export class AddBookComponent implements OnInit {
       return;
     }
     this.errorVal = false;
-    console.log(this.searchedVal)
+
+    this.loadingService.start();
+    this.apiService.getBookByName(this.searchedVal).pipe(finalize(()=> {
+      this.loadingService.stop();
+    })).subscribe((x)=>console.log(x))
   }
 
-  constructor() { }
+  constructor( private loadingService: LoadingService, 
+              private apiService: BookApiService) { }
 
   ngOnInit(): void {
   }
