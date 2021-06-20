@@ -1,31 +1,33 @@
-<header>
-  <h2 class="title"><fa-icon [icon]="faBook" class="book"></fa-icon> {{ "TITLE" | translate}}</h2>
-  <nav>
-    <ul class="nav_links">
-      <li><button class="userBtn"
-                  *ngIf="isLoggedIn">
-                  <fa-icon [icon]="fauser"></fa-icon>
-                  {{userEmail}}</button></li>
-      <li><button (click)="toSignIn()"
-                  class="signInBtns"
-                  *ngIf="!isLoggedIn">{{"SIGN_IN_HEADER" | translate}}</button></li>
-      <li><button (click)="toSignUp()"
-                  class="signUpBtns"
-                  *ngIf="!isLoggedIn">{{"SIGN_UP_HEADER" | translate}}</button></li>
-      <li><button  (click)="signOut()"
-                  class="signOutBtn"
-                  *ngIf="isLoggedIn">{{ "SIGN_OUT_HEADER" | translate}}</button></li>
-    </ul>
-  </nav>
-</header>
-<div class="languageBars">
+<div class="header-container">
+  <header>
+    <h2 class="title"><fa-icon [icon]="faBook" class="book"></fa-icon> {{ "TITLE" | translate}}</h2>
+    <nav>
+      <ul class="nav_links">
+        <li><button class="userBtn"
+                    *ngIf="isLoggedIn">
+                    <fa-icon [icon]="fauser"></fa-icon>
+                    {{userEmail}}</button></li>
+        <li><button (click)="toSignIn()"
+                    class="signInBtns"
+                    *ngIf="!isLoggedIn">{{"SIGN_IN_HEADER" | translate}}</button></li>
+        <li><button (click)="toSignUp()"
+                    class="signUpBtns"
+                    *ngIf="!isLoggedIn">{{"SIGN_UP_HEADER" | translate}}</button></li>
+        <li><button  (click)="signOut()"
+                    class="signOutBtn"
+                    *ngIf="isLoggedIn">{{ "SIGN_OUT_HEADER" | translate}}</button></li>
+      </ul>
+    </nav>
+  </header>
+</div>
+<!-- <div class="languageBars">
   <button class="langBtn en"
           (click)="useEn()"
           [class.inactive]="!isEn"></button>
   <button class="langBtn ge"
           (click)="useGe()"
           [class.inactive]="!isKa"></button>
-</div>
+</div> -->
 
 
 

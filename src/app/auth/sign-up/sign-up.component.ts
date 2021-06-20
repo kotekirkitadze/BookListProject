@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 export interface SignUpFormUser {
   email: string;
@@ -16,7 +17,8 @@ export interface SignUpFormUser {
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(private auth: AuthService, private route: Router) { }
+  constructor(private auth: AuthService, private route: Router,
+    private loadingService: LoadingService) { }
 
   ngOnInit(): void {
   }
@@ -25,9 +27,12 @@ export class SignUpComponent implements OnInit {
     if (!email || !password) {
       return;
     }
-
-    this.auth.signUpUser({email, password}).
-    then(() => { this.route.navigate(['catalogue'])});
+    this.loadingService.start();
+    this.auth.signUpUser({ email, password }).
+      then(() => {
+        this.loadingService.stop();
+        this.route.navigate(['catalogue'])
+      });
   }
 
 

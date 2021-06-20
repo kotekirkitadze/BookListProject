@@ -1,0 +1,36 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  // background-color: red;
+  width: 50%;
+  align-items: center;
+  margin: auto;
+  height: 185px;
+  justify-content: center;
+
+}
+
+
+.add-container {
+  margin: 64px auto;
+  position: absolute;
+  width: 100%;
+  // background-color: aqua;
+  background: rgb(255,157,91);
+  background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(34,181,195,1) 100%);
+}
+
+h1{
+  margin: 8px;
+}
+p {
+  margin-bottom: 12px;
+}
+
+button {
+  margin: 7px;
+  padding: 12px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
