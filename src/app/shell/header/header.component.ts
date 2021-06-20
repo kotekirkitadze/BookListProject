@@ -6,6 +6,8 @@ import { faBookReader } from '@fortawesome/free-solid-svg-icons';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
+import { from } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -66,11 +68,17 @@ export class HeaderComponent implements OnInit {
   // }
 
   signOut() {
+
+    // this.auth.signOutUser().then(() => {
+    //   this.navRouting.navigate(['sign-in']);
+    //   this.loadingService.stop();
+    // })
+
     this.loadingService.start();
-    this.auth.signOutUser().then(() => {
-      this.navRouting.navigate(['sign-in']);
-      this.loadingService.stop();
-    })
+    //radganac network call aris, unsubscribe aghar unda
+    from(this.auth.signOutUser()).
+      pipe(finalize(() => this.loadingService.stop())).
+      subscribe(() => this.navRouting.navigate(['sign-in']));
   }
 
   get isLoggedIn(): boolean {

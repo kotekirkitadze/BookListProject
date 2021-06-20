@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { from } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 export interface ResetFormUser {
   email: string;
@@ -22,10 +23,14 @@ export class ResetPasswComponent implements OnInit {
     if (!email) {
       return;
     }
-    this.auth.resetUserPassword({ email }).
-      then(() => {
-        this.route.navigate(['sign-in']);
-      });
+    // this.auth.resetUserPassword({ email }).
+    //   then(() => {
+    //     this.route.navigate(['sign-in']);
+    //   });
+
+    //radganac network call aris, unsubscribe aghar unda
+    from(this.auth.resetUserPassword({ email })).
+      subscribe(() => this.route.navigate(['sign-in']));
   }
 
 }

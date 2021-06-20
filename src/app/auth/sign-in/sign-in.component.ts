@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
+import { from } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 export interface SignInFormUser {
   email: string;
@@ -31,12 +33,17 @@ export class SignInComponent implements OnInit {
     }
 
     this.loadingService.start();
-    this.auth.signInUser({ email, password }).
-      then(() => {
-        this.loadingService.stop();
-        this.route.navigate(['catalogue']);
+    // this.auth.signInUser({ email, password }).
+    //   then(() => {
+    //     this.loadingService.stop();
+    //     this.route.navigate(['catalogue']);
 
-      });
+    //   });
+
+    //radganac network call aris, unsubscribe aghar unda
+    from(this.auth.signInUser({ email, password })).
+      pipe(finalize(() => this.loadingService.stop())).
+      subscribe(() => this.route.navigate(['catalogue']));
   }
 
   toResetPasswrd() {

@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   getUserEmail(): string {
-    return this.userChange.email;
+    return this.userChange?.email;
   }
 
   constructor(private auth: AngularFireAuth) {
