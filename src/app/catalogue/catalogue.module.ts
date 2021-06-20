@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CatalogueComponent } from './catalogue.component';
 import { CatalogueRoutingModule } from './catalogue-routing.module';
 import { AddBookComponent } from './add-book/add-book.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -13,7 +14,8 @@ import { AddBookComponent } from './add-book/add-book.component';
   ],
   imports: [
     CommonModule,
-    CatalogueRoutingModule
+    CatalogueRoutingModule,
+    FormsModule
   ]
 })
 export class CatalogueModule { }

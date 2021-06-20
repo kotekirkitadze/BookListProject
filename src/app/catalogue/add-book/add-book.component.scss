@@ -6,7 +6,7 @@
 background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(34,94,195,1) 100%);
 }
 
-form {
+.form {
   // background-color: cadetblue;
   height: 155px;
 }
@@ -56,4 +56,18 @@ button:hover{
   margin: 64px auto;
   position: absolute;
   width: 100%;
+}
+
+
+.error-box {
+  background-color: rgb(226, 31, 31);
+  width: 400px;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: -16px;
+  margin-bottom: -16px;
+  color: white;
+  font-size: 15px;
 }
