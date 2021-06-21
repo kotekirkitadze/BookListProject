@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ShellModule } from './shell/shell.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
-import { SharedModuleModule } from './shared-module/shared-module.module';
+import { SharedModule } from './shared-module/shared-module.module';
 
 export function TranslateHttpLoaderFactory(
   http: HttpClient
@@ -25,7 +25,7 @@ export function TranslateHttpLoaderFactory(
     HttpClientModule,
     AppRoutingModule,
     ShellModule,
-    SharedModuleModule,
+    SharedModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { BookApiService } from '../services/book-api.services';
 
 @Component({
@@ -10,26 +11,57 @@ import { BookApiService } from '../services/book-api.services';
 })
 export class AddBookComponent implements OnInit {
 
-  searchedVal: string;
+  searchData: string;
   errorVal: boolean;
+  lastThreeSearches: string[] = [];
 
-  searchBook() {
-    if (!this.searchedVal || this.searchedVal == " ") {
+  pushInlastSearches(name: string) {
+    if (this.lastThreeSearches.length < 3) {
+      this.lastThreeSearches.unshift(name);
+      this.storage.set<string[]>("lastThreSearches", this.lastThreeSearches);
+      return;
+    }
+
+    this.lastThreeSearches.splice(2, 1);
+    this.lastThreeSearches.unshift(name);
+    this.storage.set<string[]>("lastThreSearches", this.lastThreeSearches);
+  }
+
+  searchBook(key: string) {
+    if (!key || key == " ") {
       this.errorVal = true;
       return;
     }
     this.errorVal = false;
 
-    this.loadingService.start();
-    this.apiService.getBookByName(this.searchedVal).pipe(finalize(()=> {
-      this.loadingService.stop();
-    })).subscribe((x)=>console.log(x))
+    this.pushInlastSearches(key);
+    this.getBooksFromApi(key);
+
   }
 
-  constructor( private loadingService: LoadingService, 
-              private apiService: BookApiService) { }
+  getBooksFromApi(name: string) {
+    this.loadingService.start();
+    this.apiService.getBookByName(name).pipe(finalize(() => {
+      this.loadingService.stop();
+      this.searchData = "";
+    })).subscribe((x) => console.log(x))
+  }
+
+  constructor(private loadingService: LoadingService,
+    private apiService: BookApiService,
+    private storage: StorageService) { }
+
+
+  restoreSearches() {
+    const searchesInStorage = this.storage.get<string[]>("lastThreSearches");
+    if (searchesInStorage?.length > 0) {
+      this.lastThreeSearches = searchesInStorage;
+    }
+  }
+
 
   ngOnInit(): void {
+    this.restoreSearches();
   }
 
 }

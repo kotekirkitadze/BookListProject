@@ -15,4 +15,4 @@ import { SpinnerComponent } from './loading/spinner/spinner.component';
   ],
   exports: [TranslateModule, LoadingComponent]
 })
-export class SharedModuleModule { }
+export class SharedModule { }

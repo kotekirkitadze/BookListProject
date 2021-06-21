@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthRoutingModule } from './auth-routing.module';
-import { SharedModuleModule } from '../shared-module/shared-module.module';
+import { SharedModule } from '../shared-module/shared-module.module';
 import { ResetPasswComponent } from './reset-passw/reset-passw.component';
 
 
@@ -18,7 +18,7 @@ import { ResetPasswComponent } from './reset-passw/reset-passw.component';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    SharedModuleModule,
+    SharedModule,
     FormsModule
   ]
 })

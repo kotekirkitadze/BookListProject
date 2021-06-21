@@ -20,6 +20,17 @@
    "errors": {
      "NOT_FOUND_TITLE": "404 PAGE NOT FOUND",
      "NOT_FOUND_TEXT_FIRST": "The page you are looking for might have been removed,",
-     "NOT_FOUND_TEXT_SECOND": "had its name changed or is temporarily unavailable."
+     "NOT_FOUND_TEXT_SECOND": "had its name changed or is temporarily unavailable.",
+     "SEARCH_ERROR": "Please enter a book name"
+   },
+   "catalogue": {
+     "TITILE": "Welcome to book catalogue",
+     "PARAGRAPH": "You can add your favorite book here",
+     "SEARCH": "Search Book",
+     "searchPage": {
+       "TITLE": "You can Search Book here",
+       "INPUT": "Serch Book",
+       "ADD_BOOK_BTN": "Add Book"
+     }
    }
 }

@@ -3,12 +3,12 @@
   text-align: center;
   padding: 35px;
   background: rgb(255,157,91);
-background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(34,94,195,1) 100%);
+ background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(34,94,195,1) 100%);
 }
 
 .form {
-  // background-color: cadetblue;
-  height: 155px;
+ // background-color: cadetblue;
+  height: 130px;
 }
 
 input {
@@ -44,6 +44,7 @@ button{
 	border-radius: 24px;
 	transition: 0.25s;
 	cursor: pointer;
+
 }
 
 
@@ -70,4 +71,25 @@ button:hover{
   margin-bottom: -16px;
   color: white;
   font-size: 15px;
+}
+
+.lastThree {
+  display: flex;
+  justify-content: center;
+  //background-color: #f7ba48;
+  margin-top: -10px;
+}
+
+.lastThree  {
+  display: flex;
+  list-style-type: none;
+}
+
+.lastThree  li {
+  margin-left: 25px;
+  font-size: 20px;
+  background-color: deepskyblue;
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
 }

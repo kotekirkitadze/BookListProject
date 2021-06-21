@@ -1,12 +1,18 @@
 <div class="add-movie-container">
-  <h1 class="title">Add Movie</h1>
+  <h1 class="title">{{"catalogue.searchPage.TITLE" | translate}}</h1>
   <div class="add-movie">
     <div class="form">
-      <input [(ngModel)]="searchedVal" type="text" placeholder="add movie">
+      <input [(ngModel)]="searchData" type="text" placeholder="{{'catalogue.searchPage.INPUT' | translate}}">
       <div class="error-box" *ngIf="errorVal">
-        error
+        {{"errors.SEARCH_ERROR" | translate}}
       </div>
-      <button (click)="searchBook()">Add Movie</button>
+      <button (click)="searchBook(searchData)">{{"catalogue.searchPage.ADD_BOOK_BTN" | translate}}</button>
+      <ul class="lastThree">
+        <li *ngFor="let name of lastThreeSearches"
+              (click)="getBooksFromApi(name)">
+          {{name}}
+        </li>
+      </ul>
     </div>
   </div>
 </div>

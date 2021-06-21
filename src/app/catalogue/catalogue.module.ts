@@ -6,6 +6,7 @@ import { AddBookComponent } from './add-book/add-book.component';
 import { FormsModule } from '@angular/forms';
 import { BOOK_API, BookApiService } from './services/book-api.services';
 import { environment } from 'src/environments/environment';
+import { SharedModule } from '../shared-module/shared-module.module';
 
 
 
@@ -17,7 +18,8 @@ import { environment } from 'src/environments/environment';
   imports: [
     CommonModule,
     CatalogueRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [BookApiService, {
     provide: BOOK_API,

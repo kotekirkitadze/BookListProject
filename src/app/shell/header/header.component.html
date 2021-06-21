@@ -1,6 +1,7 @@
 <div class="header-container">
   <header>
-    <h2 class="title"><fa-icon [icon]="faBook" class="book"></fa-icon> {{ "TITLE" | translate}}</h2>
+    <h2 class="title"
+    (click)="toHome()"><fa-icon [icon]="faBook" class="book"></fa-icon> {{ "TITLE" | translate}}</h2>
     <nav>
       <ul class="nav_links">
         <li><button class="userBtn"

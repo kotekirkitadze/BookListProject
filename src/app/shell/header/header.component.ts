@@ -40,6 +40,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toHome() {
+    this.navRouting.navigate(['']);
+  }
+
   toSignIn() {
     this.navRouting.navigate(['sign-in']);
   }
