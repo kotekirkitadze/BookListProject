@@ -10,6 +10,7 @@ import { ShellModule } from './shell/shell.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { SharedModule } from './shared-module/shared-module.module';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 export function TranslateHttpLoaderFactory(
   http: HttpClient
@@ -34,7 +35,8 @@ export function TranslateHttpLoaderFactory(
       },
       defaultLanguage: "en"
     }),
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

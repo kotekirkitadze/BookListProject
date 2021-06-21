@@ -4,11 +4,12 @@ import { from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
+import { SaveDataService } from 'src/app/services/save-data.service';
 
 export interface SignUpFormUser {
+  fullName: string
   email: string;
   password: string;
-
 }
 
 
@@ -20,12 +21,13 @@ export interface SignUpFormUser {
 export class SignUpComponent implements OnInit {
 
   constructor(private auth: AuthService, private route: Router,
-    private loadingService: LoadingService) { }
+    private loadingService: LoadingService,
+    private saveData: SaveDataService) { }
 
   ngOnInit(): void {
   }
 
-  signUp({ email, password }: SignUpFormUser) {
+  signUp({ email, password, fullName }: SignUpFormUser) {
     if (!email || !password) {
       return;
     }
@@ -35,10 +37,12 @@ export class SignUpComponent implements OnInit {
     //     this.loadingService.stop();
     //     this.route.navigate(['catalogue'])
     //   });
-
     //radganac network call aris, unsubscribe aghar unda
-    from(this.auth.signUpUser({ email, password })).
-      pipe(finalize(() => this.loadingService.stop())).
+    from(this.auth.signUpUser({ email, password, fullName })).
+      pipe(finalize(() => {
+        this.loadingService.stop(),
+        this.saveData.registerData(this.auth.getUserUid(), fullName)
+      })).
       subscribe(() => this.route.navigate(['catalogue']))
   }
 

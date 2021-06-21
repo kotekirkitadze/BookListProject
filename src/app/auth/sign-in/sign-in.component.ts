@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { SaveDataService } from 'src/app/services/save-data.service';
 
 export interface SignInFormUser {
   email: string;
@@ -24,6 +25,7 @@ export class SignInComponent implements OnInit {
     private loadingService: LoadingService) { }
 
   ngOnInit(): void {
+    
   }
 
 
@@ -40,6 +42,8 @@ export class SignInComponent implements OnInit {
 
     //   });
 
+
+    //this.saveData.update("kirkitadze");
     //radganac network call aris, unsubscribe aghar unda
     from(this.auth.signInUser({ email, password })).
       pipe(finalize(() => this.loadingService.stop())).

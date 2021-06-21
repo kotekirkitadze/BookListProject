@@ -8,6 +8,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
 import { from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { SaveDataService } from 'src/app/services/save-data.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
   faBook = faBookReader;
   fauser = faUser;
-  userEmail: string;
+  userName: string;
 
 
   // get isKa() {
@@ -31,13 +32,14 @@ export class HeaderComponent implements OnInit {
   constructor(private navRouting: Router,
     // private translateService: TranslateService,
     private auth: AuthService, private qq: AngularFireAuth,
-    private loadingService: LoadingService) {
-    qq.onAuthStateChanged(() => {
-      this.userEmail = this.auth.getUserEmail();
-    });
+    private loadingService: LoadingService, 
+    private saveData: SaveDataService) {
   }
 
   ngOnInit(): void {
+    this.saveData.getItem().subscribe((user)=> {
+      this.userName = user?.name;
+    })
   }
 
   toHome() {

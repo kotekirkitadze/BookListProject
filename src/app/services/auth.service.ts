@@ -22,6 +22,10 @@ export class AuthService {
     return this.userChange?.email;
   }
 
+  getUserUid(): string {
+    return this.userChange?.uid;
+  }
+
   constructor(private auth: AngularFireAuth) {
     this.auth.onAuthStateChanged((user) => {
       console.log(user);

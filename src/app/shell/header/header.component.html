@@ -7,7 +7,7 @@
         <li><button class="userBtn"
                     *ngIf="isLoggedIn">
                     <fa-icon [icon]="fauser"></fa-icon>
-                    {{userEmail}}</button></li>
+                    {{userName}}</button></li>
         <li><button (click)="toSignIn()"
                     class="signInBtns"
                     *ngIf="!isLoggedIn">{{"SIGN_IN_HEADER" | translate}}</button></li>
