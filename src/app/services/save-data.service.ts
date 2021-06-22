@@ -5,49 +5,51 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 export interface User {
-  uid: string;
-  email?: string;
   name?: string;
-  
+  uid?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaveDataService {
-  private itemCollections: AngularFirestoreCollection<any>;
-  items: Observable<any[]>;
-  currentUser$: Observable<any>;
-  
+  private itemCollections: AngularFirestoreCollection<User>;
+  private itemDocument: AngularFirestoreDocument<User>;
+  items: Observable<User[]>;
+  currentUser$: Observable<User>;
+
   constructor(private afs: AngularFirestore,
     private auth: AngularFireAuth) {
-      this.itemCollections = this.afs.collection('users');
-      this.items =this.itemCollections.valueChanges();
+    this.itemCollections = this.afs.collection('users');
+    this.items = this.itemCollections.valueChanges();
 
-      this.currentUser$ = this.auth.authState.pipe(
-        switchMap(user => {
-            // Logged in
-          if (user) {
-            return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-          } else {
-            // Logged out
-            return of(null);
-          }
-        }))
-    }
-    
-
-
-    getItem(){
-      return this.currentUser$;
-    }
-  
+    this.currentUser$ = this.auth.authState.pipe(
+      switchMap(user => {
+        // Logged in
+        if (user) {
+          //value changes() returns collections as observable
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          // Logged out
+          return of(null);
+        }
+      }))
+  }
 
 
-    
-    registerData(userId: string, name: string){
-      this.itemCollections.doc(userId).set({"name": name});
-    };
+  getItem(): Observable<User> {
+    return this.currentUser$;
+  }
+
+
+  registerData(userId: string, name: string) {
+    this.itemCollections.doc(userId).set({ "name": name });
+  };
+
+  deleteUser() {
+    this.itemDocument = this.afs.doc("users/Lz66mRcx9TamAywq5wE3KJmZMRk1");
+    this.itemDocument.delete();
+  }
 
 }
 

@@ -34,8 +34,10 @@ export class AuthService {
   }
 
 
+
   signInUser({ email, password }: SignInFormUser) {
     return this.auth.signInWithEmailAndPassword(email, password);
+
   }
 
   signUpUser({ email, password }: SignUpFormUser) {
@@ -50,3 +52,6 @@ export class AuthService {
     return this.auth.sendPasswordResetEmail(email);
   }
 }
+
+
+

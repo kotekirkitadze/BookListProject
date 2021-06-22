@@ -32,12 +32,12 @@ export class HeaderComponent implements OnInit {
   constructor(private navRouting: Router,
     // private translateService: TranslateService,
     private auth: AuthService, private qq: AngularFireAuth,
-    private loadingService: LoadingService, 
+    private loadingService: LoadingService,
     private saveData: SaveDataService) {
   }
 
   ngOnInit(): void {
-    this.saveData.getItem().subscribe((user)=> {
+    this.saveData.getItem().subscribe((user) => {
       this.userName = user?.name;
     })
   }
