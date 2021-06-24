@@ -54,8 +54,8 @@ button:hover{
 
 
 .add-movie-container{
-  margin: 62px auto;
-  position: absolute;
+  margin: 0 auto;
+  // position: absolute;
   width: 100%;
 }
 
@@ -160,10 +160,12 @@ body {
      width: 500px;
      background-color: #fff;
      box-shadow: 0 0 20px 0 #999;
-     top: 75%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     position: absolute;
+    //  top: 75%;
+    //  left: 50%;
+    //  transform: translate(-50%, -50%);
+    //  position: absolute;
+    margin-top: 80px;
+    margin-left: 30%;
      font-size: 25px;
  }
 
@@ -204,7 +206,6 @@ body {
   cursor: pointer;
   margin-left: 35%;
  }
-
 
  .form-conatiner {
   display: flex;
