@@ -11,6 +11,7 @@ import { LoadingService } from './loading.service';
 export interface User {
   name?: string;
   uid?: string;
+  password?: string
 }
 
 @Injectable({
@@ -75,23 +76,24 @@ export class SaveDataService {
         this.loadingService.stop();
       })
     });
-
-
   }
+
+  updateUser(user: User) {
+    this.itemDoc = this.afs.doc(`users/${user.uid}`);
+    const reneWedUser: User = { name: user.name }
+    this.itemDoc.update(reneWedUser);
+  }
+
+
+  updatePassword(newPassword: string) {
+    this.auth.currentUser.then((user) => user.updatePassword(newPassword));
+  }
+  updateEmail(newEmail: string) {
+    this.auth.currentUser.then(user => user.updateEmail(newEmail))
+  }
+
 }
 
 
 
-// const url = "https://us-central1-book-catalogue-d3599.cloudfunctions.net/deleteUserByEmail";
-
-// const user = {
-//   "userEmail": currentUser.getCurrentUser().email
-// }
-
-// this.http.post(url, user).subscribe((data) => {
-//   this.deleteUserData(currentUser.getCurrentUser());
-//   currentUser.signOutUser().then(() => {
-//     this.navRouting.navigate(["sign-in"]);
-//   });
-// })
 

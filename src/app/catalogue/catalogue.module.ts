@@ -22,7 +22,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CatalogueRoutingModule,
     FormsModule,
     SharedModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [BookApiService, {
     provide: BOOK_API,

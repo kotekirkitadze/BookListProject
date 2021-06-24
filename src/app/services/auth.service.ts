@@ -5,6 +5,7 @@ import { SignInFormUser, SignUpFormUser, ResetFormUser } from '../auth/index';
 interface User {
   uid: string;
   email: string;
+  name?: string;
 }
 
 @Injectable({

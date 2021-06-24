@@ -1,14 +1,60 @@
 <div class="headerTitle">
-  <h1>User Page</h1>
-  <p>You can Manage Your Profile Here</p>
+  <h1>{{"catalogue.UserPage.TITLE" | translate}}</h1>
+  <p>{{"catalogue.UserPage.PAGE_INFO" | translate}}</p>
 </div>
 
 <div class="userInfo">
   <ul>
-    <li>Full Name: {{userName}}</li>
-    <li>Email: {{userEmail}}</li>
-    <li>Password: ********</li>
-    <li><button (click)="deleteUser()">Delet User</button></li>
+    <li>
+      <div class="form-small-container">
+        <div>{{"catalogue.UserPage.FULL_NAME" | translate}}<span class="span" *ngIf="!editName">{{userName}}</span></div>
+        <input type=text *ngIf="editName"
+               [(ngModel)]="userName"
+               placeholder="{{'catalogue.UserPage.NEW_NAME' | translate}}">
+      </div>
+      <div class="smlBtn-container">
+        <button class="checkBtn" *ngIf="editName" (click)=updateUserName()><fa-icon [icon]="doneIcon"></fa-icon></button>
+        <button class="editBtn" (click)="edit('name')"><fa-icon [icon]="editIcon"></fa-icon></button>
+      </div>
+    </li>
+
+    <li>
+      <div class="form-small-container">
+        <div>{{"catalogue.UserPage.FULL_NAME" | translate}} <span *ngIf="!editEmail">{{userEmail}}</span></div>
+        <input type=text
+               *ngIf="editEmail"
+               [(ngModel)]="userEmail"
+               placeholder="{{'catalogue.UserPage.NEW_EMAIL' | translate}}">
+        </div>
+        <div class="smlBtn-container">
+          <button class="checkBtn"
+                  (click)="updateEmail()"
+                  *ngIf="editEmail"><fa-icon [icon]="doneIcon"></fa-icon></button>
+          <button class="editBtn"
+                  (click)="edit('email')"><fa-icon [icon]="editIcon"></fa-icon></button>
+        </div>
+    </li>
+
+    <li>
+      <div class="form-small-container">
+        <div>{{"catalogue.UserPage.PASSWORD" | translate}}<span *ngIf="!editPassword">*****</span></div>
+        <input type=text
+              *ngIf="editPassword"
+              [(ngModel)]="userPassword"
+              placeholder="{{'catalogue.UserPage.NEW_PASSW' | translate}}">
+      </div>
+        <div class="smlBtn-container">
+          <button class="checkBtn" (click)="updatePassword()"
+                  *ngIf="editPassword">
+                  <fa-icon [icon]="doneIcon"></fa-icon></button>
+          <button class="editBtn"
+                  (click)="edit('password')">
+                  <fa-icon [icon]="editIcon"></fa-icon></button>
+        </div>
+    </li>
+    <li><button (click)="deleteUser()" class="deleteBtn">
+      {{"catalogue.UserPage.DELETE_USER_BTN" | translate}}
+    </button></li>
   </ul>
 </div>
 

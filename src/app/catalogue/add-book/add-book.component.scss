@@ -3,7 +3,7 @@
   text-align: center;
   padding: 35px;
   background: rgb(255,157,91);
- background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(34,94,195,1) 100%);
+  background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(34,94,195,1) 100%);
 }
 
 .form {
@@ -146,9 +146,9 @@ button:hover{
  }
 
 
- form {
-  position: relative;
- }
+//  form {
+//   // position: relative;
+//  }
 
 
 body {
@@ -166,7 +166,7 @@ body {
     //  position: absolute;
     margin-top: 80px;
     margin-left: 30%;
-     font-size: 25px;
+    font-size: 25px;
  }
 
 

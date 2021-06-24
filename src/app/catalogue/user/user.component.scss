@@ -1,10 +1,10 @@
 .userInfo{
   margin-top: 120px;
   background: greenyellow;
-  width: 500px;
+  width: 700px;
   background-color: #fff;
   box-shadow: 0 0 20px 0 #999;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
@@ -12,25 +12,79 @@
 }
 
 .headerTitle {
-  background: greenyellow;
+  background: rgb(255,157,91);
+  background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(34,195,193,1) 100%);
   text-align: center;
-  padding: 25px;
-}
-.userInfo ul li {
-  // border: 1px solid black;
-  list-style-type: none;
-  padding: 20px;
-  margin: 20px;
+  padding: 30px;
 }
 
-.userInfo ul li button {
-  width: 100%;
+.headerTitle h1 {
+  margin-bottom: 15px;
+  font-size: 50px;
+}
+
+.headerTitle p {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.userInfo ul li  {
+
+  list-style-type: none;
+  padding: 15px;
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-small-container {
+  display: flex;
+  width: 450px;
+
+}
+
+.form-small-container input{
+  margin-left: 25px;
+  width: 60%;
+  padding: 3px;
+  font: 12px;
+  outline: none;
+  border-radius: 14px;
+  border: 1px solid black;
+}
+
+.editBtn, .checkBtn{
+  border: none;
+  background-color: #fff;
+  position: inherit;cursor: pointer;
+  font-size: 20px;
+}
+
+.deleteBtn  {
+  width: 70%;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   border: none;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 20px;
   background: red;
   color: white;
   font-weight: 500;
+  margin: 0 auto;
+}
+
+.smlBtn-container {
+  padding: 10px;
+  margin-right: -10px;
+  width: 45px;
+  display: flex;
+}
+.smlBtn-container button{
+  margin: 8px;
+}
+
+span {
+  margin-left: 25px;
 }
