@@ -8,7 +8,7 @@ import { BOOK_API, BookApiService } from './services/book-api.services';
 import { environment } from 'src/environments/environment';
 import { SharedModule } from '../shared-module/shared-module.module';
 import { UserComponent } from './user/user.component';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -21,7 +21,8 @@ import { UserComponent } from './user/user.component';
     CommonModule,
     CatalogueRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   providers: [BookApiService, {
     provide: BOOK_API,

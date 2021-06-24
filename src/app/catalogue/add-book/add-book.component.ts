@@ -3,6 +3,7 @@ import { finalize } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { BookApiService } from '../services/book-api.services';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-book',
@@ -11,6 +12,7 @@ import { BookApiService } from '../services/book-api.services';
 })
 export class AddBookComponent implements OnInit {
 
+  starRating = faStar;
   searchData: string;
   errorVal: boolean;
   lastThreeSearches: string[] = [];

@@ -12,29 +12,38 @@ interface User {
 })
 export class AuthService {
 
-  private userChange: User;
+  private _userChange: User;
+  private _isInitiated: boolean = false;
+
+  getIsInitiated(): boolean {
+    return this._isInitiated;
+  }
 
   isLoggedIn(): boolean {
-    return !!this.userChange;
+    return !!this._userChange;
   }
 
   getCurrentUser(): User {
-    return !!this.userChange ? this.userChange : null;
+    return !!this._userChange ? this._userChange : null;
   }
 
   getUserEmail(): string {
-    return this.userChange?.email;
+    return this._userChange?.email;
   }
 
   getUserUid(): string {
-    return this.userChange?.uid;
+    return this._userChange?.uid;
   }
 
   constructor(private auth: AngularFireAuth) {
     this.auth.onAuthStateChanged((user) => {
       console.log(user);
-      this.userChange = user;
+      this._userChange = user;
+      if (!this._isInitiated) {
+        this._isInitiated = true;
+      }
     });
+
   }
 
 
@@ -56,6 +65,5 @@ export class AuthService {
     return this.auth.sendPasswordResetEmail(email);
   }
 }
-
 
 

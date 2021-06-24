@@ -94,5 +94,8 @@ export class HeaderComponent implements OnInit {
     return this.auth.isLoggedIn();
   }
 
+  get isInitiated(): boolean {
+    return this.auth.getIsInitiated();
+  }
 
 }
