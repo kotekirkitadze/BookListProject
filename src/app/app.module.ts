@@ -33,7 +33,7 @@ export function TranslateHttpLoaderFactory(
         useFactory: TranslateHttpLoaderFactory,
         deps: [HttpClient]
       },
-      defaultLanguage: "en"
+      defaultLanguage: "ka"
     }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule

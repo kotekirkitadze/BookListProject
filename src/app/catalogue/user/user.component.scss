@@ -1,3 +1,36 @@
-*{
-  position: relative;
+.userInfo{
+  margin-top: 120px;
+  background: greenyellow;
+  width: 500px;
+  background-color: #fff;
+  box-shadow: 0 0 20px 0 #999;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  font-size: 25px;
+}
+
+.headerTitle {
+  background: greenyellow;
+  text-align: center;
+  padding: 25px;
+}
+.userInfo ul li {
+  // border: 1px solid black;
+  list-style-type: none;
+  padding: 20px;
+  margin: 20px;
+}
+
+.userInfo ul li button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  background: red;
+  color: white;
+  font-weight: 500;
 }

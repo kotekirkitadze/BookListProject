@@ -1,8 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { AuthService } from './auth.service';
+import { LoadingService } from './loading.service';
 
 export interface User {
   name?: string;
@@ -18,8 +22,13 @@ export class SaveDataService {
   items: Observable<User[]>;
   currentUser$: Observable<User>;
   itemDoc: AngularFirestoreDocument<User>;
+
   constructor(private afs: AngularFirestore,
-    private auth: AngularFireAuth) {
+    private http: HttpClient,
+    private auth: AngularFireAuth,
+    private navRouting: Router,
+    private loadingService: LoadingService,
+    private currentUser: AuthService) {
     this.itemCollections = this.afs.collection('users');
     this.items = this.itemCollections.valueChanges();
 
@@ -51,9 +60,38 @@ export class SaveDataService {
     this.itemDoc.delete();
   }
 
+
+  deleteUser(currentUser: AuthService) {
+    this.loadingService.start();
+    const url = "https://us-central1-book-catalogue-d3599.cloudfunctions.net/deleteUserByEmail";
+    const user = {
+      "userEmail": currentUser.getCurrentUser().email
+    }
+    this.http.post(url, user).subscribe(() => {
+
+      this.deleteUserData(currentUser.getCurrentUser());
+      currentUser.signOutUser().then(() => {
+        this.navRouting.navigate(["sign-in"]);
+        this.loadingService.stop();
+      })
+    });
+
+
+  }
 }
 
 
 
+// const url = "https://us-central1-book-catalogue-d3599.cloudfunctions.net/deleteUserByEmail";
 
+// const user = {
+//   "userEmail": currentUser.getCurrentUser().email
+// }
+
+// this.http.post(url, user).subscribe((data) => {
+//   this.deleteUserData(currentUser.getCurrentUser());
+//   currentUser.signOutUser().then(() => {
+//     this.navRouting.navigate(["sign-in"]);
+//   });
+// })
 

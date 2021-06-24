@@ -20,24 +20,16 @@ export class UserComponent implements OnInit {
     private fireStoreService: SaveDataService) { }
 
   ngOnInit(): void {
+    this.fireStoreService.getItem().subscribe((user) => {
+      this.userName = user?.name;
+      this.userEmail = this.currentUser.getCurrentUser().email;
+    })
   }
 
-  userEmail: string = "kotekirkitadze@gmail.com";
-
+  userName: string;
+  userEmail: string;
   deleteUser() {
-    this.loadingService.start();
-    const url = "https://us-central1-book-catalogue-d3599.cloudfunctions.net/deleteUserByEmail";
-
-    this.http.post(url, { "userEmail": this.userEmail }).subscribe((x) => {
-      this.fireStoreService.deleteUserData(this.currentUser.getCurrentUser());
-      this.currentUser.signOutUser().then(() => {
-        this.navRouting.navigate(["sign-in"]);
-
-      }).then(() => this.loadingService.stop());
-    },
-      (x) => console.log("failed", x));
+    this.fireStoreService.deleteUser(this.currentUser);
   }
-
-
 
 }
