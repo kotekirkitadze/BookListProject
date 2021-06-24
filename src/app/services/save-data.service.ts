@@ -17,7 +17,7 @@ export class SaveDataService {
   private itemDocument: AngularFirestoreDocument<User>;
   items: Observable<User[]>;
   currentUser$: Observable<User>;
-
+  itemDoc: AngularFirestoreDocument<User>;
   constructor(private afs: AngularFirestore,
     private auth: AngularFireAuth) {
     this.itemCollections = this.afs.collection('users');
@@ -46,9 +46,9 @@ export class SaveDataService {
     this.itemCollections.doc(userId).set({ "name": name });
   };
 
-  deleteUser() {
-    this.itemDocument = this.afs.doc("users/Lz66mRcx9TamAywq5wE3KJmZMRk1");
-    this.itemDocument.delete();
+  deleteUserData(item: User) {
+    this.itemDoc = this.afs.doc(`users/${item.uid}`);
+    this.itemDoc.delete();
   }
 
 }

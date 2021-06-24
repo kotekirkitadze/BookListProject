@@ -18,6 +18,10 @@ export class AuthService {
     return !!this.userChange;
   }
 
+  getCurrentUser(): User {
+    return !!this.userChange ? this.userChange : null;
+  }
+
   getUserEmail(): string {
     return this.userChange?.email;
   }

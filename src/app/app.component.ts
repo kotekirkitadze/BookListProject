@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoadingService } from './services/loading.service';
@@ -16,9 +17,12 @@ export class AppComponent implements OnInit {
   //raghac change deteqshenis temaa
   loadingSpinner: Observable<boolean>;
 
+
   ngOnInit() {
 
     this.loadingSpinner = this.loadingService.getLoading$;
 
   }
 }
+
+

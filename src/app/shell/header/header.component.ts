@@ -58,6 +58,9 @@ export class HeaderComponent implements OnInit {
     this.navRouting.navigate(['catalogue']);
   }
 
+  toUser() {
+    this.navRouting.navigate(["catalogue/user"]);
+  }
   // useEn() {
   //   this.translateService.use("en");
   // }
@@ -90,4 +93,6 @@ export class HeaderComponent implements OnInit {
   get isLoggedIn(): boolean {
     return this.auth.isLoggedIn();
   }
+
+
 }

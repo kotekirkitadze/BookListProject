@@ -5,8 +5,10 @@
     <nav>
       <ul class="nav_links">
         <li><button class="userBtn"
-                    *ngIf="isLoggedIn">
-                    <fa-icon [icon]="fauser"></fa-icon>
+                    *ngIf="isLoggedIn"
+                    (click)="toUser()">
+                    <fa-icon [icon]="fauser"
+                    ></fa-icon>
                     {{userName}}</button></li>
         <li><button (click)="toSignIn()"
                     class="signInBtns"
@@ -17,7 +19,9 @@
         <li><button  (click)="signOut()"
                     class="signOutBtn"
                     *ngIf="isLoggedIn">{{ "SIGN_OUT_HEADER" | translate}}</button></li>
-      </ul>
+
+
+                  </ul>
     </nav>
   </header>
 </div>
@@ -29,6 +33,5 @@
           (click)="useGe()"
           [class.inactive]="!isKa"></button>
 </div> -->
-
 
 
