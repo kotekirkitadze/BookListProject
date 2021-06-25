@@ -7,14 +7,14 @@
         {{"errors.SEARCH_ERROR" | translate}}
       </div>
       <button (click)="searchBook(searchData)">{{"catalogue.searchPage.ADD_BOOK_BTN" | translate}}</button>
-      <ul class="lastThree">
-        <li *ngFor="let name of lastThreeSearches"
-              (click)="getBooksFromApi(name)">
-          {{name}}
-        </li>
-      </ul>
     </div>
   </div>
+  <ul class="lastThree">
+    <li *ngFor="let name of lastThreeSearches"
+          (click)="getBooksFromApi(name)">
+      {{name}}
+    </li>
+  </ul>
 </div>
 
 
@@ -61,4 +61,3 @@
   </div>
   <button type="button" class="btn btn-book">{{"catalogue.searchPage.ADD_COL" | translate}}</button>
 </form>
-
