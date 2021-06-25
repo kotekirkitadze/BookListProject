@@ -2,7 +2,9 @@
   <h1 class="title">{{"catalogue.searchPage.TITLE" | translate}}</h1>
   <div class="add-movie">
     <div class="form">
-      <input [(ngModel)]="searchData" type="text" placeholder="{{'catalogue.searchPage.INPUT' | translate}}">
+      <input [(ngModel)]="searchData" 
+             type="text" 
+             placeholder="{{'catalogue.searchPage.INPUT' | translate}}">
       <div class="error-box" *ngIf="errorVal">
         {{"errors.SEARCH_ERROR" | translate}}
       </div>
@@ -11,7 +13,7 @@
   </div>
   <ul class="lastThree">
     <li *ngFor="let name of lastThreeSearches"
-          (click)="getBooksFromApi(name)">
+         (click)="getBooksFromApi(name)">
       {{name}}
     </li>
   </ul>
@@ -59,5 +61,108 @@
               [ngValue]="status.WatchLater">{{"catalogue.searchPage.LATER_WATCH" | translate}}</option>
     </select>
   </div>
-  <button type="button" class="btn btn-book">{{"catalogue.searchPage.ADD_COL" | translate}}</button>
+  <button type="button" 
+          (click)="submit()"
+          class="btn btn-book">{{"catalogue.searchPage.ADD_COL" | translate}}</button>
 </form>
+
+<ng-container *ngIf="form.invalid && submitted">
+  <div *ngIf="form.controls.review.errors && !form.controls.review.errors.minlength">
+    რევიუ სავალდებულოა
+  </div>
+  <div *ngIf="form.controls.review.errors.minlength">
+    თქვენი რევიუ მოკლეა
+  </div>
+</ng-container>
+<button (click)="test()">test</button>
+
+<!-- ენგულარში ვალიდაციებისთვის გვაქვს გამზადებული და გვაქს ქასთომ
+ვალიდატორებიც.
+ფორმის შექმნა მეორე ნაირადაც შეიძლება ფორმბილდერებით:
+this.form = this.fb.group({
+  rating: 1,
+  review: '',
+  status: Status.WatchLater
+});
+
+this.form არ დაგვავიწყდეს რომ formGroup ის ტიპის არის.
+ფორმბილდერით შექმნა ანალოგიუია -->
+
+<!-- ვალიდატორების შექმნა:
+this.form = new FormGroup({
+  rating: new FormControl(3),
+  review: new FormControl('', [Validators.required, Validators.minLength(10)]),
+  status: new FormControl(Status.WatchLater)
+}); -->
+
+<!-- პ.ს. ყველაფერი ფორმებიდან იმპორტდება რასაც ვიყენებთ აქ. -->
+
+<!-- და ვალიდაციების დაყენების შემდეგ რმ არასწრად მივუთითებთ,
+this.form რომ დავბეჭდოთ ინვალიდ იქნება ტლიანი ფორმის სტატუსი,
+და ობიექტში ერორებიც შეგვიძლია ვნახოთ, მინ ლენგზ ამდენია საჭირო და 
+შენ ამდენი გყავს შეყვანილი და სხვა ერორებიც კიდევ.
+კონტროლებიც შეგვიძლია ვნახოთ სათითაოდ რამდენად ვალიდურია. -->
+
+
+<!-- --- -->
+
+<!-- ასე: <ng-container *ngIf="form.invalid">
+  text
+</ng-container> არ არის კარგი, რადგან თავიდანაც ჩანს
+და რომ ავიცილოთ ეს თავიდან, შეგვიძლია ასე ჩავასწოროთ:
+
+<ng-container *ngIf="form.invalid && form.dirty">
+  text
+</ng-container>
+
+და დირთი ნიშნავს რომ თავიდან რაღაც ჩავწერეთ და მერე გვგდებს ერორს. 
+რომ არ ჩავწეროთ და უბრალდ დავაკლიკოთ და მერე ფოკუსი სხვა რამეზე გადავიტანოთ,
+მაშინ არ გამოაჩენს ერორს დირთი.
+
+დერთი და პრისტინი ერთმანეთის საპირისპიროა.
+//დერთი ხდება თრუ, როცა წერას იწყებ. 
+//თაჩდი მაშინ ხდება თრუ, როცა დააკლიკავ. -->
+<!-- 
+თუ გვინდა ორმ საბმიტის დროს გამოჩნდეს რეაქტიული ფორმების გამოყეებისას,
+მაშინ რამე ბულიან ცვლადი გავაკეთოთ დაენჯიიფში დამატებითად დავადოთ. 
+რაიმე, მაგალითად, საბმიტ მეთოდით გავხადოთ ეს ცვლადი თრუ და მივაბათ
+კლიკზე საბმიტ ბათონს თემფლეითში. აქ სხვადასხვა ნიუანსებია კიდევ 
+გასათვალისწინებელი, მაგალითად, დაკლიკვის შემდეგ ცვლადი სულ თრუ არის და
+დირთის გახდომის შემდეგ სულ ამვარდება ერორი.
+
+მაგრამ უკეთესი ერორ ჰენდლინგი საბმითის დროს რომ გამოჩნდეს,
+თემფლეით დრივენ ფრმებშიაო.
+
+ფორმის ობიექტს შიგნით აქვს კიდევ ფორმ კონტროლები, რომლებსაც რაღაც ველიუები აქვთ, რაც 
+კოტრნოლებს ახასიათებთ. მაგალითად, ფორმკონტროლების ერორები, ონჩეინჯი და ასე შემდეგ. -->
+
+<!-- 
+რევუ სავალდებულო რომ დავაბეჭდინოთ, თან დირთი მოვაშოროთ,
+რომ უფრო ფრენდლი იყოს და ასევე რევუ თუ შეივსო რაღაცით და 
+მინიმალური მნიშვნელობაც რომ დავბეჭდოთ.
+მინიმალური მნიშვნელობის დაბეჭვდის გამო, რექუაირედ ველიუს
+ცალკე ვალიდაცია დავამატე და დააკვირდი რომ ნახავ კიდევ:
+<ng-container *ngIf="form.invalid && submitted">
+  <div *ngIf="form.controls.review.errors && !form.controls.review.errors.minlength">
+    რევიუ სავალდებულოა
+  </div>
+  <div *ngIf="form.controls.review.errors.minlength">
+    თქვენი რევიუ მოკლეა
+  </div>
+</ng-container> -->
+
+
+
+<!-- 
+Validators.min - ციფრებზე ამოწმებს. 
+Validators.pattern - პატერების შემოწმება შეგვიძლია, იმეილის ან რამე მსგავსის.
+                      რეჯექსების მიცემა შეგვიძლია პატერნის.
+იმეილს ვალიდატორი ცალკეა: Validators.email
+
+
+formBuilder - ებში ვალიდაცია კი ასე ხდება:
+this.form = this.fb.group({
+  rating: 1,
+  review: ['', Validators.required, Validators.minLength(10)],
+  status: Status.WatchLater
+}); -->

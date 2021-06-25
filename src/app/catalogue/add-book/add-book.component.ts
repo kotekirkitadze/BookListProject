@@ -4,7 +4,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { BookApiService } from '../services/book-api.services';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Status } from '../catalogue.model';
 
 @Component({
@@ -20,6 +20,12 @@ export class AddBookComponent implements OnInit {
   lastThreeSearches: string[] = [];
   form: FormGroup;
   status = Status;
+  fb: FormBuilder;
+  submitted: boolean = false;
+
+  submit(){
+    this.submitted = true;
+  }
 
   pushInlastSearches(name: string) {
     if (this.lastThreeSearches.length < 3) {
@@ -68,9 +74,15 @@ export class AddBookComponent implements OnInit {
   createForm() {
     this.form = new FormGroup({
       rating: new FormControl(3),
-      review: new FormControl(),
+      review: new FormControl('', [Validators.required, Validators.minLength(10)]),
       status: new FormControl(Status.WatchLater)
     });
+
+    // this.form = this.fb.group({
+    //   rating: 1,
+    //   review: ['', Validators.required, Validators.minLength(10)],
+    //   status: Status.WatchLater
+    // });
   }
 
   ngOnInit(): void {
@@ -78,5 +90,7 @@ export class AddBookComponent implements OnInit {
     this.createForm();
   }
 
-
+  test(){
+    console.log(this.form);
+  }
 }
