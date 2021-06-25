@@ -4,10 +4,10 @@
   width: 700px;
   background-color: #fff;
   box-shadow: 0 0 20px 0 #999;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
+  // top: 50%;
+  // left: 50%;
+
+  margin: auto;
   font-size: 25px;
 }
 
@@ -58,7 +58,7 @@
 .editBtn, .checkBtn{
   border: none;
   background-color: #fff;
-  position: inherit;cursor: pointer;
+  cursor: pointer;
   font-size: 20px;
 }
 

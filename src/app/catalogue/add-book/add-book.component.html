@@ -18,27 +18,47 @@
 </div>
 
 
-<form class="contact-box">
+<form class="contact-box" [formGroup]="form">
   <div class="form-conatiner">
     <label>{{"catalogue.searchPage.REVIEW" | translate}}</label>
-    <textarea type="text" class="textarea-field"></textarea>
+    <textarea type="text"
+              class="textarea-field"
+              formControlName="review"></textarea>
   </div>
   <div class="form-conatiner form-conatiner">
     <label>{{"catalogue.searchPage.RATING" | translate}}</label>
     <div class="rating">
-      <input type="radio" name="star" id="star1"><label for="star1"></label>
-      <input type="radio" name="star" id="star2"><label for="star2"></label>
-      <input type="radio" name="star" id="star3"><label for="star3"></label>
-      <input type="radio" name="star" id="star4"><label for="star4"></label>
-      <input type="radio" name="star" id="star5"><label for="star5"></label>
+      <input type="radio"
+             id="star1"
+             [value]="5"
+             formControlName="rating"><label for="star1"></label>
+      <input type="radio"
+             id="star2"
+             [value]="4"
+             formControlName="rating"><label for="star2"></label>
+      <input type="radio"
+             id="star3"
+             [value]="3"
+             formControlName="rating"><label for="star3"></label>
+      <input type="radio"
+             id="star4"
+             [value]="2"
+             formControlName="rating"><label for="star4"></label>
+      <input type="radio"
+             id="star5"
+             [value]="1"
+             formControlName="rating"><label for="star5"></label>
     </div>
   </div>
   <div class="form-conatiner">
     <label>{{"catalogue.searchPage.STATUS" | translate}}</label>
-    <select>
-      <option class="option">{{"catalogue.searchPage.WATCHED" | translate}}</option>
-      <option class="option">{{"catalogue.searchPage.LATER_WATCH" | translate}}</option>
+    <select formControlName="status">
+      <option class="option"
+              [ngValue]="status.Watched">{{"catalogue.searchPage.WATCHED" | translate}}</option>
+      <option class="option"
+              [ngValue]="status.WatchLater">{{"catalogue.searchPage.LATER_WATCH" | translate}}</option>
     </select>
   </div>
   <button type="button" class="btn btn-book">{{"catalogue.searchPage.ADD_COL" | translate}}</button>
 </form>
+
