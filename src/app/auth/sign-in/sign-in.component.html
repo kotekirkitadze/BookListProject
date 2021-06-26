@@ -1,16 +1,29 @@
 <div class="box">
     <form #signInFromData="ngForm"
       (ngSubmit)='signIn(signInFromData.value)'>
+      <button type="button" (click)="log(signInFromData)">Log</button>
 	<h1>{{ "auth.LOGIN_TITLE" | translate}}</h1>
-	<input type="text" name="email"
-        placeholder="{{ 'auth.EMAIL' | translate}}"
-        ngModel>
+	<input type="text" 
+               name="email"
+               placeholder="{{ 'auth.EMAIL' | translate}}"
+               ngModel
+               required>
 	<input type="password"
-         name="password"
-         placeholder="{{ 'auth.PASSWORD' | translate}}"
-         ngModel>
+               name="password"
+               placeholder="{{ 'auth.PASSWORD' | translate}}"
+               ngModel
+               required>
 	<button class="logIn">{{ "auth.LOGIN" | translate}}</button>
    </form>
    <button class="forgetBtn"
            (click)="toResetPasswrd()">{{ "auth.FORGET_PASSWORD_BUTTON" | translate}}</button>
+    
+    <ng-container *ngIf="signInFromData.submitted && signInFromData.invalid">
+        <div *ngIf="signInFromData.controls.email?.errors?.required">
+             იმეილი სავალდებულოა
+        </div>
+        <div *ngIf="signInFromData.controls.password?.errors?.required">
+           პაროლი სავალდებულოა
+        </div>
+     </ng-container>
 </div>

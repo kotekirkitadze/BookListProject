@@ -53,4 +53,8 @@ export class SignInComponent implements OnInit {
   toResetPasswrd() {
     this.route.navigate(['reset-passw']);
   }
+
+  log(form){
+    console.log(form);
+  }
 }

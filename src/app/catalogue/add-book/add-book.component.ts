@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { BookApiService } from '../services/book-api.services';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Status } from '../catalogue.model';
+import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.scss']
 })
-export class AddBookComponent implements OnInit {
+export class AddBookComponent implements OnInit, OnDestroy {
 
   starRating = faStar;
   searchData: string;
@@ -22,6 +24,9 @@ export class AddBookComponent implements OnInit {
   status = Status;
   fb: FormBuilder;
   submitted: boolean = false;
+
+ 
+  private unsubscribe$ = new Subject();
 
   submit(){
     this.submitted = true;
@@ -74,15 +79,10 @@ export class AddBookComponent implements OnInit {
   createForm() {
     this.form = new FormGroup({
       rating: new FormControl(3),
-      review: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      review: new FormControl('', [Validators.required, 
+                                   Validators.minLength(10)]),
       status: new FormControl(Status.WatchLater)
     });
-
-    // this.form = this.fb.group({
-    //   rating: 1,
-    //   review: ['', Validators.required, Validators.minLength(10)],
-    //   status: Status.WatchLater
-    // });
   }
 
   ngOnInit(): void {
@@ -90,7 +90,9 @@ export class AddBookComponent implements OnInit {
     this.createForm();
   }
 
-  test(){
-    console.log(this.form);
-  }
+  ngOnDestroy(){
+   
+   }
+
+  
 }
