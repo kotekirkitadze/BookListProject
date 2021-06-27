@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -27,7 +28,14 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signUp({ email, password, fullName }: SignUpFormUser) {
+  signUp(signUpForm: NgForm) {
+    console.log(signUpForm);
+  if(signUpForm.invalid){
+    return;
+  }
+    
+    const {email, password, fullName} = signUpForm.value;
+
     if (!email || !password) {
       return;
     }

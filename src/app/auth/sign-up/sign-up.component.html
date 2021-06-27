@@ -1,6 +1,6 @@
 <form class="box"
       #signUpFromData="ngForm"
-      (ngSubmit)="signUp(signUpFromData.value)"
+      (ngSubmit)="signUp(signUpFromData)"
       [mustMatch]="['password', 'repeate_password']">
     <h1>{{ "auth.REGISTRATION_TITLE" | translate}}</h1>
     <input type="text"
@@ -25,6 +25,21 @@
            ngModel
            required>
     <button class="logIn">{{ "auth.REGISTRATION_BUTTIN" | translate}}</button>
+    
+    <ng-container *ngIf="signUpFromData.submitted && signUpFromData.invalid">
+       <div *ngIf="signUpFromData.controls.email?.errors?.required">
+            იმეილი სავალდებულოა
+       </div>
+       <div *ngIf="signUpFromData.controls.password?.errors?.required">
+          პაროლი სავალდებულოა
+       </div>
+       <div *ngIf="signUpFromData.controls.repeate_password?.errors?.required">
+              პაროლის გამეორებაც სავალდებულოა
+       </div>
+       <div *ngIf="signUpFromData.controls.repeate_password?.errors?.mustMatch">
+              პარლები არ ემთხვევა
+       </div>
+    </ng-container>
 </form>
 
 
