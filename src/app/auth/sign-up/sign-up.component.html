@@ -1,22 +1,45 @@
 <form class="box"
       #signUpFromData="ngForm"
-      (ngSubmit)="signUp(signUpFromData.value)">
+      (ngSubmit)="signUp(signUpFromData.value)"
+      [mustMatch]="['password', 'repeate_password']">
     <h1>{{ "auth.REGISTRATION_TITLE" | translate}}</h1>
     <input type="text"
-           name="fullName"
+          name="fullName"
           placeholder="{{ 'auth.FULL_NAME' | translate }}"
           ngModel>
     <input type="text"
            name="email"
            placeholder="{{ 'auth.EMAIL' | translate}}"
-           ngModel>
+           ngModel
+           required>
     <input type="password"
            name="password"
+           #password="ngModel"
            placeholder="{{ 'auth.PASSWORD' | translate}}"
-           ngModel>
+           ngModel
+           required>
     <input type="password"
            name="repeate_password"
+           #repeate_password="ngModel"
            placeholder="{{ 'auth.REPEAT_PASSWORD' | translate}}"
-           ngModel>
+           ngModel
+           required>
     <button class="logIn">{{ "auth.REGISTRATION_BUTTIN" | translate}}</button>
 </form>
+
+
+<!--
+აქ ამათ ინფუთებს ამ ენჯი მოდელით ცვლადებს იმიტომ ვუკეთებთ,
+რომ მის ერორებს მივწვდეთ.
+#password="ngModel"
+#repeate_password="ngModel"
+
+და, ასევე, ინფუთებს რადგანაც ngModel - ს ვადებთ,
+ეს ჯერ ესერთი თემფლეით დრივენ ფორმის გამო ვადებთ და ასევე
+#password - ს და #repeate_password - ს ცვლადებს რომ გამოვიძახებთ,
+მომცემს ამ ინფუთების ენჯი მოდელს. ანუ ამ ინფუთების ველიებს და რაღაცეებს.
+
+პ.ს. ანუ ასე ცვლადები რომ შემოგვაქვს, შესაბამისად ცოტათი რთულდება,
+რეაქტივ ფორმებთან შედარებით. მაგალითად, უფრო მეტი ინფუთი რომ გვქონდეს,
+უფრო მეტად გართულდებოდა. რადგან ვალიდაცია და ყველაფერი
+თემფლეითში მოხდება და აირევა ნელ-ნელა. -->
