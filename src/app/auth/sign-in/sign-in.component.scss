@@ -22,7 +22,7 @@
 	border: 0;
 	background: none;
 	display: block;
-	margin: 20px auto;
+	margin: 15px auto;
 	text-align: center;
 	border: 2px solid #3498db;
 	padding: 14px 10px;
@@ -63,4 +63,59 @@
 	color: white;
 	border: none;
 	cursor: pointer;
+	margin-bottom: 10px;
 }
+
+
+
+.alert {
+	background: red; //#f2edda;
+	padding: 3px;
+	font-size: .9em;
+	display: inline-block;
+	animation: 2s alertAnim forwards;
+	border-radius: 10px;
+	margin: 5px;
+	box-shadow: 0 0 20px 0 #999;
+  }
+  
+
+.bellow {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: -25px;
+}
+
+
+.input-div {
+	display: flex;
+	flex-direction: row;
+
+}
+.input-div input {
+	position: relative;
+}
+
+.input-div div {
+	position: absolute;
+	margin-left: 88px;
+	margin-top: 12px;
+	width: 190px;
+	color: white;
+	padding-bottom: 7px;
+} 
+
+  @keyframes alertAnim {
+	from{
+	  opacity: 0;
+	  transform: translateY(0);
+	}
+	to {
+	  opacity: 1;
+	  
+	  transform: translateY(-2px);
+	}
+  }
+
+
+

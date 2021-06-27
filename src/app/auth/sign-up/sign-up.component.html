@@ -3,40 +3,64 @@
       (ngSubmit)="signUp(signUpFromData)"
       [mustMatch]="['password', 'repeate_password']">
     <h1>{{ "auth.REGISTRATION_TITLE" | translate}}</h1>
-    <input type="text"
+    <div class="input-div">
+       <input type="text"
           name="fullName"
           placeholder="{{ 'auth.FULL_NAME' | translate }}"
-          ngModel>
-    <input type="text"
-           name="email"
-           placeholder="{{ 'auth.EMAIL' | translate}}"
-           ngModel
-           required>
-    <input type="password"
+          ngModel
+          required>
+       <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
+              <div *ngIf="signUpFromData.controls.fullName?.errors?.required" 
+                    class="alert">
+                სახელი სავალდებულოა
+              </div>
+       </div>
+    </div>
+    <div class="input-div">
+       <input type="text"
+       name="email"
+       placeholder="{{ 'auth.EMAIL' | translate}}"
+       ngModel
+       required>
+       <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
+              <div  *ngIf="signUpFromData.controls.email?.errors?.required"
+                     class="alert">
+                იმეილი სავალდებულოა
+              </div>
+       </div>
+    </div>
+    <div class="input-div">
+       <input type="password"
            name="password"
            #password="ngModel"
            placeholder="{{ 'auth.PASSWORD' | translate}}"
            ngModel
            required>
-    <input type="password"
+       <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
+              <div *ngIf="signUpFromData.controls.password?.errors?.required" 
+                   class="alert">
+                პაროლი
+              </div>
+       </div>
+    </div>
+    <div class="input-div">
+       <input type="password"
            name="repeate_password"
            #repeate_password="ngModel"
            placeholder="{{ 'auth.REPEAT_PASSWORD' | translate}}"
            ngModel
            required>
-    <button class="logIn">{{ "auth.REGISTRATION_BUTTIN" | translate}}</button>
-    
+       <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
+              <div *ngIf="signUpFromData.controls.repeate_password?.errors?.required" 
+                   class="alert">
+                იმეილი სავალდებულოა
+              </div>
+       </div>
+    </div>
+    <button class="signUp">{{ "auth.REGISTRATION_BUTTIN" | translate}}</button>
     <ng-container *ngIf="signUpFromData.submitted && signUpFromData.invalid">
-       <div *ngIf="signUpFromData.controls.email?.errors?.required">
-            იმეილი სავალდებულოა
-       </div>
-       <div *ngIf="signUpFromData.controls.password?.errors?.required">
-          პაროლი სავალდებულოა
-       </div>
-       <div *ngIf="signUpFromData.controls.repeate_password?.errors?.required">
-              პაროლის გამეორებაც სავალდებულოა
-       </div>
-       <div *ngIf="signUpFromData.controls.repeate_password?.errors?.mustMatch">
+       <div *ngIf="signUpFromData.controls.repeate_password?.errors?.mustMatch" 
+            class="alert mustMatch">
               პარლები არ ემთხვევა
        </div>
     </ng-container>

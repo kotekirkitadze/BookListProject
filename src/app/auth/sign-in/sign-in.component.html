@@ -1,29 +1,44 @@
 <div class="box">
     <form #signInFromData="ngForm"
       (ngSubmit)='signIn(signInFromData.value)'>
-      <button type="button" (click)="log(signInFromData)">Log</button>
 	<h1>{{ "auth.LOGIN_TITLE" | translate}}</h1>
-	<input type="text" 
+	<div class="input-div">
+      <input type="text" 
                name="email"
                placeholder="{{ 'auth.EMAIL' | translate}}"
                ngModel
                required>
-	<input type="password"
+         <div *ngIf="signInFromData.submitted && signInFromData.invalid" class="error-container">
+            <div *ngIf="signInFromData.controls.email?.errors?.required" class="alert">
+              იმეილი სავალდებულოა
+            </div>
+         </div>
+   </div>
+	
+   <div class="input-div">
+      <input type="password"
                name="password"
                placeholder="{{ 'auth.PASSWORD' | translate}}"
                ngModel
                required>
-	<button class="logIn">{{ "auth.LOGIN" | translate}}</button>
+      <div *ngIf="signInFromData.submitted && signInFromData.invalid" class="error-container">
+            <div *ngIf="signInFromData.controls.password?.errors?.required" class="alert">
+                   პაროლი სავალდებულოა
+            </div>
+      </div>
+   </div>
+   <button class="logIn">{{ "auth.LOGIN" | translate}}</button>
    </form>
-   <button class="forgetBtn"
+   <div class="bellow">
+      <button class="forgetBtn"
            (click)="toResetPasswrd()">{{ "auth.FORGET_PASSWORD_BUTTON" | translate}}</button>
-    
-    <ng-container *ngIf="signInFromData.submitted && signInFromData.invalid">
-        <div *ngIf="signInFromData.controls.email?.errors?.required">
+    <!-- <div *ngIf="signInFromData.submitted && signInFromData.invalid" class="error-container">
+        <div *ngIf="signInFromData.controls.email?.errors?.required" class="alert">
              იმეილი სავალდებულოა
         </div>
-        <div *ngIf="signInFromData.controls.password?.errors?.required">
+        <div *ngIf="signInFromData.controls.password?.errors?.required" class="alert">
            პაროლი სავალდებულოა
         </div>
-     </ng-container>
+      </div>
+   </div> -->
 </div>
