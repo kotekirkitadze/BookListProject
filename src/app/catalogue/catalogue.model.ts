@@ -18,7 +18,10 @@ export interface WhenToReadSelect {
 }
 
 
-
+//ჩაჰარდკორებული რომ არ გვქონდეს html-ში.
+//თან ეს იმიტომაა ასე კარგი, რომ ჩამატება თუ მოგვინდება,
+// პირდაპირ აქ ერთგან ჩავამატებთ და html - ში არ მოგვიწევს
+// ჰარდქორებად ჩაწერა - პირდაპირ გადაუყვება.
 export const TIME_TO_READ: WhenToReadSelect[] = [
   {
     label: 'catalogue.searchPage.TODAY',
@@ -37,3 +40,41 @@ export const TIME_TO_READ: WhenToReadSelect[] = [
     value: WhenToRead.thisMonth
   },
 ];
+
+
+
+// ეს არის ვიუსთვის, ქათომ ინტერფეისი. ამით უნდა დავხატოთ რაღაცეები.
+// შესაბამისად ამაზე უნდა გადმოვმეპოთ //BookAPI.
+//ეს არის ვიუ მოდელი.
+//ჩვენს თავზე ვირგებთ, ორი ინტერფეისიდან ერთს ვმეპავთ მეორეზე
+//ვმეპავთ ჩვენი ბექენდის მოდელს ფრონტზე, რომ უფრო მარტივად
+// ვიმუშავოთ ფრონტზე
+export interface Book {
+  title: string;
+  authors: string;
+  categories: string;
+  description: string;
+  publishedDate: string;
+  publisher: string;
+  imageLinks: { smallThumbnail: string }
+}
+
+
+
+//ბექენდის მოდელი, ეიპიაი მაძლევს ამას.
+//და ეს ბექენდის მოდელი ფრონტშიც უნდა გვქონდეს,
+// //რადგან დავახვედროთ ეიპიაიდან მოსულ დატას.
+//ამ მოდელს ბექენდს ვახვედრებთ ფრონტზე
+export interface BookApiResult {
+  items: {
+    volumeInfo: {
+      title: string;
+      authors: string[];
+      categories: string[];
+      description: string;
+      publishedDate: string;
+      publisher: string;
+      imageLinks: { smallThumbnail: string }
+    }
+  }[]
+}

@@ -1,11 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { finalize, takeUntil } from 'rxjs/operators';
+import {
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
+import { finalize, takeUntil, map } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { BookApiService } from '../services/book-api.services';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Status, TIME_TO_READ, WhenToRead, WhenToReadSelect } from '../catalogue.model';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import {
+  Book,
+  Status,
+  TIME_TO_READ,
+  WhenToReadSelect
+} from '../catalogue.model';
 import { Subject } from 'rxjs';
 
 
@@ -67,10 +81,12 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   getBooksFromApi(name: string) {
     this.loadingService.start();
-    this.apiService.getBookByName(name).pipe(finalize(() => {
-      this.loadingService.stop();
-      this.searchData = "";
-    })).subscribe((x) => console.log(x))
+    this.apiService.getBookByName(name).pipe(
+      map(data => data?.items[0].volumeInfo),
+      finalize(() => {
+        this.loadingService.stop();
+        this.searchData = "";
+      })).subscribe((x) => console.log(x))
   }
 
   constructor(private loadingService: LoadingService,
@@ -123,5 +139,6 @@ export class AddBookComponent implements OnInit, OnDestroy {
   }
 
 
+  private _selectedBook: Book;
 
 }
