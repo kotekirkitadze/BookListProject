@@ -5,7 +5,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { BookApiService } from '../services/book-api.services';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { Status } from '../catalogue.model';
+import { Status, TIME_TO_READ, WhenToRead, WhenToReadSelect } from '../catalogue.model';
 import { Subject } from 'rxjs';
 
 
@@ -25,11 +25,20 @@ export class AddBookComponent implements OnInit, OnDestroy {
   fb: FormBuilder;
   submitted: boolean = false;
 
- 
   private unsubscribe$ = new Subject();
 
-  submit(){
+
+
+  get timeToRead(): WhenToReadSelect[] {
+    return TIME_TO_READ;
+  }
+
+  submit() {
     this.submitted = true;
+  }
+
+  get whenToRead(): boolean {
+    return !!this.form.get('whenToRead');
   }
 
   pushInlastSearches(name: string) {
@@ -79,20 +88,40 @@ export class AddBookComponent implements OnInit, OnDestroy {
   createForm() {
     this.form = new FormGroup({
       rating: new FormControl(3),
-      review: new FormControl('', [Validators.required, 
-                                   Validators.minLength(10)]),
-      status: new FormControl(Status.WatchLater)
+      review: new FormControl('', [Validators.required,
+      Validators.minLength(10)]),
+      status: new FormControl(Status.Read)
     });
+  }
+
+  private addControlByStatus(status: Status) {
+    switch (status) {
+      case Status.ReadLater:
+        this.form.addControl(
+          "whenToRead",
+          new FormControl(null, Validators.required)
+        );
+        break;
+      case Status.Read:
+        this.form.removeControl('whenToRead');
+        break;
+    }
   }
 
   ngOnInit(): void {
     this.restoreSearches();
     this.createForm();
+
+    this.form.get('status').valueChanges.pipe(takeUntil(this.unsubscribe$))
+      //აქ ეროუ ფანქშენის გაერეშე ვერ გააყოლა ედდ კონტროლი, კონტექსტი ვერ შეგვინახა
+      .subscribe((status) => this.addControlByStatus(status));
   }
 
-  ngOnDestroy(){
-   
-   }
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
-  
+
+
 }

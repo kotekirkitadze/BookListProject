@@ -29,8 +29,13 @@
        "RATING": "Rating:",
        "STATUS": "Status:",
        "ADD_COL": "Add to Collection",
-       "WATCHED": "Watched",
-       "LATER_WATCH": "Watch Later"
+       "READ": "Read",
+       "LATER_READ": "Read Later",
+       "TODAY": "Today",
+       "TOMORROW": "Tomorrow",
+       "THIS_WEEK": "This week",
+       "THIS_MONTH": "This month",
+       "SELECT": "Select time..."
      },
      "UserPage": {
        "TITLE": "User Page",
