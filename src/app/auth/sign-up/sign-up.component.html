@@ -10,9 +10,9 @@
           ngModel
           required>
        <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
-              <div *ngIf="signUpFromData.controls.fullName?.errors?.required" 
+              <div *ngIf="signUpFromData.controls.fullName?.errors?.required"
                     class="alert">
-                სახელი სავალდებულოა
+                  {{ "errors.FULL_NAME_NEEDED" | translate}}
               </div>
        </div>
     </div>
@@ -25,7 +25,7 @@
        <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
               <div  *ngIf="signUpFromData.controls.email?.errors?.required"
                      class="alert">
-                იმეილი სავალდებულოა
+                  {{ "errors.EMAIL_NEEDED" | translate}}
               </div>
        </div>
     </div>
@@ -37,9 +37,9 @@
            ngModel
            required>
        <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
-              <div *ngIf="signUpFromData.controls.password?.errors?.required" 
+              <div *ngIf="signUpFromData.controls.password?.errors?.required"
                    class="alert">
-                პაროლი
+                  {{ "errors.PASSWORD_NEEDED" | translate}}
               </div>
        </div>
     </div>
@@ -51,17 +51,18 @@
            ngModel
            required>
        <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
-              <div *ngIf="signUpFromData.controls.repeate_password?.errors?.required" 
+              <div *ngIf="signUpFromData.controls.repeate_password?.errors?.required"
                    class="alert">
-                იმეილი სავალდებულოა
+                {{ "errors.REP_PASSWORD_NEEDED" | translate}}
               </div>
        </div>
     </div>
     <button class="signUp">{{ "auth.REGISTRATION_BUTTIN" | translate}}</button>
-    <ng-container *ngIf="signUpFromData.submitted && signUpFromData.invalid">
-       <div *ngIf="signUpFromData.controls.repeate_password?.errors?.mustMatch" 
+    <ng-container *ngIf="signUpFromData.submitted && signUpFromData.invalid"
+                  class="mustMatch-div">
+       <div *ngIf="signUpFromData.controls.repeate_password?.errors?.mustMatch"
             class="alert mustMatch">
-              პარლები არ ემთხვევა
+              {{ "errors.MUST_MATCH_PASSWORD" | translate}}
        </div>
     </ng-container>
 </form>

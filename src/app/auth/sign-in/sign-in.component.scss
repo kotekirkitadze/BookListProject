@@ -70,7 +70,9 @@
 
 .alert {
 	background: red; //#f2edda;
-	padding: 3px;
+	// padding: 3px;
+  padding-top: 5px;
+  // padding-bottom: -14px;
 	font-size: .9em;
 	display: inline-block;
 	animation: 2s alertAnim forwards;
@@ -78,7 +80,7 @@
 	margin: 5px;
 	box-shadow: 0 0 20px 0 #999;
   }
-  
+
 
 .bellow {
 	display: flex;
@@ -90,8 +92,13 @@
 .input-div {
 	display: flex;
 	flex-direction: row;
+  // margin: -15px;
+  margin-top: 10px;
+  margin-bottom: -20px;
 
 }
+
+
 .input-div input {
 	position: relative;
 }
@@ -103,7 +110,7 @@
 	width: 190px;
 	color: white;
 	padding-bottom: 7px;
-} 
+}
 
   @keyframes alertAnim {
 	from{
@@ -112,7 +119,7 @@
 	}
 	to {
 	  opacity: 1;
-	  
+
 	  transform: translateY(-2px);
 	}
   }
