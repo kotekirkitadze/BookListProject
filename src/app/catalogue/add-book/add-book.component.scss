@@ -152,10 +152,10 @@ body {
 }
 
  .contact-box {
-     width: 500px;
+     width: 600px;
      background-color: #fff;
      box-shadow: 0 0 20px 0 #999;
-
+      height: 45%;
     margin: auto;
     margin-top: 30px;
     // margin-left: 30%;
@@ -244,10 +244,13 @@ body {
  }
 
  .timeToRead-div{
-   margin-left: 290px;
+   margin-left: 350px;
  }
 
 
+ .form-conatiner select {
+   width: 40%;
+ }
  @keyframes alertAnim {
   from{
     opacity: 0;
