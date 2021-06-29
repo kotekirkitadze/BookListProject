@@ -3,7 +3,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { finalize, takeUntil, map } from 'rxjs/operators';
+import { finalize, takeUntil, map, switchMap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { BookApiService } from '../services/book-api.services';
@@ -18,9 +18,11 @@ import {
   Book,
   Status,
   TIME_TO_READ,
-  WhenToReadSelect
+  WhenToReadSelect,
+  Country,
+  CountryApiResult
 } from '../catalogue.model';
-import { Subject } from 'rxjs';
+import { forkJoin, Subject } from 'rxjs';
 
 
 @Component({
@@ -82,11 +84,41 @@ export class AddBookComponent implements OnInit, OnDestroy {
   getBooksFromApi(name: string) {
     this.loadingService.start();
     this.apiService.getBookByName(name).pipe(
-      map(data => data?.items[0].volumeInfo),
       finalize(() => {
         this.loadingService.stop();
         this.searchData = "";
-      })).subscribe((x) => console.log(x))
+      }),
+      map(data => data?.items[0].volumeInfo),
+      switchMap(data => {
+        const title = data.title;
+        this.apiService.getFilmByName(title).subscribe(data => {
+          if (data.Response == "True") {
+            const countries = data.Country.split(', ');
+            forkJoin(countries.map((countryCode) => this.apiService.getCountryByCode(countryCode))).pipe(
+              map<CountryApiResult[], Country[]>((element) => {
+                return element.map(el => {
+                  return {
+                    code: el.alpha2Code,
+                    population: el.population,
+                  }
+                })
+
+
+              })
+            ).subscribe(data => console.log(data));
+
+
+
+            // this.apiService.getCountryByCode(countries[0]).pipe();
+
+          }
+
+        });
+        return data.authors
+      })
+
+
+    ).subscribe((x) => console.log(x))
   }
 
   constructor(private loadingService: LoadingService,

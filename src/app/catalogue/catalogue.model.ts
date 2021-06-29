@@ -56,9 +56,12 @@ export interface Book {
   description: string;
   publishedDate: string;
   publisher: string;
-  imageLinks: { smallThumbnail: string }
+  imageLinks: { smallThumbnail: string },
+  countries: Country[];
+  movie: Omit<Movie, "countries">;
 }
 
+type a = Omit<Movie, 'countries'>;
 
 
 //ბექენდის მოდელი, ეიპიაი მაძლევს ამას.
@@ -77,4 +80,27 @@ export interface BookApiResult {
       imageLinks: { smallThumbnail: string }
     }
   }[]
+}
+
+
+export interface MovieApiResult {
+  Response: string;
+  Country: string;
+  Released: string;
+}
+
+export interface Movie {
+  response: string;
+  countries: string[];
+  released: string;
+}
+
+export interface CountryApiResult {
+  alpha2Code: string;
+  population: number;
+}
+
+export interface Country {
+  code: string,
+  population: number,
 }
