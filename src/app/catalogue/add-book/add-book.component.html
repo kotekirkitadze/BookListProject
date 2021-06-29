@@ -25,8 +25,8 @@
 
   </div>>
   <div>
-    
-<form class="contact-box" [formGroup]="form">
+
+<form class="contact-box" [formGroup]="form" *ngIf="getSelectedBook">
   <div class="form-conatiner">
     <label>{{"catalogue.searchPage.REVIEW" | translate}}</label>
     <div class="input-div">
@@ -109,5 +109,8 @@
   <p> <strong>Publisher: </strong> {{getSelectedBook.publisher}}</p>
   <p><strong>Publish date: </strong> {{getSelectedBook.publishedDate}}</p>
   <img [src]="getSelectedBook.imageLinks" alt="book pic" />
-  
+  <span *ngFor="let element of getSelectedBook.countries">
+      <img [src]="getCountryFlag(element)"
+           [title]="getCountryPopulation(element)"/>
+  </span>
 </div>

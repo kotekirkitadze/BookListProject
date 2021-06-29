@@ -3,7 +3,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { finalize, takeUntil, map, switchMap } from 'rxjs/operators';
+import { finalize, takeUntil, map, switchMap, catchError } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { BookApiService } from '../services/book-api.services';
@@ -89,8 +89,8 @@ export class AddBookComponent implements OnInit, OnDestroy {
   }
 
 
-  mapCountry(filmData: MovieApiResult, bookData: BookApiResult){
-    if(filmData.Response=="True"){
+  mapToMovie(filmData: MovieApiResult, bookData: BookApiResult) {
+    if (filmData.Response == "True") {
       const countries = filmData.Country.split(', ');
       return forkJoin(countries.map((countryCode) => this.apiService.getCountryByCode(countryCode))).pipe(
         map<CountryApiResult[], Country[]>((element) => {
@@ -101,7 +101,8 @@ export class AddBookComponent implements OnInit, OnDestroy {
             }
           })
         }),
-        map<Country[], Book>(countryData=> {
+        catchError((err) => of(null)),
+        map<Country[], Book>(countryData => {
           return this.mapBook(countryData, bookData, filmData);
         })
       )
@@ -109,7 +110,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
       return of(this.mapBook(null, bookData, null));
     }
   }
- 
+
 
   getBooksFromApi(name: string) {
     this.loadingService.start();
@@ -119,27 +120,32 @@ export class AddBookComponent implements OnInit, OnDestroy {
         this.searchData = "";
       }),
       //map(bookData => bookData?.items[0].volumeInfo),
-      switchMap((bookData)=> {
-        const bookInfo = bookData.items[0]?.volumeInfo
+      switchMap((bookData) => {
+        const bookInfo = bookData?.items[0]?.volumeInfo
         const title = bookInfo.title;
         return this.apiService.getFilmByName(title).pipe(
-          switchMap((filmData)=> this.mapCountry(filmData, bookData))
+          switchMap((filmData) => this.mapToMovie(filmData, bookData))
         )
       }),
-
-    ).subscribe((selectedBook) => this._selectedBook = selectedBook);
+      catchError(err => {
+        return of(null)
+      })
+    ).subscribe((selectedBook) => {
+      this._selectedBook = selectedBook;
+      console.log(selectedBook)
+    });
   }
 
-  mapBook(countries: Country[], book: BookApiResult, movie: MovieApiResult): Book{
+  mapBook(countries: Country[], book: BookApiResult, movie: MovieApiResult): Book {
     return {
-      title: book.items[0].volumeInfo.title,
-      authors: book.items[0].volumeInfo.authors[0],
-      categories: book.items[0].volumeInfo.categories[0],
-      description: book.items[0].volumeInfo.description,
-      publishedDate:  book.items[0].volumeInfo.publishedDate,
-      publisher:  book.items[0].volumeInfo.publisher,
-      imageLinks:  book.items[0].volumeInfo.imageLinks.smallThumbnail,
-      countries: countries?.map(el=> el),
+      title: book?.items[0].volumeInfo?.title,
+      authors: book?.items[0].volumeInfo?.authors[0],
+      categories: book?.items[0].volumeInfo?.categories[0],
+      description: book?.items[0].volumeInfo?.description,
+      publishedDate: book?.items[0].volumeInfo?.publishedDate,
+      publisher: book?.items[0].volumeInfo?.publisher,
+      imageLinks: book?.items[0].volumeInfo?.imageLinks?.smallThumbnail,
+      countries: countries?.map(el => el),
       movie: {
         released: movie?.Released,
         response: movie?.Response
@@ -197,6 +203,10 @@ export class AddBookComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-
-
+  getCountryFlag(country: Country) {
+    return `https://www.countryflags.io/${country.code}/shiny/64.png`
+  }
+  getCountryPopulation(country: Country) {
+    return `Population of ${country.code}: ${country.population}`;
+  }
 }

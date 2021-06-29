@@ -52,7 +52,7 @@ export const TIME_TO_READ: WhenToReadSelect[] = [
 export interface Book {
   title: string;
   authors: string;
-  categories: string;
+  categories?: string;
   description: string;
   publishedDate: string;
   publisher: string;
