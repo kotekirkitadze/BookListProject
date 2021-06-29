@@ -20,7 +20,9 @@ import {
   TIME_TO_READ,
   WhenToReadSelect,
   Country,
-  CountryApiResult
+  CountryApiResult,
+  BookApiResult,
+  MovieApiResult
 } from '../catalogue.model';
 import { forkJoin, of, Subject } from 'rxjs';
 
@@ -81,29 +83,28 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   }
 
-  test(){
-   this.getFilmInfo("harry potter").subscribe(x=> console.log(x));
-  }
 
-  getFilmInfo(title: string){
-    return this.apiService.getFilmByName(title).pipe(
-      map((filmData) => {
-        if(filmData.Response == "True") {
-          const countries = filmData.Country.split(', ');
-          return forkJoin(countries.map((countryCode) => this.apiService.getCountryByCode(countryCode))).pipe(
-            map<CountryApiResult[], Country[]>((element) => {
-              return element.map(el => {
-                return {
-                  code: el.alpha2Code,
-                  population: el.population,
-                }
-              })
-            })
-          )
-        } else { return filmData}
-      }),
-    )
+  mapCountry(filmData: MovieApiResult, bookData: BookApiResult){
+    if(filmData.Response=="True"){
+      const countries = filmData.Country.split(', ');
+      return forkJoin(countries.map((countryCode) => this.apiService.getCountryByCode(countryCode))).pipe(
+        map<CountryApiResult[], Country[]>((element) => {
+          return element.map(el => {
+            return {
+              code: el.alpha2Code,
+              population: el.population,
+            }
+          })
+        }),
+        map<Country[], Book>(countryData=> {
+          return this.mapBook(countryData, bookData, filmData);
+        })
+      )
+    } else {
+      return of(this.mapBook(null, bookData, null));
+    }
   }
+ 
 
   getBooksFromApi(name: string) {
     this.loadingService.start();
@@ -112,48 +113,35 @@ export class AddBookComponent implements OnInit, OnDestroy {
         this.loadingService.stop();
         this.searchData = "";
       }),
-      map(data => data?.items[0].volumeInfo),
-      switchMap((data)=> {
-        const title = data.title;
+      //map(bookData => bookData?.items[0].volumeInfo),
+      switchMap((bookData)=> {
+        const bookInfo = bookData.items[0]?.volumeInfo
+        const title = bookInfo.title;
         return this.apiService.getFilmByName(title).pipe(
-          switchMap((filmData)=>{
-            if(filmData.Response=="True"){
-              const countries = filmData.Country.split(', ');
-              return forkJoin(countries.map((countryCode) => this.apiService.getCountryByCode(countryCode))).pipe(
-                map<CountryApiResult[], Country[]>((element) => {
-                  return element.map(el => {
-                    return {
-                      code: el.alpha2Code,
-                      population: el.population,
-                    }
-                  })
-                }),
-                map<Country[], Book>(countryData=> {
-                  return {
-                    title: data.title,
-                    authors: data.authors[0],
-                    categories: data.categories[0],
-                    description: data.description,
-                    publishedDate: data.publishedDate,
-                    publisher: data.publisher,
-                    imageLinks: data.imageLinks,
-                    countries: countryData.map(el=> el),
-                    movie: {
-                      released: filmData.Released,
-                      response: filmData.Response
-                    }
-                  }
-                })
-              )
-            } else {
-              return of(filmData)
-            }
-          })
+          switchMap((filmData)=> this.mapCountry(filmData, bookData))
         )
       }),
 
     ).subscribe((x) => console.log(x))
   }
+
+  mapBook(countries: Country[], book: BookApiResult, movie: MovieApiResult): Book{
+    return {
+      title: book.items[0].volumeInfo.title,
+      authors: book.items[0].volumeInfo.authors[0],
+      categories: book.items[0].volumeInfo.categories[0],
+      description: book.items[0].volumeInfo.description,
+      publishedDate:  book.items[0].volumeInfo.publishedDate,
+      publisher:  book.items[0].volumeInfo.publisher,
+      imageLinks:  book.items[0].volumeInfo.imageLinks,
+      countries: countries?.map(el=> el),
+      movie: {
+        released: movie?.Released,
+        response: movie?.Response
+      }
+    }
+  }
+
 
   constructor(private loadingService: LoadingService,
     private apiService: BookApiService,

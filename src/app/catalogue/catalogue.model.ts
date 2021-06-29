@@ -57,8 +57,8 @@ export interface Book {
   publishedDate: string;
   publisher: string;
   imageLinks: { smallThumbnail: string },
-  countries: Country[];
-  movie: Omit<Movie, "countries">;
+  countries?: Country[];
+  movie?: Omit<Movie, "countries">;
 }
 
 type a = Omit<Movie, 'countries'>;
