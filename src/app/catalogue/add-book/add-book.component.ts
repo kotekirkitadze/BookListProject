@@ -22,7 +22,7 @@ import {
   Country,
   CountryApiResult
 } from '../catalogue.model';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin, of, Subject } from 'rxjs';
 
 
 @Component({
@@ -81,6 +81,30 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   }
 
+  test(){
+   this.getFilmInfo("harry potter").subscribe(x=> console.log(x));
+  }
+
+  getFilmInfo(title: string){
+    return this.apiService.getFilmByName(title).pipe(
+      map((filmData) => {
+        if(filmData.Response == "True") {
+          const countries = filmData.Country.split(', ');
+          return forkJoin(countries.map((countryCode) => this.apiService.getCountryByCode(countryCode))).pipe(
+            map<CountryApiResult[], Country[]>((element) => {
+              return element.map(el => {
+                return {
+                  code: el.alpha2Code,
+                  population: el.population,
+                }
+              })
+            })
+          )
+        } else { return filmData}
+      }),
+    )
+  }
+
   getBooksFromApi(name: string) {
     this.loadingService.start();
     this.apiService.getBookByName(name).pipe(
@@ -89,34 +113,44 @@ export class AddBookComponent implements OnInit, OnDestroy {
         this.searchData = "";
       }),
       map(data => data?.items[0].volumeInfo),
-      switchMap(data => {
+      switchMap((data)=> {
         const title = data.title;
-        this.apiService.getFilmByName(title).subscribe(data => {
-          if (data.Response == "True") {
-            const countries = data.Country.split(', ');
-            forkJoin(countries.map((countryCode) => this.apiService.getCountryByCode(countryCode))).pipe(
-              map<CountryApiResult[], Country[]>((element) => {
-                return element.map(el => {
+        return this.apiService.getFilmByName(title).pipe(
+          switchMap((filmData)=>{
+            if(filmData.Response=="True"){
+              const countries = filmData.Country.split(', ');
+              return forkJoin(countries.map((countryCode) => this.apiService.getCountryByCode(countryCode))).pipe(
+                map<CountryApiResult[], Country[]>((element) => {
+                  return element.map(el => {
+                    return {
+                      code: el.alpha2Code,
+                      population: el.population,
+                    }
+                  })
+                }),
+                map<Country[], Book>(countryData=> {
                   return {
-                    code: el.alpha2Code,
-                    population: el.population,
+                    title: data.title,
+                    authors: data.authors[0],
+                    categories: data.categories[0],
+                    description: data.description,
+                    publishedDate: data.publishedDate,
+                    publisher: data.publisher,
+                    imageLinks: data.imageLinks,
+                    countries: countryData.map(el=> el),
+                    movie: {
+                      released: filmData.Released,
+                      response: filmData.Response
+                    }
                   }
                 })
-
-
-              })
-            ).subscribe(data => console.log(data));
-
-
-
-            // this.apiService.getCountryByCode(countries[0]).pipe();
-
-          }
-
-        });
-        return data.authors
-      })
-
+              )
+            } else {
+              return of(filmData)
+            }
+          })
+        )
+      }),
 
     ).subscribe((x) => console.log(x))
   }
