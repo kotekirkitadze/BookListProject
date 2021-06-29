@@ -18,6 +18,14 @@
     </li>
   </ul>
 </div>
+
+
+<div>
+  <div>
+
+  </div>>
+  <div>
+    
 <form class="contact-box" [formGroup]="form">
   <div class="form-conatiner">
     <label>{{"catalogue.searchPage.REVIEW" | translate}}</label>
@@ -36,7 +44,7 @@
       </div>
     </div>
   </div>
-  <div class="form-conatiner form-container">
+  <div class="form-conatiner form-conatiner">
     <label>{{"catalogue.searchPage.RATING" | translate}}</label>
     <div class="rating">
       <input type="radio"
@@ -90,3 +98,16 @@
           (click)="submit()"
           class="btn btn-book">{{"catalogue.searchPage.ADD_COL" | translate}}</button>
 </form>
+
+
+  </div>
+</div>
+
+
+<div *ngIf="getSelectedBook" class="book-result">
+  <h1>{{getSelectedBook.title}}</h1>
+  <p> <strong>Publisher: </strong> {{getSelectedBook.publisher}}</p>
+  <p><strong>Publish date: </strong> {{getSelectedBook.publishedDate}}</p>
+  <img [src]="getSelectedBook.imageLinks" alt="book pic" />
+  
+</div>

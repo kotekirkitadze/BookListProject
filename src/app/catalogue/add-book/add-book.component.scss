@@ -247,7 +247,13 @@ body {
    margin-left: 350px;
  }
 
-
+.book-result {
+  border: 2px solid black;
+  margin: auto;
+  width: 50%;
+  margin-bottom: 20px;
+  padding: 5px;
+}
  .form-conatiner select {
    width: 40%;
  }
@@ -262,3 +268,5 @@ body {
     transform: translateY(-2px);
   }
   }
+
+

@@ -56,7 +56,7 @@ export interface Book {
   description: string;
   publishedDate: string;
   publisher: string;
-  imageLinks: { smallThumbnail: string },
+  imageLinks: string,
   countries?: Country[];
   movie?: Omit<Movie, "countries">;
 }

@@ -45,6 +45,11 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject();
 
+  private _selectedBook: Book;
+
+  get getSelectedBook(): Book {
+    return this._selectedBook;
+  }
 
 
   get timeToRead(): WhenToReadSelect[] {
@@ -122,7 +127,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
         )
       }),
 
-    ).subscribe((x) => console.log(x))
+    ).subscribe((selectedBook) => this._selectedBook = selectedBook);
   }
 
   mapBook(countries: Country[], book: BookApiResult, movie: MovieApiResult): Book{
@@ -133,7 +138,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
       description: book.items[0].volumeInfo.description,
       publishedDate:  book.items[0].volumeInfo.publishedDate,
       publisher:  book.items[0].volumeInfo.publisher,
-      imageLinks:  book.items[0].volumeInfo.imageLinks,
+      imageLinks:  book.items[0].volumeInfo.imageLinks.smallThumbnail,
       countries: countries?.map(el=> el),
       movie: {
         released: movie?.Released,
@@ -193,6 +198,5 @@ export class AddBookComponent implements OnInit, OnDestroy {
   }
 
 
-  private _selectedBook: Book;
 
 }
