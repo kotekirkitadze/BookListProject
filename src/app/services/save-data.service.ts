@@ -3,22 +3,23 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { fireBookBody } from '../catalogue/catalogue.model';
 import { AuthService } from './auth.service';
 import { LoadingService } from './loading.service';
 
 export interface User {
   name?: string;
   uid?: string;
-  password?: string
+  password?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaveDataService {
-  private itemCollections: AngularFirestoreCollection<User>;
+  private userCollections: AngularFirestoreCollection<User>;
   private itemDocument: AngularFirestoreDocument<User>;
   items: Observable<User[]>;
   currentUser$: Observable<User>;
@@ -28,10 +29,9 @@ export class SaveDataService {
     private http: HttpClient,
     private auth: AngularFireAuth,
     private navRouting: Router,
-    private loadingService: LoadingService,
-    private currentUser: AuthService) {
-    this.itemCollections = this.afs.collection('users');
-    this.items = this.itemCollections.valueChanges();
+    private loadingService: LoadingService) {
+    this.userCollections = this.afs.collection('users');
+    this.items = this.userCollections.valueChanges();
 
     this.currentUser$ = this.auth.authState.pipe(
       switchMap(user => {
@@ -53,10 +53,13 @@ export class SaveDataService {
 
 
   registerData(userId: string, name: string) {
-    this.itemCollections.doc(userId).set({ "name": name });
+    this.userCollections.doc(userId).set({ "name": name });
+
   };
 
   deleteUserData(item: User) {
+    // this.bookCollection = this.afs.doc(`users/${item.uid}`).collection("bookCollection");
+    // this.bookCollection.stateChanges;
     this.itemDoc = this.afs.doc(`users/${item.uid}`);
     this.itemDoc.delete();
   }
@@ -84,6 +87,10 @@ export class SaveDataService {
     this.itemDoc.update(reneWedUser);
   }
 
+
+  postBookData(body: fireBookBody) {
+    return from(this.afs.collection("bookCatalogue").add(body));
+  }
 
   updatePassword(newPassword: string) {
     this.auth.currentUser.then((user) => user.updatePassword(newPassword));

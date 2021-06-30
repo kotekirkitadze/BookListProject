@@ -22,9 +22,12 @@ import {
   Country,
   CountryApiResult,
   BookApiResult,
-  MovieApiResult
+  MovieApiResult,
+  fireBookBody
 } from '../catalogue.model';
 import { forkJoin, of, Subject } from 'rxjs';
+import { SaveDataService } from 'src/app/services/save-data.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -58,6 +61,25 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   submit() {
     this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+
+    const formValue = this.form.value;
+
+    const fireBody: fireBookBody = {
+      title: this._selectedBook.title,
+      rating: formValue.rating,
+      review: formValue.review,
+      status: formValue.status,
+      whenToRead: formValue.whenToRead ? formValue.whenToRead : null,
+      uid: this.currentUser.getUserUid()
+    }
+
+    //loading da addeed ragahc is axali dasamatebelia
+    //promisi iqneba es
+    this.store.postBookData(fireBody);
+
   }
 
   get whenToRead(): boolean {
@@ -156,7 +178,9 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   constructor(private loadingService: LoadingService,
     private apiService: BookApiService,
-    private storage: StorageService) { }
+    private storage: StorageService,
+    private store: SaveDataService,
+    private currentUser: AuthService) { }
 
 
   restoreSearches() {

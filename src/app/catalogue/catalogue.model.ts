@@ -104,3 +104,12 @@ export interface Country {
   code: string,
   population: number,
 }
+
+export interface fireBookBody {
+  uid: string;
+  title: string;
+  rating: number;
+  review: string;
+  status: Status;
+  whenToRead?: WhenToRead;
+}
