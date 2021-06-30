@@ -21,6 +21,7 @@
      "TITILE": "Welcome to book catalogue",
      "PARAGRAPH": "You can add your favorite book here",
      "SEARCH": "Search Book",
+     "TOASTR_BOOK_ADDED": "Book has been added",
      "searchPage": {
        "TITLE": "You can Search Book here",
        "INPUT": "Serch Book",

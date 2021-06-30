@@ -28,6 +28,8 @@ import {
 import { forkJoin, of, Subject } from 'rxjs';
 import { SaveDataService } from 'src/app/services/save-data.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -78,7 +80,15 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
     //loading da addeed ragahc is axali dasamatebelia
     //promisi iqneba es
-    this.store.postBookData(fireBody);
+    this.store.postBookData(fireBody).subscribe(() => {
+      this.resetForm();
+
+    });
+
+  }
+
+  private resetForm() {
+    this.translateService.get("catalogue.TOASTR_BOOK_ADDED").subscribe(value => this.toastr.success(value));
 
   }
 
@@ -180,7 +190,9 @@ export class AddBookComponent implements OnInit, OnDestroy {
     private apiService: BookApiService,
     private storage: StorageService,
     private store: SaveDataService,
-    private currentUser: AuthService) { }
+    private currentUser: AuthService,
+    private toastr: ToastrService,
+    private translateService: TranslateService) { }
 
 
   restoreSearches() {
@@ -192,7 +204,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.form = new FormGroup({
-      rating: new FormControl(3),
+      rating: new FormControl(1),
       review: new FormControl('', [Validators.required,
       Validators.minLength(10)]),
       status: new FormControl(Status.Read)

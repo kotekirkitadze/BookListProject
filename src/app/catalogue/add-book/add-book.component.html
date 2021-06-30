@@ -110,7 +110,10 @@
   <p><strong>Publish date: </strong> {{getSelectedBook.publishedDate}}</p>
   <img [src]="getSelectedBook.imageLinks" alt="book pic" />
   <span *ngFor="let element of getSelectedBook.countries">
-      <img [src]="getCountryFlag(element)"
-           [title]="getCountryPopulation(element)"/>
+    <!-- //ამას დააკვირდი მერე, სავარაუდოდ მაინც აღარ დაიბეჭდებოდა ენჯიიფის გარეშე  -->
+    <ng-container *ngIf="element">
+        <img [src]="getCountryFlag(element)"
+        [title]="getCountryPopulation(element)"/>
+     </ng-container>
   </span>
 </div>

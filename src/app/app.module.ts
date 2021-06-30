@@ -12,6 +12,8 @@ import { environment } from 'src/environments/environment';
 import { SharedModule } from './shared-module/shared-module.module';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 export function TranslateHttpLoaderFactory(
   http: HttpClient
 ): TranslateHttpLoader {
@@ -27,6 +29,8 @@ export function TranslateHttpLoaderFactory(
     AppRoutingModule,
     ShellModule,
     SharedModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
