@@ -89,6 +89,15 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   private resetForm() {
     this.translateService.get("catalogue.TOASTR_BOOK_ADDED").subscribe(value => this.toastr.success(value));
+    //ფორმის ველიუს არესეტებს
+    this.form.reset();
+    this._selectedBook = null;
+    this.form.updateValueAndValidity();
+    this.submitted = false;
+
+    //ფორმის დარესეტების შემდეგ, საწყისი ველიუები რომ დავუთაგოთ
+    this.form.get("status").setValue(Status.Read);
+    this.form.get("rating").setValue(1);
 
   }
 
