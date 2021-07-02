@@ -1,14 +1,19 @@
 .item-container {
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1em;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 50px;
+
 }
 
 .item-container div {
-  border: 2px solid black;
-  width: 50%;
+  background-color: honeydew;
+  width: 70%;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+  //text-shadow: 0 2px 5px rgba(0,0,0,.5);
+  box-shadow: 0 0 20px 0 #999;
+  border-radius: 15px;
+  padding: 10px;
 }

@@ -63,7 +63,6 @@ export class SaveDataService {
     this.itemDoc.delete();
   }
 
-
   deleteUser(currentUser: AuthService) {
     this.loadingService.start();
     const url = "https://us-central1-book-catalogue-d3599.cloudfunctions.net/deleteUserByEmail";

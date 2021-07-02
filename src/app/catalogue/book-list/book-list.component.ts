@@ -33,7 +33,7 @@ export class BookListComponent implements OnInit {
   // მაშინ ჯობია ასინკები გამოვიყენოთ.
   //პ.ს. async as რაღაც - მთლიანად კოლექციაზე მიუთითებს - საბსქრაიბში შემოსულ ველიუზე.
   books$: Observable<any> = null; //this.bookFireServie.getBookData();
-  
+
   // switchMap(fireData => {
   //   return forkJoin(fireData.map(el => this.bookApiService.getFilmByName(el.title).pipe(
   //    switchMap(film =>{
@@ -50,65 +50,66 @@ export class BookListComponent implements OnInit {
   //        }), catchError(err => of(el))
   //      )
   //    })
-      
+
   //   )))
   // })
 
 
 
-    ngOnInit() {
-      this.books$ =  this.fetch();
-    }
+  ngOnInit() {
+    this.books$ = this.fetch();
+  }
 
-    // სვიჩმეპიდ და ფორქ ჯოინი იმიტომ გვინდა აქ, რომ
-    // სვიჩმეპი წინა ობზერვებლს გვირეზოლვებს, გვაძლევს დატას და
-    // ამ დატებით ფორკჯოინში ვარექვესთებთ რაღაცეებს.
-    // ხომ ვინდა რომ წინა ობზერვებლი დავარეზოლვოთ რაღაცეები - ამას
-    // კი სვიჩმეპით ვაკეთებთ და გადავდივართ ახალ ობზერვებლზეც, თუ გვინდა.
+  // სვიჩმეპიდ და ფორქ ჯოინი იმიტომ გვინდა აქ, რომ
+  // სვიჩმეპი წინა ობზერვებლს გვირეზოლვებს, გვაძლევს დატას და
+  // ამ დატებით ფორკჯოინში ვარექვესთებთ რაღაცეებს.
+  // ხომ ვინდა რომ წინა ობზერვებლი დავარეზოლვოთ რაღაცეები - ამას
+  // კი სვიჩმეპით ვაკეთებთ და გადავდივართ ახალ ობზერვებლზეც, თუ გვინდა.
 
-    fetch(){
-      return this.bookFireServie.getBookData().pipe(
-        switchMap(fireData => {
-          return forkJoin(fireData.map(eachData => this.bookApiService.getBookByName(eachData.title).pipe(
-            switchMap(eachBook => {
-              const book = eachBook.items[0].volumeInfo;
-              return this.bookApiService.getFilmByName(book.title).pipe(
-                switchMap(filmData => {
-                  if(filmData.Response == "True"){
-                    const countries = filmData.Country.split(", ")
-                    return forkJoin(countries.map(c => {
-                      return this.bookApiService.getCountryByCode(c).pipe(
-                        map(countryApi => {
-                          return {
-                            code: countryApi.alpha2Code,
-                            poppulation: countryApi.population
-                          }
-                        })
-                      )
-                    })).pipe(map(countries => {
-                      return {
-                        countries: countries,
-                        ApiBook: book,
-                        fireData: eachData,
-                        filmData
-                      }
-                    }))
-                  } else {
-                    return of({
-                      country: null,
+  fetch() {
+    return this.bookFireServie.getBookData().pipe(
+      switchMap(fireData => {
+        return forkJoin(fireData.map(eachData => this.bookApiService.getBookByName(eachData.title).pipe(
+          switchMap(eachBook => {
+            const book = eachBook.items[0].volumeInfo;
+            return this.bookApiService.getFilmByName(book.title).pipe(
+              switchMap(filmData => {
+                if (filmData.Response == "True") {
+                  const countries = filmData.Country.split(", ")
+                  return forkJoin(countries.map(c => {
+                    return this.bookApiService.getCountryByCode(c).pipe(
+                      map(countryApi => {
+                        return {
+                          code: countryApi.alpha2Code,
+                          poppulation: countryApi.population
+                        }
+                      }),
+                      catchError(() => of(null))
+                    )
+                  })).pipe(map(countries => {
+                    return {
+                      countries: countries,
                       ApiBook: book,
                       fireData: eachData,
-                      filmData: null
-                    })
-                  }
-                }),  
-              )
-            })
-          )))
-        })
-    
-      )
-    }
+                      filmData
+                    }
+                  }))
+                } else {
+                  return of({
+                    country: null,
+                    ApiBook: book,
+                    fireData: eachData,
+                    filmData: null
+                  })
+                }
+              }),
+            )
+          })
+        )))
+      })
+
+    )
+  }
 
 
 
@@ -124,7 +125,7 @@ export class BookListComponent implements OnInit {
 //   }))
 // )
 
- 
+
 
 
 // this.bookFireServie.getBookData().pipe(
@@ -189,7 +190,7 @@ export class BookListComponent implements OnInit {
 //           }
 //         })
 //       ))
-       
+
 //     })
 //   ).subscribe(el=> el.forEach(el=> el.subscribe(el=> console.log(el))))
 // }
@@ -306,7 +307,7 @@ export class BookListComponent implements OnInit {
 //          }), catchError(err => of(el))
 //        )
 //      })
-      
+
 //     )))
 //   })
 
