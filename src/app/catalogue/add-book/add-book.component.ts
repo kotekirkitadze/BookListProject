@@ -173,7 +173,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
       })
     ).subscribe((selectedBook) => {
       this._selectedBook = selectedBook;
-      console.log(selectedBook)
+      //console.log(selectedBook)
     });
   }
 

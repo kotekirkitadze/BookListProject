@@ -57,7 +57,14 @@ export class BookListComponent implements OnInit {
 
 
     ngOnInit() {
-      this.bookFireServie.getBookData().pipe(
+    const obs$ =  this.fetch();
+    obs$.subscribe((x)=> console.log("hey", x))
+      
+    }
+
+
+    fetch(){
+      return this.bookFireServie.getBookData().pipe(
         switchMap(fireData => {
           return forkJoin(fireData.map(eachData => this.bookApiService.getBookByName(eachData.title).pipe(
             switchMap(eachBook => {
@@ -65,23 +72,24 @@ export class BookListComponent implements OnInit {
               return this.bookApiService.getFilmByName(book.title).pipe(
                 switchMap(filmData => {
                   if(filmData.Response == "True"){
-                    return this.bookApiService.getCountryByCode(filmData.Country).pipe(
-                      map(countryData => {
-                        return {
-                          country: {
-                            code: countryData.alpha2Code,
-                            population: countryData.population
-                          },
-                          ApiBook: book,
-                          fireData: eachData,
-                          filmData
-                        }
-                      }),
-                      catchError(err => of({ApiBook: book,
+                    const countries = filmData.Country.split(", ")
+                    return forkJoin(countries.map(c => {
+                      return this.bookApiService.getCountryByCode(c).pipe(
+                        map(countryApi => {
+                          return {
+                            code: countryApi.alpha2Code,
+                            poppulation: countryApi.population
+                          }
+                        })
+                      )
+                    })).pipe(map(countries => {
+                      return {
+                        countries: countries,
+                        ApiBook: book,
                         fireData: eachData,
-                        filmData,
-                        country: null}))
-                    )
+                        filmData
+                      }
+                    }))
                   } else {
                     return of({
                       country: null,
@@ -90,15 +98,15 @@ export class BookListComponent implements OnInit {
                       filmData: null
                     })
                   }
-                })
+                }),  
               )
             })
           )))
         })
     
-      ).subscribe(el => console.log(el))
-      
+      )
     }
+
 
 
 }
