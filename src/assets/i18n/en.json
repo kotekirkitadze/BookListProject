@@ -39,7 +39,7 @@
        "SELECT": "Select time..."
      },
      "UserPage": {
-       "TITLE": "User Page",
+       "TITLE": "Admin Page",
        "PAGE_INFO": "You can manage your profile here",
        "FULL_NAME": "Full Name:",
        "EMAIL": "User's Email:",
