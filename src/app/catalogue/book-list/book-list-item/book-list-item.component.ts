@@ -8,11 +8,12 @@ import { fireBookBody } from '../../catalogue.model';
 })
 export class BookListItemComponent implements OnInit {
 
-  @Input() book: fireBookBody;
+  @Input() data: any;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.data);
   }
 
 }

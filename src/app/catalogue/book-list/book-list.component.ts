@@ -32,7 +32,7 @@ export class BookListComponent implements OnInit {
   // შეიძლება და გასაგებიცაა ალბათ.მაგრამ თუ გვინდა რომ უბრალოდ ვაჩვენოთ დატა როგორც აქ,
   // მაშინ ჯობია ასინკები გამოვიყენოთ.
   //პ.ს. async as რაღაც - მთლიანად კოლექციაზე მიუთითებს - საბსქრაიბში შემოსულ ველიუზე.
-  books$: Observable<fireBookBody[]> = null; //this.bookFireServie.getBookData();
+  books$: Observable<any> = null; //this.bookFireServie.getBookData();
   
   // switchMap(fireData => {
   //   return forkJoin(fireData.map(el => this.bookApiService.getFilmByName(el.title).pipe(
@@ -57,11 +57,14 @@ export class BookListComponent implements OnInit {
 
 
     ngOnInit() {
-    const obs$ =  this.fetch();
-    obs$.subscribe((x)=> console.log("hey", x))
-      
+      this.books$ =  this.fetch();
     }
 
+    // სვიჩმეპიდ და ფორქ ჯოინი იმიტომ გვინდა აქ, რომ
+    // სვიჩმეპი წინა ობზერვებლს გვირეზოლვებს, გვაძლევს დატას და
+    // ამ დატებით ფორკჯოინში ვარექვესთებთ რაღაცეებს.
+    // ხომ ვინდა რომ წინა ობზერვებლი დავარეზოლვოთ რაღაცეები - ამას
+    // კი სვიჩმეპით ვაკეთებთ და გადავდივართ ახალ ობზერვებლზეც, თუ გვინდა.
 
     fetch(){
       return this.bookFireServie.getBookData().pipe(
