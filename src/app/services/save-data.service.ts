@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { from, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { fireBookBody } from '../catalogue/catalogue.model';
 import { AuthService } from './auth.service';
@@ -20,7 +20,6 @@ export interface User {
 })
 export class SaveDataService {
   private userCollections: AngularFirestoreCollection<User>;
-  private itemDocument: AngularFirestoreDocument<User>;
   items: Observable<User[]>;
   currentUser$: Observable<User>;
   itemDoc: AngularFirestoreDocument<User>;
@@ -85,11 +84,6 @@ export class SaveDataService {
     this.itemDoc = this.afs.doc(`users/${user.uid}`);
     const reneWedUser: User = { name: user.name }
     this.itemDoc.update(reneWedUser);
-  }
-
-
-  postBookData(body: fireBookBody) {
-    return from(this.afs.collection("bookCatalogue").add(body));
   }
 
   updatePassword(newPassword: string) {

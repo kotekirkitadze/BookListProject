@@ -4,18 +4,21 @@ import { CatalogueComponent } from './catalogue.component';
 import { CatalogueRoutingModule } from './catalogue-routing.module';
 import { AddBookComponent } from './add-book/add-book.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BOOK_API, BookApiService } from './services/book-api.services';
 import { environment } from 'src/environments/environment';
 import { SharedModule } from '../shared-module/shared-module.module';
 import { UserComponent } from './user/user.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BookListComponent, BookListItemComponent } from './book-list/index';
+import { FireApiService, BOOK_API, BookApiService } from './services/index';
 
 
 @NgModule({
   declarations: [
     CatalogueComponent,
     AddBookComponent,
-    UserComponent
+    UserComponent,
+    BookListComponent,
+    BookListItemComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [BookApiService, {
+  providers: [BookApiService, FireApiService, {
     provide: BOOK_API,
     useValue: environment.bookApi
   }]

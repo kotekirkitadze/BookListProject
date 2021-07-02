@@ -30,6 +30,7 @@ import { SaveDataService } from 'src/app/services/save-data.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { FireApiService } from '../services';
 
 
 @Component({
@@ -82,7 +83,6 @@ export class AddBookComponent implements OnInit, OnDestroy {
     //promisi iqneba es
     this.store.postBookData(fireBody).subscribe(() => {
       this.resetForm();
-
     });
 
   }
@@ -198,7 +198,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
   constructor(private loadingService: LoadingService,
     private apiService: BookApiService,
     private storage: StorageService,
-    private store: SaveDataService,
+    private store: FireApiService,
     private currentUser: AuthService,
     private toastr: ToastrService,
     private translateService: TranslateService) { }
