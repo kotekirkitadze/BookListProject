@@ -113,3 +113,9 @@ export interface fireBookBody {
   status: Status;
   whenToRead?: WhenToRead;
 }
+
+
+export interface ListData {
+  fireData: fireBookBody;
+  bookData: Book
+}
