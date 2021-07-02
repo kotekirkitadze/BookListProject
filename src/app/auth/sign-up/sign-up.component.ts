@@ -29,12 +29,12 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp(signUpForm: NgForm) {
-    console.log(signUpForm);
-  if(signUpForm.invalid){
-    return;
-  }
-    
-    const {email, password, fullName} = signUpForm.value;
+
+    if (signUpForm.invalid) {
+      return;
+    }
+
+    const { email, password, fullName } = signUpForm.value;
 
     if (!email || !password) {
       return;
@@ -49,7 +49,7 @@ export class SignUpComponent implements OnInit {
     from(this.auth.signUpUser({ email, password, fullName })).
       pipe(finalize(() => {
         this.loadingService.stop(),
-        this.saveData.registerData(this.auth.getUserUid(), fullName)
+          this.saveData.registerData(this.auth.getUserUid(), fullName)
       })).
       subscribe(() => this.route.navigate(['catalogue']))
   }

@@ -1,1 +1,5 @@
-<p>book-list works!</p>
+<div class="item-container">
+  <div *ngFor="let eachBook of books$ | async">
+    <app-book-list-item [book]="eachBook"></app-book-list-item>
+  </div>
+</div>

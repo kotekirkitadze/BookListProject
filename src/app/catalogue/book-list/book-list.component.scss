@@ -1,0 +1,14 @@
+.item-container {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1em;
+}
+
+.item-container div {
+  border: 2px solid black;
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

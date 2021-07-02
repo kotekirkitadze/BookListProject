@@ -25,7 +25,7 @@ export class SignInComponent implements OnInit {
     private loadingService: LoadingService) { }
 
   ngOnInit(): void {
-    
+
   }
 
 
@@ -54,7 +54,5 @@ export class SignInComponent implements OnInit {
     this.route.navigate(['reset-passw']);
   }
 
-  log(form){
-    console.log(form);
-  }
+
 }

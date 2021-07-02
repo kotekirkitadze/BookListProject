@@ -38,7 +38,6 @@ export class AuthService {
 
   constructor(private auth: AngularFireAuth) {
     this.auth.onAuthStateChanged((user) => {
-      console.log(user);
       this._userChange = user;
       if (!this._isInitiated) {
         this._isInitiated = true;

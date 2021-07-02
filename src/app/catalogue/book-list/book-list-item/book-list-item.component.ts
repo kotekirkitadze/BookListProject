@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { fireBookBody } from '../../catalogue.model';
 
 @Component({
   selector: 'app-book-list-item',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./book-list-item.component.scss']
 })
 export class BookListItemComponent implements OnInit {
+
+  @Input() book: fireBookBody;
 
   constructor() { }
 
