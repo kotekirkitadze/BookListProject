@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { fireBookBody } from '../catalogue.model';
-import { FireApiService } from '../services';
+import { BookApiService, FireApiService } from '../services';
 
 @Component({
   selector: 'app-book-list',
@@ -10,7 +11,8 @@ import { FireApiService } from '../services';
 })
 export class BookListComponent implements OnInit {
 
-  constructor(private bookFireServie: FireApiService) { }
+  constructor(private bookFireServie: FireApiService,
+    private bookApiService: BookApiService) { }
 
   //ახლა ასნიკ პაიპით გადავყევით, მაგრამ ამის ალტერნატივა იქნებოდა
   // აქ ფირებუქის ტიპის ერეის ცვლადი შეგვექმნა და ენჯიონინიტში
@@ -30,9 +32,25 @@ export class BookListComponent implements OnInit {
   // შეიძლება და გასაგებიცაა ალბათ.მაგრამ თუ გვინდა რომ უბრალოდ ვაჩვენოთ დატა როგორც აქ,
   // მაშინ ჯობია ასინკები გამოვიყენოთ.
   //პ.ს. async as რაღაც - მთლიანად კოლექციაზე მიუთითებს - საბსქრაიბში შემოსულ ველიუზე.
-  books$: Observable<fireBookBody[]> = this.bookFireServie.getBookData();
+  books$: Observable<fireBookBody[]> = null; //this.bookFireServie.getBookData();
 
   ngOnInit(): void {
+    this.bookFireServie.getBookData().pipe(
+      switchMap(fireData => {
+        return forkJoin(fireData.map(element => this.bookApiService.getBookByName(element.title))).pipe(
+          switchMap(bookData => {
+            return forkJoin(bookData.map(el => {
+              const book = el.items[0].volumeInfo
+              return this.bookApiService.getFilmByName(book.title)
+            })).pipe(map(filmData => {
+              return forkJoin(filmData.map(el => this.bookApiService.getCountryByCode(el.Country)))
+            }))
+
+          })
+        )
+
+      })
+    ).subscribe(val => console.log(val));
   }
 
 }
