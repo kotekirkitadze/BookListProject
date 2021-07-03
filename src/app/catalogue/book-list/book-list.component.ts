@@ -66,6 +66,9 @@ export class BookListComponent implements OnInit {
   // ხომ ვინდა რომ წინა ობზერვებლი დავარეზოლვოთ რაღაცეები - ამას
   // კი სვიჩმეპით ვაკეთებთ და გადავდივართ ახალ ობზერვებლზეც, თუ გვინდა.
 
+
+  //გასატიპიზიირებელია
+  //ასევე მეთვრამეტე ლექციის 1:25 წუთზე შეგიძლია აიდის დამატების მომენტი ნახო.
   fetch() {
     return this.bookFireServie.getBookData().pipe(
       switchMap(fireData => {

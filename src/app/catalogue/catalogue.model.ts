@@ -61,7 +61,9 @@ export interface Book {
   movie?: Omit<Movie, "countries">;
 }
 
-type a = Omit<Movie, 'countries'>;
+//ამის ალტერნატივა იყო ექსთენდის გაკეთება ბუუქზე
+//intersection type არის
+export type fireBookDataWithId = fireBookBody & { id: string };
 
 
 //ბექენდის მოდელი, ეიპიაი მაძლევს ამას.
@@ -116,6 +118,6 @@ export interface fireBookBody {
 
 
 export interface ListData {
-  fireData: fireBookBody;
+  fireData: fireBookDataWithId;
   bookData: Book
 }
