@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { fireBookBody } from '../../catalogue.model';
 
 @Component({
@@ -10,10 +11,15 @@ export class BookListItemComponent implements OnInit {
 
   @Input() data: any;
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+
+  goToDetails() {
+    this.router.navigate([`catalogue${this.data.fireData.id}`])
+  }
 
   ngOnInit(): void {
-    console.log(this.data);
+    console.log(this.data.fireData.id);
   }
 
 }

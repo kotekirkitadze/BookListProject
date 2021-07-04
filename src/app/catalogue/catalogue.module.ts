@@ -10,6 +10,7 @@ import { UserComponent } from './user/user.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BookListComponent, BookListItemComponent } from './book-list/index';
 import { FireApiService, BOOK_API, BookApiService } from './services/index';
+import { BookDetailsComponent } from './book-details/book-details.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FireApiService, BOOK_API, BookApiService } from './services/index';
     AddBookComponent,
     UserComponent,
     BookListComponent,
-    BookListItemComponent
+    BookListItemComponent,
+    BookDetailsComponent
   ],
   imports: [
     CommonModule,
