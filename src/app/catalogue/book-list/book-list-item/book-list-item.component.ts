@@ -15,7 +15,7 @@ export class BookListItemComponent implements OnInit {
 
 
   goToDetails() {
-    this.router.navigate([`catalogue${this.data.fireData.id}`])
+    this.router.navigate([`catalogue/${this.data.fireData.id}`])
   }
 
   ngOnInit(): void {
