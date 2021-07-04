@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { fireBookBody } from '../../catalogue.model';
 
@@ -10,9 +10,12 @@ import { fireBookBody } from '../../catalogue.model';
 export class BookListItemComponent implements OnInit {
 
   @Input() data: any;
-
+  @Output() deleteBtn = new EventEmitter();
   constructor(private router: Router) { }
 
+  delete() {
+    this.deleteBtn.emit("to delete book");
+  }
 
   goToDetails() {
     this.router.navigate([`catalogue/${this.data.fireData.id}`])

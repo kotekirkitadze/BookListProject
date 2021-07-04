@@ -21,12 +21,24 @@ export class FireApiService {
 
 
   //data თი შეგვიძლია მივწდეთ ველიუბს, ხოლოდ id - ით კი დოკუმენტის აიდებს.
-  getBookData(): Observable<fireBookDataWithId[]> {
+  getBooksData(): Observable<fireBookDataWithId[]> {
     return this.store.collection<fireBookBody>("bookCatalogue",
       ref => ref.where('uid', '==', this.auth.getUserUid()))
       .get()
       .pipe(
         map(result => result.docs.map<fireBookDataWithId>((d) => ({ id: d.id, ...d.data() })))
       )
+  }
+
+  getBookData(id: string): Observable<fireBookBody> {
+    //valueChange ხშირად აბრუნებსო, ეგრევე რეაგირებსო.
+    // return this.store.collection<fireBookBody>("bookCatalogue",
+    //   ref => ref.where('uid', '==', this.auth.getUserUid())).doc(id).valueChanges();
+
+
+    return this.store.collection<fireBookBody>("bookCatalogue",
+      ref => ref.where('uid', '==', this.auth.getUserUid())).doc(id)
+      .get().pipe(map(res => res.data()))
+
   }
 }

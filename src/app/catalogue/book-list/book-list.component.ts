@@ -70,7 +70,7 @@ export class BookListComponent implements OnInit {
   //გასატიპიზიირებელია
   //ასევე მეთვრამეტე ლექციის 1:25 წუთზე შეგიძლია აიდის დამატების მომენტი ნახო.
   fetch() {
-    return this.bookFireServie.getBookData().pipe(
+    return this.bookFireServie.getBooksData().pipe(
       switchMap(fireData => {
         return forkJoin(fireData.map(eachData => this.bookApiService.getBookByName(eachData.title).pipe(
           switchMap(eachBook => {
@@ -114,7 +114,9 @@ export class BookListComponent implements OnInit {
     )
   }
 
-
+  deleteBook() {
+    console.log("Book deleted")
+  }
 
 }
 
