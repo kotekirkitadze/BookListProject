@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, Observable, of, pipe } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { Book, BookApiResult, Country, CountryApiResult, MovieApiResult } from '../catalogue.model';
 import { BookApiService, FireApiService } from '../services';
@@ -11,6 +11,9 @@ import { BookApiService, FireApiService } from '../services';
   styleUrls: ['./book-details.component.scss']
 })
 export class BookDetailsComponent implements OnInit {
+
+  bookData$: Observable<Book>;
+
 
   constructor(private activatedRoute: ActivatedRoute,
     private fireApiService: FireApiService,
@@ -33,40 +36,82 @@ export class BookDetailsComponent implements OnInit {
       }
     }
   }
+  // .subscribe(x => console.log(x))
 
-  initBookDetail() {
+  initBookDetail(): Observable<Book> {
     const id = this.activatedRoute.snapshot.params['id'];
-    this.fireApiService.getBookData(id)
+    return this.fireApiService.getBookData(id)
       .pipe(switchMap(fireData => {
-        return forkJoin(this.bookApiService.getBookByName(fireData.title)
+        return this.bookApiService.getBookByName(fireData.title)
           .pipe(switchMap(bookData => {
             const book = bookData.items[0].volumeInfo;
-            return forkJoin(this.bookApiService.getFilmByName(book.title)
+            return this.bookApiService.getFilmByName(book.title)
               .pipe(switchMap(filmData => {
                 if (filmData.Response == "True") {
                   const countries = filmData.Country.split(", ");
                   return forkJoin(countries.map(c => this.bookApiService.getCountryByCode(c)
-                    .pipe(
-                      map<CountryApiResult, Country>(country => {
-                        return {
-                          code: country.alpha2Code,
-                          population: country.population
-                        }
-                      }),
-                      catchError(err => of(null)))))
-                    .pipe(map<Country[], Book>(countryData => {
-                      return this.mapBook(countryData, bookData, filmData)
-                    }))
-                } else {
+                    .pipe(map<CountryApiResult, Country>(countryData => {
+                      return {
+                        code: countryData.alpha2Code,
+                        population: countryData.population
+                      }
+                    }),
+                      catchError(err => of(null))))).pipe(
+                        map<Country[], Book>(cData => {
+                          return this.mapBook(cData, bookData, filmData)
+                        })
+                      )
+
+                }
+                else {
                   return of(this.mapBook(null, bookData, filmData))
                 }
-              })))
-          })))
+              }))
+          }))
       }))
   }
 
+
   ngOnInit(): void {
-    this.initBookDetail()
+    this.bookData$ = this.initBookDetail()
   }
 
 }
+
+
+
+
+// initBookDetail() {
+  //   const id = this.activatedRoute.snapshot.params['id'];
+  //   return this.fireApiService.getBookData(id)
+  //     .pipe(switchMap(fireData => {
+  //       return forkJoin(this.bookApiService.getBookByName(fireData.title)
+  //         .pipe(switchMap(bookData => {
+  //           const book = bookData.items[0].volumeInfo;
+  //           return forkJoin(this.bookApiService.getFilmByName(book.title)
+  //             .pipe(switchMap(filmData => {
+  //               if (filmData.Response == "True") {
+  //                 const countries = filmData.Country.split(", ");
+  //                 return forkJoin(countries.map(c => this.bookApiService.getCountryByCode(c)
+  //                   .pipe(
+  //                     map<CountryApiResult, Country>(country => {
+  //                       return {
+  //                         code: country.alpha2Code,
+  //                         population: country.population
+  //                       }
+  //                     }),
+  //                     catchError(err => of(null)))))
+  //                   .pipe(map<Country[], Book>(countryData => {
+  //                     return this.mapBook(countryData, bookData, filmData)
+  //                   }))
+  //               } else {
+  //                 return of(this.mapBook(null, bookData, filmData))
+  //               }
+  //             })))
+  //         })))
+  //     }))
+  // }
+
+
+
+

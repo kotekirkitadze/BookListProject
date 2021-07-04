@@ -1,1 +1,24 @@
-<p>book-details works!</p>
+<ng-container *ngIf="bookData$ | async as book">
+
+  <div class="book-container">
+    <h1>{{book.title}}</h1>
+    <img [src]="book.imageLinks"/>
+    <div><strong>Authors:</strong> {{book.authors}}</div>
+    <div><strong>Categories:</strong> {{book.categories}}</div>
+    <div class="description"><strong>Description:</strong> {{book.description}}</div>
+    <div><strong>Published Date:</strong> {{book.publishedDate}}</div>
+    <div><strong>Publisher:</strong> {{book.publisher}}</div>
+  </div>
+
+</ng-container>
+
+
+<!-- title: string;
+  authors: string;
+  categories?: string;
+  description: string;
+  publishedDate: string;
+  publisher: string;
+  imageLinks: string,
+  countries?: Country[];
+  movie?: Omit<Movie, "countries">; -->
