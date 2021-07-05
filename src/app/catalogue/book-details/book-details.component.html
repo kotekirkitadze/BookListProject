@@ -1,5 +1,4 @@
 <ng-container *ngIf="bookData$ | async as book">
-
   <div class="book-container">
     <h1>{{book.title}}</h1>
     <img [src]="book.imageLinks"/>
@@ -8,17 +7,25 @@
     <div class="description"><strong>Description:</strong> {{book.description}}</div>
     <div><strong>Published Date:</strong> {{book.publishedDate}}</div>
     <div><strong>Publisher:</strong> {{book.publisher}}</div>
+    <!-- <div><strong>Status: </strong> {{book.Status}}</div> -->
   </div>
-
 </ng-container>
 
+<!-- <h1>Fire Data</h1> -->
+<ng-container *ngIf="fireData$ | async as fireBook">
+  <div class="book-container">
+    <h1>{{fireBook.title}}</h1>
+    <div><strong>Rating:</strong> {{fireBook.rating}}</div>
+    <div><strong>Review:</strong> {{fireBook.review}}</div>
+    <div><strong>Status:</strong> {{fireBook.status}}</div>
+    <div>When to read:
+      <div *ngFor="let element of a">
+        <div *ngIf="fireBook.whenToRead == element.value">
+          <strong>When to read:</strong> {{element.label | translate}}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
 
-<!-- title: string;
-  authors: string;
-  categories?: string;
-  description: string;
-  publishedDate: string;
-  publisher: string;
-  imageLinks: string,
-  countries?: Country[];
-  movie?: Omit<Movie, "countries">; -->
+<button (click)="goBack()">Go Back</button>

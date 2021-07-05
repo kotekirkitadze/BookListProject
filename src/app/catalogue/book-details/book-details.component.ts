@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, of, pipe } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { Book, BookApiResult, Country, CountryApiResult, MovieApiResult } from '../catalogue.model';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Book, BookApiResult, Country, CountryApiResult, fireBookBody, MovieApiResult } from '../catalogue.model';
 import { BookApiService, FireApiService } from '../services';
+import { TIME_TO_READ, WhenToReadSelect } from '../catalogue.model'
 
 @Component({
   selector: 'app-book-details',
@@ -12,12 +13,15 @@ import { BookApiService, FireApiService } from '../services';
 })
 export class BookDetailsComponent implements OnInit {
 
-  bookData$: Observable<Book>;
+  a: WhenToReadSelect[] = TIME_TO_READ;
 
+  bookData$: Observable<Book>;
+  fireData$: Observable<fireBookBody>;
 
   constructor(private activatedRoute: ActivatedRoute,
     private fireApiService: FireApiService,
-    private bookApiService: BookApiService) { }
+    private bookApiService: BookApiService,
+    private router: Router) { }
 
   // /Country[], book: BookApiResult, movie: MovieApiResult): Book
   mapBook(countries: Country[], book: BookApiResult, movie: MovieApiResult): Book {
@@ -37,11 +41,13 @@ export class BookDetailsComponent implements OnInit {
     }
   }
   // .subscribe(x => console.log(x))
-
+  goBack() {
+    this.router.navigate(["catalogue"]);
+  }
   initBookDetail(): Observable<Book> {
     const id = this.activatedRoute.snapshot.params['id'];
     return this.fireApiService.getBookData(id)
-      .pipe(switchMap(fireData => {
+      .pipe(tap(fireValue => this.fireData$ = of(fireValue)), switchMap(fireData => {
         return this.bookApiService.getBookByName(fireData.title)
           .pipe(switchMap(bookData => {
             const book = bookData.items[0].volumeInfo;
@@ -68,7 +74,7 @@ export class BookDetailsComponent implements OnInit {
                 }
               }))
           }))
-      }))
+      })).pipe(tap(x => console.log(x)))
   }
 
 
