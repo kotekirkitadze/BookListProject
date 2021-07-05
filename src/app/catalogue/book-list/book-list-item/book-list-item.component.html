@@ -1,7 +1,16 @@
 <div class="item">
-  <img [src]="data?.ApiBook?.imageLinks?.smallThumbnail"/>
-  <h1>{{data?.fireData.title}}</h1>
-  <p>{{data?.filmData?.Actors}}</p>
-  <button (click)="goToDetails()">Details</button>
-  <button (click)="delete()">Delete</button>
+  <div>
+    <img class="img" [src]="data?.ApiBook?.imageLinks?.smallThumbnail"/>
+    <h1>{{data?.fireData.title}}</h1>
+    <p><strong>Author: </strong>{{data?.ApiBook?.authors}}</p>
+    <p><strong>publishe date: </strong>{{data?.ApiBook?.publishedDate}}</p>
+    <p>Film adaptation: <span *ngIf="data?.filmData?.Response">Yes</span>
+                        <span *ngIf="!data?.filmData?.Response">No</span></p>
+    <p>Rating given by you: {{data?.fireData?.rating}}</p>
+  </div>
+
+  <div class="btns-div">
+    <button (click)="goToDetails()" class="detailsBtn">Details</button>
+    <button (click)="delete()" class="deleteBtn">Delete</button>
+  </div>
 </div>

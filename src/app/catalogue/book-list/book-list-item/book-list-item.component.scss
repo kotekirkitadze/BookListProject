@@ -1,7 +1,12 @@
 .item {
+    height: 100%;
 
-    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+
 h1 {
   text-shadow: 0 5px 5px rgba(0,0,0,.5);
 }
@@ -9,4 +14,37 @@ h1 {
 img {
   width: 100%;
   height: auto;
+}
+
+.btns-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.btns-div button {
+
+  border-radius: 5px;
+  width: 80px;
+  height: 30px;
+  cursor: pointer;
+  border-style: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.5s ease;
+}
+
+.deleteBtn{
+  background-color: red;
+  color: white;
+}
+
+.detailsBtn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.img {
+  height: 70%;
 }

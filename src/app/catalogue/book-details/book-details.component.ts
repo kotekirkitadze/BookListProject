@@ -23,6 +23,8 @@ export class BookDetailsComponent implements OnInit {
     private bookApiService: BookApiService,
     private router: Router) { }
 
+
+  id = this.activatedRoute.snapshot.params['id'];
   // /Country[], book: BookApiResult, movie: MovieApiResult): Book
   mapBook(countries: Country[], book: BookApiResult, movie: MovieApiResult): Book {
     return {
@@ -45,8 +47,8 @@ export class BookDetailsComponent implements OnInit {
     this.router.navigate(["catalogue"]);
   }
   initBookDetail(): Observable<Book> {
-    const id = this.activatedRoute.snapshot.params['id'];
-    return this.fireApiService.getBookData(id)
+
+    return this.fireApiService.getBookData(this.id)
       .pipe(tap(fireValue => this.fireData$ = of(fireValue)), switchMap(fireData => {
         return this.bookApiService.getBookByName(fireData.title)
           .pipe(switchMap(bookData => {
