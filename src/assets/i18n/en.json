@@ -45,7 +45,7 @@
        "TITLE": "Admin Page",
        "PAGE_INFO": "You can manage your profile here",
        "FULL_NAME": "Full Name:",
-       "EMAIL": "User's Email:",
+       "EMAIL": "Email:",
        "PASSWORD": "Password:",
        "NEW_NAME": "Enter new name",
        "NEW_EMAIL": "Enter new email",

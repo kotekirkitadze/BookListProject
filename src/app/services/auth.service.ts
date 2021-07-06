@@ -83,7 +83,7 @@ export class AuthService {
 
   }
   updateEmail(newEmail: string) {
-    return from(this.auth.currentUser).pipe(tap(user => user.updateEmail(newEmail)))
+    return from(this.auth.currentUser).pipe(tap(user => user.updateEmail(newEmail)));
   }
 }
 

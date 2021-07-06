@@ -20,7 +20,7 @@
 
     <li>
       <div class="form-small-container">
-        <div>{{"catalogue.UserPage.FULL_NAME" | translate}} <span *ngIf="!editEmail">{{userEmail}}</span></div>
+        <div>{{"catalogue.UserPage.EMAIL" | translate}} <span *ngIf="!editEmail">{{userEmail}}</span></div>
         <input type=text
                *ngIf="editEmail"
                [(ngModel)]="userEmail"
