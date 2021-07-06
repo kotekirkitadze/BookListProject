@@ -9,7 +9,7 @@ import { SharedModule } from '../shared-module/shared-module.module';
 import { UserComponent } from './user/user.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BookListComponent, BookListItemComponent } from './book-list/index';
-import { FireApiService, BOOK_API, BookApiService } from './services/index';
+import { FireCollectionApiService, BOOK_API, BookApiService } from './services/index';
 import { BookDetailsComponent } from './book-details/book-details.component';
 
 
@@ -31,7 +31,7 @@ import { BookDetailsComponent } from './book-details/book-details.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [BookApiService, FireApiService, {
+  providers: [BookApiService, FireCollectionApiService, {
     provide: BOOK_API,
     useValue: environment.bookApi
   }]

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
-import { SaveDataService } from 'src/app/services/save-data.service';
+import { SaveDataService } from 'src/app/services/userinfo_fire.service';
+import { BackEndErrorService } from '../backEndErrors/backEndErroro.service';
 
 export interface SignUpFormUser {
   fullName: string
@@ -23,13 +23,13 @@ export class SignUpComponent implements OnInit {
 
   constructor(private auth: AuthService, private route: Router,
     private loadingService: LoadingService,
-    private saveData: SaveDataService) { }
+    private saveData: SaveDataService,
+    private backErrorService: BackEndErrorService) { }
 
   ngOnInit(): void {
   }
 
   signUp(signUpForm: NgForm) {
-
     if (signUpForm.invalid) {
       return;
     }
@@ -40,20 +40,17 @@ export class SignUpComponent implements OnInit {
       return;
     }
     this.loadingService.start();
-    // this.auth.signUpUser({ email, password }).
-    //   then(() => {
-    //     this.loadingService.stop();
-    //     this.route.navigate(['catalogue'])
-    //   });
-    //radganac network call aris, unsubscribe aghar unda
     this.auth.signUpUser({ email, password, fullName }).
       pipe(finalize(() => {
         this.loadingService.stop(),
-          this.saveData.registerData(this.auth.getUserUid(), fullName)
+          this.saveData.registerData(this.auth.getCurrentUser().uid, fullName)
       })).
-      subscribe(() => this.route.navigate(['catalogue']))
+      subscribe(
+        () => this.route.navigate(['catalogue']),
+        (error) => this.backErrorService.setBackEndError(error))
   }
 
-
-
+  get backError(): string {
+    return this.backErrorService.getError;
+  }
 }

@@ -39,13 +39,6 @@ export class ResetPasswComponent implements OnInit {
     return this.backErrorService.getError;
   }
 
-  backError: string;
-  backEndError(error: BakcEndError) {
-    if (error.code == "auth/user-not-found") {
-      this.backError = "notUser"
-    } else {
-      return null
-    }
-  }
+
 
 }

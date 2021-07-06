@@ -26,11 +26,11 @@ import {
   fireBookBody
 } from '../catalogue.model';
 import { forkJoin, of, Subject } from 'rxjs';
-import { SaveDataService } from 'src/app/services/save-data.service';
+import { SaveDataService } from 'src/app/services/userinfo_fire.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
-import { FireApiService } from '../services';
+import { FireCollectionApiService } from '../services';
 
 
 @Component({
@@ -76,7 +76,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
       review: formValue.review,
       status: formValue.status,
       whenToRead: formValue.whenToRead ? formValue.whenToRead : null,
-      uid: this.currentUser.getUserUid()
+      uid: this.currentUser.getCurrentUser().uid
     }
 
     //loading da addeed ragahc is axali dasamatebelia
@@ -198,7 +198,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
   constructor(private loadingService: LoadingService,
     private apiService: BookApiService,
     private storage: StorageService,
-    private store: FireApiService,
+    private store: FireCollectionApiService,
     private currentUser: AuthService,
     private toastr: ToastrService,
     private translateService: TranslateService) { }

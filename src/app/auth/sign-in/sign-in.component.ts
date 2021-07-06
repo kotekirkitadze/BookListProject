@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { from, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
-import { SaveDataService } from 'src/app/services/save-data.service';
+import { SaveDataService } from 'src/app/services/userinfo_fire.service';
 import { BackEndErrorService } from '../backEndErrors/backEndErroro.service';
 
 export interface SignInFormUser {
@@ -44,16 +44,6 @@ export class SignInComponent implements OnInit {
     }
 
     this.loadingService.start();
-    // this.auth.signInUser({ email, password }).
-    //   then(() => {
-    //     this.loadingService.stop();
-    //     this.route.navigate(['catalogue']);
-
-    //   });
-
-
-    //this.saveData.update("kirkitadze");
-    //radganac network call aris, unsubscribe aghar unda
     this.auth.signInUser({ email, password }).
       pipe(finalize(() => this.loadingService.stop()))
       .subscribe(

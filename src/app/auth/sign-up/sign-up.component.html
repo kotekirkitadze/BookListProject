@@ -65,6 +65,13 @@
               {{ "errors.MUST_MATCH_PASSWORD" | translate}}
        </div>
     </ng-container>
+    <ng-container *ngIf="signUpFromData.submitted"
+                  class="mustMatch-div">
+       <div *ngIf="backError=='emailInUse'"
+            class="alert mustMatch">
+              {{ "auth.EMAIL_IN_USE" | translate}}
+       </div>
+    </ng-container>
 </form>
 
 

@@ -1,18 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoadingService } from 'src/app/services/loading.service';
-import { SaveDataService } from 'src/app/services/save-data.service';
+import { SaveDataService } from 'src/app/services/userinfo_fire.service';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
-interface User {
-  name?: string;
-  uid?: string;
-  password?: string
-}
 
 @Component({
   selector: 'app-user',
@@ -28,15 +22,15 @@ export class UserComponent implements OnInit {
   editPassword: boolean = false;
 
   constructor(private http: HttpClient,
-    private currentUser: AuthService,
-    private navRouting: Router,
-    private loadingService: LoadingService,
-    private fireStoreService: SaveDataService) { }
+    private auth: AuthService,
+    private fireStoreService: SaveDataService,
+    private toastr: ToastrService,
+    private translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.fireStoreService.getItem().subscribe((user) => {
       this.userName = user?.name;
-      this.userEmail = this.currentUser.getCurrentUser()?.email;
+      this.userEmail = this.auth.getCurrentUser()?.email;
     })
   }
 
@@ -46,7 +40,9 @@ export class UserComponent implements OnInit {
   newEmail: string;
   userPassword: string;
   deleteUser() {
-    this.fireStoreService.deleteUser(this.currentUser);
+
+    //unsubscribe
+    this.auth.deleteUser().subscribe();
   }
 
   edit(validator: string) {
@@ -61,21 +57,26 @@ export class UserComponent implements OnInit {
 
   updateUserName() {
     this.fireStoreService.updateUser({
-      uid: this.currentUser.getCurrentUser().uid,
+      uid: this.auth.getCurrentUser().uid,
       name: this.userName
     });
     this.editName = false;
+    this.translateService.get("catalogue.UserPage.FULL_NAME_CHANGED").subscribe((value) => this.toastr.success(value))
 
   }
 
 
   updatePassword() {
-    this.fireStoreService.updatePassword(this.userPassword);
-    this.editPassword = false;
+    this.auth.updatePassword(this.userPassword).subscribe(
+      () => this.editPassword = false);
+    this.translateService.get("catalogue.UserPage.PASSWORD_CHANGED").subscribe((value) => this.toastr.success(value))
   }
 
   updateEmail() {
-    this.fireStoreService.updateEmail(this.userEmail);
-    this.editEmail = false;
+    this.auth.updateEmail(this.userEmail).subscribe(() => {
+      this.editEmail = false;
+    })
+
+    this.translateService.get("catalogue.UserPage.EMAIL_CHANGED").subscribe((value) => this.toastr.success(value))
   }
 }

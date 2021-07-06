@@ -1,2 +1,2 @@
 export * from "./book-api.services";
-export * from "./fire-api.service";
+export * from "./fireCollection-api.service";

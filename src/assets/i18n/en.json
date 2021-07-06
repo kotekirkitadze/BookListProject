@@ -13,7 +13,8 @@
      "RESET_PASSWORD_TITLE": "RESET PASSWORD",
      "RESET_BUTTON" : "Send email",
      "USER_NOT_FOUND": "User does not exist",
-     "USER_PASSW_ERROR": "Password is not correct"
+     "USER_PASSW_ERROR": "Password is not correct",
+     "EMAIL_IN_USE": "This email is used"
    },
    "SIGN_IN_HEADER": "Sign In",
    "SIGN_UP_HEADER": "Sign Up",
@@ -49,7 +50,10 @@
        "NEW_NAME": "Enter new name",
        "NEW_EMAIL": "Enter new email",
        "NEW_PASSW": "Enter new password",
-       "DELETE_USER_BTN": "Delete User"
+       "DELETE_USER_BTN": "Delete User",
+       "FULL_NAME_CHANGED": "Full name has been chaned successfully",
+       "EMAIL_CHANGED": "Email changed successfully",
+       "PASSWORD_CHANGED": "Password has been changed successfully"
      }
    },
    "errors": {

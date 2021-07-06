@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,7 +7,7 @@ import { fireBookBody, fireBookDataWithId } from '../catalogue.model';
 
 
 @Injectable()
-export class FireApiService {
+export class FireCollectionApiService {
 
   constructor(private store: AngularFirestore,
     private auth: AuthService) { }
@@ -23,7 +22,7 @@ export class FireApiService {
   //data თი შეგვიძლია მივწდეთ ველიუბს, ხოლოდ id - ით კი დოკუმენტის აიდებს.
   getBooksData(): Observable<fireBookDataWithId[]> {
     return this.store.collection<fireBookBody>("bookCatalogue",
-      ref => ref.where('uid', '==', this.auth.getUserUid()))
+      ref => ref.where('uid', '==', this.auth.getCurrentUser().uid))
       .get()
       .pipe(
         map(result => result.docs.map<fireBookDataWithId>((d) => ({ id: d.id, ...d.data() })))
@@ -31,13 +30,8 @@ export class FireApiService {
   }
 
   getBookData(id: string): Observable<fireBookBody> {
-    //valueChange ხშირად აბრუნებსო, ეგრევე რეაგირებსო.
-    // return this.store.collection<fireBookBody>("bookCatalogue",
-    //   ref => ref.where('uid', '==', this.auth.getUserUid())).doc(id).valueChanges();
-
-
     return this.store.collection<fireBookBody>("bookCatalogue",
-      ref => ref.where('uid', '==', this.auth.getUserUid())).doc(id)
+      ref => ref.where('uid', '==', this.auth.getCurrentUser().email)).doc(id)
       .get().pipe(map(res => res.data()))
 
   }

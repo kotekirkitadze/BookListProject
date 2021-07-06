@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, of, pipe } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Book, BookApiResult, Country, CountryApiResult, fireBookBody, MovieApiResult } from '../catalogue.model';
-import { BookApiService, FireApiService } from '../services';
+import { BookApiService, FireCollectionApiService } from '../services';
 import { TIME_TO_READ, WhenToReadSelect } from '../catalogue.model'
 
 @Component({
@@ -19,7 +19,7 @@ export class BookDetailsComponent implements OnInit {
   fireData$: Observable<fireBookBody>;
 
   constructor(private activatedRoute: ActivatedRoute,
-    private fireApiService: FireApiService,
+    private fireApiService: FireCollectionApiService,
     private bookApiService: BookApiService,
     private router: Router) { }
 

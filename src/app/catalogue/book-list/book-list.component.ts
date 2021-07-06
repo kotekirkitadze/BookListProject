@@ -1,8 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { EMPTY, forkJoin, Observable, of } from 'rxjs';
-import { catchError, finalize, map, switchMap } from 'rxjs/operators';
-import { Book, BookApiResult, Country, CountryApiResult, fireBookBody, MovieApiResult } from '../catalogue.model';
-import { BookApiService, FireApiService } from '../services';
+import { Component, OnInit } from '@angular/core';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { BookApiService, FireCollectionApiService } from '../services';
 
 @Component({
   selector: 'app-book-list',
@@ -11,7 +10,7 @@ import { BookApiService, FireApiService } from '../services';
 })
 export class BookListComponent implements OnInit {
 
-  constructor(private bookFireServie: FireApiService,
+  constructor(private bookFireServie: FireCollectionApiService,
     private bookApiService: BookApiService) { }
 
   //ახლა ასნიკ პაიპით გადავყევით, მაგრამ ამის ალტერნატივა იქნებოდა

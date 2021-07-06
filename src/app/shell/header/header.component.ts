@@ -8,7 +8,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
 import { from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { SaveDataService } from 'src/app/services/save-data.service';
+import { SaveDataService } from 'src/app/services/userinfo_fire.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

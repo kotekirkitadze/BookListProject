@@ -16,11 +16,13 @@ export class BackEndErrorService {
       this.backError = "notUser"
     } else if (error.code == "auth/wrong-password") {
       this.backError = "notPassw"
+    } else if (error.code == "auth/email-already-in-use") {
+      this.backError = "emailInUse"
     } else {
       return null
     }
   }
-
+  // auth/email-already-in-use"
   backError: string = null;
 
   get getError(): string {
