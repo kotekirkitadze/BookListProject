@@ -11,7 +11,9 @@
      "FORGET_PASSWORD_BUTTON": "დაგავიწყდათ პაროლი?",
      "REPEAT_PASSWORD": "გაიმეორეთ პაროლი",
      "RESET_PASSWORD_TITLE": "პაროლის განახლება",
-     "RESET_BUTTON" : "იმეილის გაგზავნა"
+     "RESET_BUTTON" : "იმეილის გაგზავნა",
+     "USER_NOT_FOUND": "მომხმარებელი არ არსებობს",
+     "USER_PASSW_ERROR": "პაროლი არასწორია"
    },
    "SIGN_IN_HEADER": "შესვლა",
    "SIGN_UP_HEADER": "რეგისტრაცია",

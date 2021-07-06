@@ -46,7 +46,7 @@ export class SignUpComponent implements OnInit {
     //     this.route.navigate(['catalogue'])
     //   });
     //radganac network call aris, unsubscribe aghar unda
-    from(this.auth.signUpUser({ email, password, fullName })).
+    this.auth.signUpUser({ email, password, fullName }).
       pipe(finalize(() => {
         this.loadingService.stop(),
           this.saveData.registerData(this.auth.getUserUid(), fullName)

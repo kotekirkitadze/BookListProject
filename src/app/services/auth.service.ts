@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { from, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { SignInFormUser, SignUpFormUser, ResetFormUser } from '../auth/index';
 
 interface User {
@@ -49,20 +51,22 @@ export class AuthService {
 
 
   signInUser({ email, password }: SignInFormUser) {
-    return this.auth.signInWithEmailAndPassword(email, password);
+    return from(this.auth.signInWithEmailAndPassword(email, password));
 
   }
 
   signUpUser({ email, password }: SignUpFormUser) {
-    return this.auth.createUserWithEmailAndPassword(email, password);
+    return from(this.auth.createUserWithEmailAndPassword(email, password))
+      .pipe(catchError(err => of(null)));
   }
 
   signOutUser() {
-    return this.auth.signOut();
+    return from(this.auth.signOut())
+      .pipe(catchError(err => of(null)));
   }
 
   resetUserPassword({ email }: ResetFormUser) {
-    return this.auth.sendPasswordResetEmail(email);
+    return from(this.auth.sendPasswordResetEmail(email));
   }
 }
 

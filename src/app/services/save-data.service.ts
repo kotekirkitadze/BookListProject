@@ -72,7 +72,7 @@ export class SaveDataService {
     this.http.post(url, user).subscribe(() => {
 
       this.deleteUserData(currentUser.getCurrentUser());
-      currentUser.signOutUser().then(() => {
+      currentUser.signOutUser().subscribe(() => {
         this.navRouting.navigate(["sign-in"]);
         this.loadingService.stop();
       })

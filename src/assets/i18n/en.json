@@ -11,7 +11,9 @@
      "REPEAT_PASSWORD": "Repeat Password",
      "FORGET_PASSWORD_BUTTON": "Forget password?",
      "RESET_PASSWORD_TITLE": "RESET PASSWORD",
-     "RESET_BUTTON" : "Send email"
+     "RESET_BUTTON" : "Send email",
+     "USER_NOT_FOUND": "User does not exist",
+     "USER_PASSW_ERROR": "Password is not correct"
    },
    "SIGN_IN_HEADER": "Sign In",
    "SIGN_UP_HEADER": "Sign Up",
