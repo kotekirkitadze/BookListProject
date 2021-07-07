@@ -291,6 +291,10 @@ body {
  .countries p{
    margin-right: 15px;
  }
+
+ .image {
+   width: 14%;
+ }
  .result {
    display: flex;
    flex-direction: column;
@@ -305,6 +309,10 @@ body {
  }
 
 
+ .timeToReadError{
+  width: 370px;
+  margin-left: 20px;
+ }
  @keyframes alertAnim {
   from{
     opacity: 0;

@@ -28,13 +28,15 @@
 <form class="contact-box" [formGroup]="form" *ngIf="getSelectedBook">
   <div>
       <div *ngIf="getSelectedBook" class="book-result">
-        <img [src]="getSelectedBook.imageLinks" alt="book pic" />
+        <img [src]="getSelectedBook.imageLinks"
+             alt="book pic"
+             class="image" />
         <div class="book-result-div">
           <div><h2>{{getSelectedBook.title}}</h2></div>
           <p> <strong>{{"book.AUTHOR" | translate}} </strong> {{getSelectedBook.authors}}</p>
           <p> <strong>{{"book.PUBLISHER" | translate}} </strong> {{getSelectedBook.publisher}}</p>
           <p><strong>{{"book.PUBLISH_DATE" | translate}} </strong> {{getSelectedBook.publishedDate}}</p>
-          <p><strong>{{"book.FILM_ADAPTATION" | translate}} </strong>
+          <p><strong>{{"book.BOOK_ADAPTATION" | translate}} </strong>
                       <span *ngIf="getSelectedBook.movie?.response" class="check">
                         <fa-icon [icon]="check"></fa-icon>
                       </span>
@@ -44,7 +46,7 @@
 
           <div class="countries"  *ngIf="getSelectedBook.movie.response">
 
-            <p><strong>{{"book.COUNTRIES" | translate}}</strong></p>
+            <p *ngIf="getSelectedBook.countries"><strong>{{"book.COUNTRIES" | translate}}</strong></p>
             <span *ngFor="let element of getSelectedBook.countries">
               <!-- //ამას დააკვირდი მერე, სავარაუდოდ მაინც აღარ დაიბეჭდებოდა ენჯიიფის გარეშე  -->
               <ng-container *ngIf="element">
@@ -113,7 +115,7 @@
   </div>
   <div *ngIf="form.invalid && submitted" class="timeToRead-div">
     <div *ngIf="form.controls.whenToRead?.errors"
-          class="alert">
+          class="alert timeToReadError">
           {{"errors.TIME_TO_READ" | translate}}
     </div>
   </div>

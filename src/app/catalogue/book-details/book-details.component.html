@@ -19,7 +19,7 @@
     <div><strong>Review:</strong> {{fireBook.review}}</div>
     <div><strong>Status:</strong> {{fireBook.status}}</div>
     <div>When to read:
-      <div *ngFor="let element of a">
+      <div *ngFor="let element of whenToRead">
         <div *ngIf="fireBook.whenToRead == element.value">
           <strong>When to read:</strong> {{element.label | translate}}
         </div>

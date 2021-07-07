@@ -13,7 +13,10 @@ import { TIME_TO_READ, WhenToReadSelect } from '../catalogue.model'
 })
 export class BookDetailsComponent implements OnInit {
 
-  a: WhenToReadSelect[] = TIME_TO_READ;
+  get whenToRead(): WhenToReadSelect[] {
+    return TIME_TO_READ;
+  }
+
 
   bookData$: Observable<Book>;
   fireData$: Observable<fireBookBody>;

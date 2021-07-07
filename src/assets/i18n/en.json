@@ -26,6 +26,8 @@
      "PARAGRAPH": "You can add your favorite book here",
      "SEARCH": "Search Book",
      "TOASTR_BOOK_ADDED": "Book has been added",
+     "WHEN_TO_READ": "When to read:",
+     "DELETE_BOOK": "Book has been deleted",
      "searchPage": {
        "TITLE": "You can Search Book here",
        "INPUT": "Serch Book",
@@ -75,7 +77,8 @@
     "AUTHOR": "Author:",
     "PUBLISHER": "Publisher:",
     "PUBLISH_DATE": "Publish date:",
-    "FILM_ADAPTATION": "Film adaptation:",
-    "COUNTRIES": "Film's countries:"
+    "BOOK_ADAPTATION": "Film adaptation:",
+    "COUNTRIES": "Film's countries:",
+    "MINE_RATING": "Rating given by you:"
   }
 }

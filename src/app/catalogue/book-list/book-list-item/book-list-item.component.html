@@ -1,14 +1,23 @@
 <div class="item">
   <div>
     <img class="img" [src]="data?.ApiBook?.imageLinks?.smallThumbnail"/>
-    <h1>{{data?.fireData.title}}</h1>
-    <p><strong>Author: </strong>{{data?.ApiBook?.authors}}</p>
-    <p><strong>publishe date: </strong>{{data?.ApiBook?.publishedDate}}</p>
-    <p>Film adaptation: <span *ngIf="data?.filmData?.Response">Yes</span>
-                        <span *ngIf="!data?.filmData?.Response">No</span></p>
-    <p>Rating given by you: {{data?.fireData?.rating}}</p>
+      <div class="infoDiv">
+        <h2>{{data?.fireData.title}}</h2>
+       <div class="anotherInfoDiv">
+        <p><strong>{{"book.AUTHOR" | translate}} </strong>{{data?.ApiBook?.authors}}</p>
+        <p><strong>{{"book.PUBLISH_DATE" | translate}} </strong>{{data?.ApiBook?.publishedDate}}</p>
+        <p><strong>{{"book.BOOK_ADAPTATION" | translate}}</strong>
+        <span *ngIf="data?.filmData?.Response">Yes</span>
+        <span *ngIf="!data?.filmData?.Response">No</span></p>
+        <div *ngFor="let element of whenToRead" class="whentoRead">
+          <div *ngIf="data.fireData.whenToRead == element.value">
+              <strong>{{"catalogue.WHEN_TO_READ" | translate}}</strong> {{element.label | translate}}
+          </div>
+        </div>
+        <p><strong>{{"book.MINE_RATING" | translate}}</strong> {{data?.fireData?.rating}}</p>
+       </div>
+      </div>
   </div>
-
   <div class="btns-div">
     <button (click)="goToDetails()" class="detailsBtn">Details</button>
     <button (click)="delete()" class="deleteBtn">Delete</button>

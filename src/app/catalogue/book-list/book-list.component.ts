@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { BookApiService, FireCollectionApiService } from '../services';
@@ -11,7 +14,10 @@ import { BookApiService, FireCollectionApiService } from '../services';
 export class BookListComponent implements OnInit {
 
   constructor(private bookFireServie: FireCollectionApiService,
-    private bookApiService: BookApiService) { }
+    private bookApiService: BookApiService,
+    private afs: AngularFirestore,
+    private translateService: TranslateService,
+    private toastr: ToastrService) { }
 
   //ახლა ასნიკ პაიპით გადავყევით, მაგრამ ამის ალტერნატივა იქნებოდა
   // აქ ფირებუქის ტიპის ერეის ცვლადი შეგვექმნა და ენჯიონინიტში
@@ -32,26 +38,6 @@ export class BookListComponent implements OnInit {
   // მაშინ ჯობია ასინკები გამოვიყენოთ.
   //პ.ს. async as რაღაც - მთლიანად კოლექციაზე მიუთითებს - საბსქრაიბში შემოსულ ველიუზე.
   books$: Observable<any> = null; //this.bookFireServie.getBookData();
-
-  // switchMap(fireData => {
-  //   return forkJoin(fireData.map(el => this.bookApiService.getFilmByName(el.title).pipe(
-  //    switchMap(film =>{
-  //      return this.bookApiService.getCountryByCode(film.Country).pipe(
-  //        map(val => {
-  //          return {
-  //            country: {
-  //              code: val.alpha2Code,
-  //              population: val.population
-  //            },
-  //            film,
-  //            el
-  //          }
-  //        }), catchError(err => of(el))
-  //      )
-  //    })
-
-  //   )))
-  // })
 
 
 
@@ -113,206 +99,16 @@ export class BookListComponent implements OnInit {
     )
   }
 
-  deleteBook() {
-    console.log("Book deleted")
+  // deleteBook(id: string) {
+  //   this.bookFireServie.deleteBook(id).subscribe(() => console.log("book has been deleted"))
+  // }
+
+  deleteBook(id: string) {
+    this.bookFireServie.deleteBook(id).subscribe(() => {
+      this.books$ = this.fetch()
+      this.translateService.get("catalogue.DELETE_BOOK").subscribe(value => this.toastr.success(value))
+    });
   }
 
 }
 
-
-// return forkJoin(filmData.map(el => this.bookApiService.getCountryByCode(el.Country))).pipe(
-//   map(value => value.map(country => {
-//     return {
-//       code: country.alpha2Code,
-//       population: country.population
-//     }
-//   }))
-// )
-
-
-
-
-// this.bookFireServie.getBookData().pipe(
-//   switchMap(fireData => {
-//     return forkJoin(fireData.map(element => this.bookApiService.getBookByName(element.title))).pipe(
-//       switchMap(bookData => {
-//         return forkJoin(bookData.map(el => {
-//           const book = el.items[0].volumeInfo
-//           return this.bookApiService.getFilmByName(book.title)
-//         })).pipe(
-//           switchMap(filmData => filmData.map(el => {
-//             if(el.Response == "True"){
-//               return this.bookApiService.getCountryByCode(el.Country).pipe(
-//                 map(el => {
-//                   return {
-//                     ...el,
-//                     code: el.alpha2Code,
-//                     population: el.population
-//                   }
-//                 })
-//               )
-//             } else {
-//               return of(null)
-//             }
-//           })),
-//           map(el => el.pipe(map(el => {
-//             return {
-//               bookData,
-//               el,
-//             }
-//           })))
-//         )
-
-//       })
-//     )
-
-//   })
-// ).subscribe(val => val.subscribe(val => console.log(val)));
-
-
-
-
-
-
-
-
-
-
-
-
-
-//ერთ-ერთი ამოხსნა:
-
-// ngOnInit(): void {
-//   this.bookFireServie.getBookData().pipe(
-//     map(fireData => {
-//       return fireData.map(el=> this.getBooksFromApi(el.title).pipe(
-//         map(val => {
-//           return {
-//             ...val,
-//             fireData: el
-//           }
-//         })
-//       ))
-
-//     })
-//   ).subscribe(el=> el.forEach(el=> el.subscribe(el=> console.log(el))))
-// }
-
-
-
-
-
-// getBooksFromApi(name: string) {
-// return this.bookApiService.getBookByName(name).pipe(
-//   finalize(() => {
-//   }),
-//   //map(bookData => bookData?.items[0].volumeInfo),
-//   switchMap((bookData) => {
-//     const bookInfo = bookData?.items[0]?.volumeInfo
-//     const title = bookInfo.title;
-//     return this.bookApiService.getFilmByName(title).pipe(
-//       switchMap((filmData) => this.mapToMovie(filmData, bookData))
-//     )
-//   }),
-//   catchError(err => {
-//     return of(null)
-//   }),
-// )
-// }
-
-
-
-
-// mapToMovie(filmData: MovieApiResult, bookData: BookApiResult) {
-// if (filmData.Response == "True") {
-//   const countries = filmData.Country.split(', ');
-//   return forkJoin(countries.map((countryCode) => this.bookApiService.getCountryByCode(countryCode))).pipe(
-//     map<CountryApiResult[], Country[]>((element) => {
-//       return element.map(el => {
-//         return {
-//           code: el.alpha2Code,
-//           population: el.population,
-//         }
-//       })
-//     }),
-//     catchError((err) => of(null)),
-//     map<Country[], Book>(countryData => {
-//       return this.mapBook(countryData, bookData, filmData);
-//     })
-//   )
-// } else {
-//   return of(this.mapBook(null, bookData, null));
-// }
-// }
-
-
-
-// mapBook(countries: Country[], book: BookApiResult, movie: MovieApiResult): Book {
-// return {
-//   title: book?.items[0].volumeInfo?.title,
-//   authors: book?.items[0].volumeInfo?.authors[0],
-//   categories: book?.items[0].volumeInfo?.categories[0],
-//   description: book?.items[0].volumeInfo?.description,
-//   publishedDate: book?.items[0].volumeInfo?.publishedDate,
-//   publisher: book?.items[0].volumeInfo?.publisher,
-//   imageLinks: book?.items[0].volumeInfo?.imageLinks?.smallThumbnail,
-//   countries: countries?.map(el => el),
-//   movie: {
-//     released: movie?.Released,
-//     response: movie?.Response
-//   }
-// }
-// }
-
-
-
-
-
-
-// best so far:
-
-
-// this.bookFireServie.getBookData().pipe(
-//   switchMap(fireData => {
-//     return forkJoin(fireData.map(el => this.bookApiService.getFilmByName(el.title).pipe(
-//       map(eachFilm => {
-//         return {
-//           fireData: el,
-//           filmData: eachFilm
-//         }
-//       })
-//     )))
-//   })
-
-// ).subscribe(el => console.log(el))
-
-// }
-
-
-
-
-
-// //kidev ufro kargi
-// this.bookFireServie.getBookData().pipe(
-//   switchMap(fireData => {
-//     return forkJoin(fireData.map(el => this.bookApiService.getFilmByName(el.title).pipe(
-//      switchMap(film =>{
-//        return this.bookApiService.getCountryByCode(film.Country).pipe(
-//          map(val => {
-//            return {
-//              country: {
-//                code: val.alpha2Code,
-//                population: val.population
-//              },
-//              film,
-//              el
-//            }
-//          }), catchError(err => of(el))
-//        )
-//      })
-
-//     )))
-//   })
-
-// ).subscribe(el => console.log(el))

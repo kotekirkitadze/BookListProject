@@ -8,6 +8,7 @@ import { fireBookBody, fireBookDataWithId } from '../catalogue.model';
 
 @Injectable()
 export class FireCollectionApiService {
+  items: Observable<fireBookBody>;
 
   constructor(private store: AngularFirestore,
     private auth: AuthService) { }
@@ -18,6 +19,9 @@ export class FireCollectionApiService {
     return from(this.store.collection("bookCatalogue").add(body));
   }
 
+  deleteBook(id: string) {
+    return from(this.store.doc<fireBookBody>(`bookCatalogue/${id}`).delete());
+  }
 
   //data თი შეგვიძლია მივწდეთ ველიუბს, ხოლოდ id - ით კი დოკუმენტის აიდებს.
   getBooksData(): Observable<fireBookDataWithId[]> {
