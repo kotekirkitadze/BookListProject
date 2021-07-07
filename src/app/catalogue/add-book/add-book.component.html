@@ -20,13 +20,46 @@
 </div>
 
 
-<div>
-  <div>
+<div class="result">
 
-  </div>>
+
   <div>
 
 <form class="contact-box" [formGroup]="form" *ngIf="getSelectedBook">
+  <div>
+      <div *ngIf="getSelectedBook" class="book-result">
+        <img [src]="getSelectedBook.imageLinks" alt="book pic" />
+        <div class="book-result-div">
+          <div><h2>{{getSelectedBook.title}}</h2></div>
+          <p> <strong>{{"book.AUTHOR" | translate}} </strong> {{getSelectedBook.authors}}</p>
+          <p> <strong>{{"book.PUBLISHER" | translate}} </strong> {{getSelectedBook.publisher}}</p>
+          <p><strong>{{"book.PUBLISH_DATE" | translate}} </strong> {{getSelectedBook.publishedDate}}</p>
+          <p><strong>{{"book.FILM_ADAPTATION" | translate}} </strong>
+                      <span *ngIf="getSelectedBook.movie?.response" class="check">
+                        <fa-icon [icon]="check"></fa-icon>
+                      </span>
+                      <span *ngIf="!getSelectedBook.movie?.response" class="ban">
+                        <fa-icon [icon]="ban"></fa-icon>
+                      </span> </p>
+
+          <div class="countries"  *ngIf="getSelectedBook.movie.response">
+
+            <p><strong>{{"book.COUNTRIES" | translate}}</strong></p>
+            <span *ngFor="let element of getSelectedBook.countries">
+              <!-- //ამას დააკვირდი მერე, სავარაუდოდ მაინც აღარ დაიბეჭდებოდა ენჯიიფის გარეშე  -->
+              <ng-container *ngIf="element">
+                  <img [src]="getCountryFlag(element)"
+                  [title]="getCountryPopulation(element)"/>
+               </ng-container>
+            </span>
+          </div>
+
+        </div>
+      </div>
+  </div>
+
+  <div>
+
   <div class="form-conatiner">
     <label>{{"catalogue.searchPage.REVIEW" | translate}}</label>
     <div class="input-div">
@@ -69,7 +102,7 @@
              formControlName="rating"><label for="star5"></label>
     </div>
   </div>
-  <div class="form-conatiner">
+  <div class="form-conatiner select-first">
     <label>{{"catalogue.searchPage.STATUS" | translate}}</label>
     <select formControlName="status">
       <option class="option"
@@ -84,7 +117,7 @@
           {{"errors.TIME_TO_READ" | translate}}
     </div>
   </div>
-  <div class="form-conatiner" *ngIf="whenToRead">
+  <div class="form-conatiner select-second" *ngIf="whenToRead">
     <label>{{"catalogue.searchPage.STATUS" | translate}}</label>
     <select formControlName="whenToRead">
       <option [ngValue]=null hidden>{{"catalogue.searchPage.SELECT" | translate}}</option>
@@ -97,23 +130,11 @@
   <button type="button"
           (click)="submit()"
           class="btn btn-book">{{"catalogue.searchPage.ADD_COL" | translate}}</button>
+
+  </div>
 </form>
-
-
   </div>
 </div>
 
 
-<div *ngIf="getSelectedBook" class="book-result">
-  <h1>{{getSelectedBook.title}}</h1>
-  <p> <strong>Publisher: </strong> {{getSelectedBook.publisher}}</p>
-  <p><strong>Publish date: </strong> {{getSelectedBook.publishedDate}}</p>
-  <img [src]="getSelectedBook.imageLinks" alt="book pic" />
-  <span *ngFor="let element of getSelectedBook.countries">
-    <!-- //ამას დააკვირდი მერე, სავარაუდოდ მაინც აღარ დაიბეჭდებოდა ენჯიიფის გარეშე  -->
-    <ng-container *ngIf="element">
-        <img [src]="getCountryFlag(element)"
-        [title]="getCountryPopulation(element)"/>
-     </ng-container>
-  </span>
-</div>
+

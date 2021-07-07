@@ -14,7 +14,8 @@
      "RESET_BUTTON" : "Send email",
      "USER_NOT_FOUND": "User does not exist",
      "USER_PASSW_ERROR": "Password is not correct",
-     "EMAIL_IN_USE": "This email is used"
+     "EMAIL_IN_USE": "This email is used",
+     "PASSWORD_HAS_SENT": "Link to reset password has been sent to your email"
    },
    "SIGN_IN_HEADER": "Sign In",
    "SIGN_UP_HEADER": "Sign Up",
@@ -44,7 +45,7 @@
      "UserPage": {
        "TITLE": "Admin Page",
        "PAGE_INFO": "You can manage your profile here",
-       "FULL_NAME": "Full Name:",
+       "FULL_NAME": "Name:",
        "EMAIL": "Email:",
        "PASSWORD": "Password:",
        "NEW_NAME": "Enter new name",
@@ -69,5 +70,12 @@
     "NOT_FOUND_TEXT_FIRST": "The page you are looking for might have been removed,",
     "NOT_FOUND_TEXT_SECOND": "had its name changed or is temporarily unavailable.",
     "SEARCH_ERROR": "Please enter a book name"
+  },
+  "book": {
+    "AUTHOR": "Author:",
+    "PUBLISHER": "Publisher:",
+    "PUBLISH_DATE": "Publish date:",
+    "FILM_ADAPTATION": "Film adaptation:",
+    "COUNTRIES": "Film's countries:"
   }
 }

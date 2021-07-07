@@ -102,9 +102,10 @@ button:hover{
    transform: translate(-50%, -50%) rotateY(180deg);*/
    display: flex;
    transform:rotateY(180deg);
-   width: 75%;
+   width: 35%;
    margin-left: 6px;
    margin-top: -25px;
+   padding-left: 0;
 }
 
 
@@ -152,7 +153,7 @@ body {
 }
 
  .contact-box {
-     width: 600px;
+     width: 70%;
      background-color: #fff;
      box-shadow: 0 0 20px 0 #999;
       height: 45%;
@@ -184,7 +185,7 @@ body {
 
  .textarea-field {
   height: 50px;
-  width: 300px;
+  width: 500px;
   padding-top: 10px;
  }
 
@@ -220,6 +221,19 @@ body {
   font-size: 15px;
  }
 
+ .select-first{
+  width: 50%;
+ }
+
+ .select-second{
+   width: 50%;
+ }
+
+
+ .select-first option, .select-second option {
+  padding: 7px;
+}
+
  .input-div {
    display: flex;
    position: relative;
@@ -245,18 +259,52 @@ body {
 
  .timeToRead-div{
    margin-left: 350px;
+
  }
 
 .book-result {
-  border: 2px solid black;
+  // border: 3px solid black;
   margin: auto;
-  width: 50%;
+  width: 100%;
   margin-bottom: 20px;
   padding: 5px;
+  display: flex;
 }
  .form-conatiner select {
    width: 40%;
  }
+
+ .book-result img {
+    margin-right: 15px;
+ }
+
+ .book-result-div {
+   margin-top: -7px;
+ }
+
+ .countries {
+   display: flex;
+   align-items: center;
+
+ }
+
+ .countries p{
+   margin-right: 15px;
+ }
+ .result {
+   display: flex;
+   flex-direction: column;
+ }
+
+ .check {
+   color: green;
+ }
+
+ .ban {
+  color: red;
+ }
+
+
  @keyframes alertAnim {
   from{
     opacity: 0;

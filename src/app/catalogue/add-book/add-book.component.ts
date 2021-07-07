@@ -31,7 +31,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { FireCollectionApiService } from '../services';
-
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faBan } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-book',
@@ -39,6 +40,10 @@ import { FireCollectionApiService } from '../services';
   styleUrls: ['./add-book.component.scss']
 })
 export class AddBookComponent implements OnInit, OnDestroy {
+
+  check = faCheck;
+  ban = faBan;
+
 
   starRating = faStar;
   searchData: string;
