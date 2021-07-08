@@ -121,3 +121,14 @@ export interface ListData {
   fireData: fireBookDataWithId;
   bookData: Book
 }
+
+// export interface ListFetching {
+//   ApiBook: BookApiResult,
+//   fireData: fireBookBody,
+//   countries: Country,
+//   filmData: Film
+// }
+
+// countries: countries,
+
+// filmData

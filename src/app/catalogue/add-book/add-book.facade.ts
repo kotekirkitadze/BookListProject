@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { StorageService } from "src/app/services/storage.service";
-import { AddBookService } from "./add-book.service";
+import { AddBookService } from "../services/index";
 
 @Injectable()
 
