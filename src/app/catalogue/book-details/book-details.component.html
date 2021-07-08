@@ -1,18 +1,63 @@
+<div   *ngIf="bookData$ | async as book">
+  <div *ngIf="fireData$ | async as fireBook">
+    <div class="container">
+      <div class="left">
+        <img [src]="book.imageLinks"/>
+      </div>
+      <div class="right">
+        <h1>{{book.title}}</h1>
+        <p><strong>Authors:</strong> {{book.authors}}</p>
+        <p><strong>Authors:</strong> {{book.description}}</p>
+        <p><strong>Categories:</strong> {{book.categories}}</p>
+        <p><strong>Published Date:</strong> {{book.publishedDate}}</p>
+        <p><strong>Publisher:</strong> {{book.publisher}}</p>
+        <p><strong>Rating:</strong> {{fireBook.rating}}</p>
+        <p><strong>Review:</strong> {{fireBook.review}}</p>
+        <p><strong>Status:</strong> {{fireBook.status}}</p>
+        <div>
+          <div *ngFor="let element of whenToRead">
+            <div *ngIf="fireBook.whenToRead == element.value">
+              <p><strong>When to read:</strong> {{element.label | translate}}</p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="book?.movie.response">
+          <p *ngIf="book?.movie?.director !== 'N/A'"><strong>Director</strong>{{book?.movie.director}}</p>
+          <p><strong>relased date</strong>{{book?.movie.released}}</p>
+
+          <div *ngIf="book?.countries">
+            <div *ngFor="let i of book?.countries">
+              <img [src]="getCountryFlag(i)"
+                  [title]="getCountryPopulation(i)"/>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- description: string;
+  countries?: Country[];
+  movie?: Omit<Movie, "countries">; -->
+
+
+
+
+
+
+<!--
+
 <ng-container *ngIf="bookData$ | async as book">
-    <h1>{{book.title}}</h1>
-    <img [src]="book.imageLinks"/>
-    <div><strong>Authors:</strong> {{book.authors}}</div>
-    <div><strong>Categories:</strong> {{book.categories}}</div>
+
     <div class="description"><strong>Description:</strong> {{book.description}}</div>
-    <div><strong>Published Date:</strong> {{book.publishedDate}}</div>
-    <div><strong>Publisher:</strong> {{book.publisher}}</div>
+
 </ng-container>
 
 
 <ng-container *ngIf="fireData$ | async as fireBook">
-    <div><strong>Rating:</strong> {{fireBook.rating}}</div>
-    <div><strong>Review:</strong> {{fireBook.review}}</div>
-    <div><strong>Status:</strong> {{fireBook.status}}</div>
     <div>When to read:
       <div *ngFor="let element of whenToRead">
         <div *ngIf="fireBook.whenToRead == element.value">
@@ -23,4 +68,4 @@
 
 </ng-container>
 
-<button (click)="goBack()">Go Back</button>
+<button (click)="goBack()">Go Back</button> -->

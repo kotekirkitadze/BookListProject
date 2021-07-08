@@ -42,6 +42,15 @@ export class BookDetailsComponent implements OnInit {
     this.bookData$ = this.initBookDetail()
   }
 
+
+  getCountryFlag(country: Country) {
+    return `https://www.countryflags.io/${country.code}/shiny/64.png`
+  }
+
+  getCountryPopulation(country: Country) {
+    return `Population of ${country.code}: ${country.population}`;
+  }
+
 }
 
 
