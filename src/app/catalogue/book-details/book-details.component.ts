@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, Observable, of, pipe } from 'rxjs';
-import { catchError, finalize, map, switchMap, tap } from 'rxjs/operators';
-import { Book, BookApiResult, Country, CountryApiResult, fireBookBody, MovieApiResult } from '../catalogue.model';
-import { AddBookService, BookApiService, FireCollectionApiService } from '../services';
+import { Observable, of } from 'rxjs';
+import { finalize, switchMap, tap } from 'rxjs/operators';
+import { Book, Country, fireBookBody } from '../catalogue.model';
+import { AddBookService, FireCollectionApiService } from '../services';
 import { TIME_TO_READ, WhenToReadSelect } from '../catalogue.model'
 import { LoadingService } from 'src/app/services/loading.service';
 

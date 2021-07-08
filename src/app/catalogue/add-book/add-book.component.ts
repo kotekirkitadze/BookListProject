@@ -46,6 +46,7 @@ export class AddBookComponent implements OnInit {
       .subscribe((selectedBook) => {
         this._selectedBook = selectedBook;
       });
+
   }
 
   getBooksFromApi(name: string) {

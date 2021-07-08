@@ -1,0 +1,29 @@
+
+.container{
+  height: 1000px;
+  background-image: url("../assets/images/book1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: 15s;
+
+  animation-name: animate;
+  // animation-direction: alternate-reverse;
+  animation-duration: 60s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  // animation-play-state: running;
+  // animation-timing-function: ease-in-out;
+}
+
+@keyframes animate {
+  0%{
+      background-image: url("../assets/images/book1.jpg");
+  }30%{
+      background-image: url("../assets/images/book2.jpg");
+  }70%{
+      background-image: url("../assets/images/book3.jpg");
+  }100%{
+      background-image: url("../assets/images/book4.jpg");
+  }
+}

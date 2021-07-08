@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, finalize, map, switchMap } from 'rxjs/operators';
+import { finalize, map, switchMap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { Book, ListData } from '../catalogue.model';
 import { AddBookService, BookApiService, FireCollectionApiService } from '../services';

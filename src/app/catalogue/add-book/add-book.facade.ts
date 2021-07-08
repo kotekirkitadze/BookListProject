@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { LoadingService } from "src/app/services/loading.service";
 import { StorageService } from "src/app/services/storage.service";
 import { AddBookService } from "../services/index";
 
@@ -7,7 +8,8 @@ import { AddBookService } from "../services/index";
 export class AddBookFacade {
 
   constructor(private storage: StorageService,
-    private addBookService: AddBookService) {
+    private addBookService: AddBookService,
+    private loadingService: LoadingService) {
 
   }
 
@@ -17,7 +19,9 @@ export class AddBookFacade {
   searchBook(key: string) {
     if (!key || key == " ") {
       this.errorVal = true;
+      this.loadingService.stop()
       return null;
+
     }
     this.errorVal = false;
     this.pushInlastSearches(key);
