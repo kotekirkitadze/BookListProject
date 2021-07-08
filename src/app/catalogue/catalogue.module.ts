@@ -12,6 +12,7 @@ import { BookListComponent, BookListItemComponent } from './book-list/index';
 import { FireCollectionApiService, BOOK_API, BookApiService } from './services/index';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookInfoComponent } from './add-book/book-info/book-info.component';
+import { AddBookService } from './add-book/add-book.service';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { BookInfoComponent } from './add-book/book-info/book-info.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [BookApiService, FireCollectionApiService, {
+  providers: [BookApiService, AddBookService, FireCollectionApiService, {
     provide: BOOK_API,
     useValue: environment.bookApi
   }]

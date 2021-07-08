@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
@@ -36,6 +36,8 @@ import { faBan } from '@fortawesome/free-solid-svg-icons';
 })
 export class BookInfoComponent implements OnInit, OnDestroy {
 
+  @Input() _selectedBook: Book;
+
   constructor(private loadingService: LoadingService,
     private apiService: BookApiService,
     private storage: StorageService,
@@ -53,7 +55,7 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   }
 
   submitted: boolean = false;
-  private _selectedBook: Book;
+  // private _selectedBook: Book;
   form: FormGroup;
   private unsubscribe$ = new Subject();
 
