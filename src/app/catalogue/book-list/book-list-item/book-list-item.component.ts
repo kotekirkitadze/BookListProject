@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { fireBookBody, TIME_TO_READ, WhenToReadSelect } from '../../catalogue.model';
+import { ListData, TIME_TO_READ, WhenToReadSelect } from '../../catalogue.model';
 
 @Component({
   selector: 'app-book-list-item',
@@ -9,7 +9,7 @@ import { fireBookBody, TIME_TO_READ, WhenToReadSelect } from '../../catalogue.mo
 })
 export class BookListItemComponent implements OnInit {
 
-  @Input() data: any;
+  @Input() data: ListData;
   @Output() deleteBtn = new EventEmitter();
   constructor(private router: Router) { }
 

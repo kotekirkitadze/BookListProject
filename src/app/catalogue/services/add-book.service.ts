@@ -80,7 +80,9 @@ export class AddBookService {
       countries: countries?.map(el => el),
       movie: {
         released: movie?.Released,
-        response: movie?.Response
+        response: movie?.Response,
+        director: movie?.Director,
+        year: Number(movie?.Year)
       }
     }
   }

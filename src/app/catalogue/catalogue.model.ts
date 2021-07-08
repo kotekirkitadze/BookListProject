@@ -89,12 +89,16 @@ export interface MovieApiResult {
   Response: string;
   Country: string;
   Released: string;
+  Director: string;
+  Year: string;
 }
 
 export interface Movie {
   response: string;
   countries: string[];
   released: string;
+  director: string;
+  year: number;
 }
 
 export interface CountryApiResult {
@@ -119,16 +123,5 @@ export interface fireBookBody {
 
 export interface ListData {
   fireData: fireBookDataWithId;
-  bookData: Book
+  allData: Book
 }
-
-// export interface ListFetching {
-//   ApiBook: BookApiResult,
-//   fireData: fireBookBody,
-//   countries: Country,
-//   filmData: Film
-// }
-
-// countries: countries,
-
-// filmData

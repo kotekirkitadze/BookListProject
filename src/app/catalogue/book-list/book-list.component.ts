@@ -4,7 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { BookApiService, FireCollectionApiService } from '../services';
+import { Book, ListData } from '../catalogue.model';
+import { AddBookService, BookApiService, FireCollectionApiService } from '../services';
 
 @Component({
   selector: 'app-book-list',
@@ -17,7 +18,8 @@ export class BookListComponent implements OnInit {
     private bookApiService: BookApiService,
     private afs: AngularFirestore,
     private translateService: TranslateService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private addBookService: AddBookService) { }
 
   //ახლა ასნიკ პაიპით გადავყევით, მაგრამ ამის ალტერნატივა იქნებოდა
   // აქ ფირებუქის ტიპის ერეის ცვლადი შეგვექმნა და ენჯიონინიტში
@@ -37,12 +39,13 @@ export class BookListComponent implements OnInit {
   // შეიძლება და გასაგებიცაა ალბათ.მაგრამ თუ გვინდა რომ უბრალოდ ვაჩვენოთ დატა როგორც აქ,
   // მაშინ ჯობია ასინკები გამოვიყენოთ.
   //პ.ს. async as რაღაც - მთლიანად კოლექციაზე მიუთითებს - საბსქრაიბში შემოსულ ველიუზე.
-  books$: Observable<any> = null; //this.bookFireServie.getBookData();
+  books$: Observable<ListData[]> = null; //this.bookFireServie.getBookData();
 
 
 
   ngOnInit() {
-    this.books$ = this.fetch();
+    this.books$ = this.fetch()
+    // this.fetch().subscribe(x => console.log(x))
   }
 
   // სვიჩმეპიდ და ფორქ ჯოინი იმიტომ გვინდა აქ, რომ
@@ -51,57 +54,25 @@ export class BookListComponent implements OnInit {
   // ხომ ვინდა რომ წინა ობზერვებლი დავარეზოლვოთ რაღაცეები - ამას
   // კი სვიჩმეპით ვაკეთებთ და გადავდივართ ახალ ობზერვებლზეც, თუ გვინდა.
 
+  // Observable<ListData>
 
   //გასატიპიზიირებელია
   //ასევე მეთვრამეტე ლექციის 1:25 წუთზე შეგიძლია აიდის დამატების მომენტი ნახო.
-  fetch() {
+  fetch(): Observable<ListData[]> {
     return this.bookFireServie.getBooksData().pipe(
       switchMap(fireData => {
-        return forkJoin(fireData.map(eachData => this.bookApiService.getBookByName(eachData.title).pipe(
-          switchMap(eachBook => {
-            const book = eachBook.items[0].volumeInfo;
-            return this.bookApiService.getFilmByName(book.title).pipe(
-              switchMap(filmData => {
-                if (filmData.Response == "True") {
-                  const countries = filmData.Country.split(", ")
-                  return forkJoin(countries.map(c => {
-                    return this.bookApiService.getCountryByCode(c).pipe(
-                      map(countryApi => {
-                        return {
-                          code: countryApi.alpha2Code,
-                          poppulation: countryApi.population
-                        }
-                      }),
-                      catchError(() => of(null))
-                    )
-                  })).pipe(map(countries => {
-                    return {
-                      countries: countries,
-                      ApiBook: book,
-                      fireData: eachData,
-                      filmData
-                    }
-                  }))
-                } else {
-                  return of({
-                    country: null,
-                    ApiBook: book,
-                    fireData: eachData,
-                    filmData: null
-                  })
-                }
-              }),
-            )
-          })
-        )))
+        return forkJoin(fireData.map(eachfireData => this.addBookService.getBooksFromApi(eachfireData.title)
+          .pipe(map<Book, ListData>(wholeData => {
+            return {
+              fireData: eachfireData,
+              allData: wholeData
+            }
+          }))
+        ))
       })
 
     )
   }
-
-  // deleteBook(id: string) {
-  //   this.bookFireServie.deleteBook(id).subscribe(() => console.log("book has been deleted"))
-  // }
 
   deleteBook(id: string) {
     this.bookFireServie.deleteBook(id).subscribe(() => {
@@ -112,3 +83,52 @@ export class BookListComponent implements OnInit {
 
 }
 
+
+
+
+
+
+// fetch() {
+//   return this.bookFireServie.getBooksData().pipe(
+//     switchMap(fireData => {
+//       return forkJoin(fireData.map(eachData => this.bookApiService.getBookByName(eachData.title).pipe(
+//         switchMap(eachBook => {
+//           const book = eachBook.items[0].volumeInfo;
+//           return this.bookApiService.getFilmByName(book.title).pipe(
+//             switchMap(filmData => {
+//               if (filmData.Response == "True") {
+//                 const countries = filmData.Country.split(", ")
+//                 return forkJoin(countries.map(c => {
+//                   return this.bookApiService.getCountryByCode(c).pipe(
+//                     map(countryApi => {
+//                       return {
+//                         code: countryApi.alpha2Code,
+//                         poppulation: countryApi.population
+//                       }
+//                     }),
+//                     catchError(() => of(null))
+//                   )
+//                 })).pipe(map(countries => {
+//                   return {
+//                     countries: countries,
+//                     ApiBook: book,
+//                     fireData: eachData,
+//                     filmData
+//                   }
+//                 }))
+//               } else {
+//                 return of({
+//                   country: null,
+//                   ApiBook: book,
+//                   fireData: eachData,
+//                   filmData: null
+//                 })
+//               }
+//             }),
+//           )
+//         })
+//       )))
+//     })
+
+//   )
+// }
