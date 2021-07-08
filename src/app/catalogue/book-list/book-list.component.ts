@@ -3,7 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, finalize, map, switchMap } from 'rxjs/operators';
+import { LoadingService } from 'src/app/services/loading.service';
 import { Book, ListData } from '../catalogue.model';
 import { AddBookService, BookApiService, FireCollectionApiService } from '../services';
 
@@ -19,7 +20,8 @@ export class BookListComponent implements OnInit {
     private afs: AngularFirestore,
     private translateService: TranslateService,
     private toastr: ToastrService,
-    private addBookService: AddBookService) { }
+    private addBookService: AddBookService,
+    private loadingService: LoadingService) { }
 
   //ახლა ასნიკ პაიპით გადავყევით, მაგრამ ამის ალტერნატივა იქნებოდა
   // აქ ფირებუქის ტიპის ერეის ცვლადი შეგვექმნა და ენჯიონინიტში
@@ -59,7 +61,9 @@ export class BookListComponent implements OnInit {
   //გასატიპიზიირებელია
   //ასევე მეთვრამეტე ლექციის 1:25 წუთზე შეგიძლია აიდის დამატების მომენტი ნახო.
   fetch(): Observable<ListData[]> {
+    this.loadingService.start();
     return this.bookFireServie.getBooksData().pipe(
+      finalize(() => this.loadingService.stop()),
       switchMap(fireData => {
         return forkJoin(fireData.map(eachfireData => this.addBookService.getBooksFromApi(eachfireData.title)
           .pipe(map<Book, ListData>(wholeData => {

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, of, pipe } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { Book, BookApiResult, Country, CountryApiResult, fireBookBody, MovieApiResult } from '../catalogue.model';
 import { AddBookService, BookApiService, FireCollectionApiService } from '../services';
 import { TIME_TO_READ, WhenToReadSelect } from '../catalogue.model'
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-book-details',
@@ -22,7 +23,8 @@ export class BookDetailsComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private fireApiService: FireCollectionApiService,
     private router: Router,
-    private addBookService: AddBookService) { }
+    private addBookService: AddBookService,
+    private loadingService: LoadingService) { }
 
   id = this.activatedRoute.snapshot.params['id'];
 
@@ -31,8 +33,9 @@ export class BookDetailsComponent implements OnInit {
   }
 
   initBookDetail(): Observable<Book> {
+    this.loadingService.start();
     return this.fireApiService.getBookData(this.id)
-      .pipe(tap(fireValue => this.fireData$ = of(fireValue)), switchMap(fireData => {
+      .pipe(finalize(() => this.loadingService.stop()), tap(fireValue => this.fireData$ = of(fireValue)), switchMap(fireData => {
         return this.addBookService.getBooksFromApi(fireData.title);
       }))
 

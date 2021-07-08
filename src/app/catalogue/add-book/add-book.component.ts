@@ -3,6 +3,8 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder } from '@angular/forms';
 import { Book } from '../catalogue.model';
 import { AddBookFacade } from './add-book.facade';
+import { LoadingService } from 'src/app/services/loading.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-book',
@@ -12,7 +14,8 @@ import { AddBookFacade } from './add-book.facade';
 })
 export class AddBookComponent implements OnInit {
 
-  constructor(private facade: AddBookFacade) { }
+  constructor(private facade: AddBookFacade,
+    private loadingService: LoadingService) { }
 
   starRating = faStar;
   searchData: string; //tranfered
@@ -37,15 +40,21 @@ export class AddBookComponent implements OnInit {
   }
 
   searchBook(key: string) {
-    this.facade.searchBook(key).subscribe((selectedBook) => {
-      this._selectedBook = selectedBook;
-    });
+    this.loadingService.start();
+    this.facade.searchBook(key)
+      .pipe(finalize(() => this.loadingService.stop()))
+      .subscribe((selectedBook) => {
+        this._selectedBook = selectedBook;
+      });
   }
 
   getBooksFromApi(name: string) {
-    this.facade.searchFromStoreData(name).subscribe((selectedBook) => {
-      this._selectedBook = selectedBook;
-    });
+    this.loadingService.start();
+    this.facade.searchFromStoreData(name)
+      .pipe(finalize(() => this.loadingService.stop()))
+      .subscribe((selectedBook) => {
+        this._selectedBook = selectedBook;
+      });
   }
 
   restoreSearches() {
