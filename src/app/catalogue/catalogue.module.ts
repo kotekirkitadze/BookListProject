@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BookListComponent, BookListItemComponent } from './book-list/index';
 import { FireCollectionApiService, BOOK_API, BookApiService } from './services/index';
 import { BookDetailsComponent } from './book-details/book-details.component';
+import { BookInfoComponent } from './add-book/book-info/book-info.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { BookDetailsComponent } from './book-details/book-details.component';
     UserComponent,
     BookListComponent,
     BookListItemComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    BookInfoComponent
   ],
   imports: [
     CommonModule,

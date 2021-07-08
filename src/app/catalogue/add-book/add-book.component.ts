@@ -9,106 +9,37 @@ import { StorageService } from 'src/app/services/storage.service';
 import { BookApiService } from '../services/book-api.services';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
+  FormBuilder
 } from '@angular/forms';
 import {
   Book,
-  Status,
-  TIME_TO_READ,
-  WhenToReadSelect,
   Country,
   CountryApiResult,
   BookApiResult,
-  MovieApiResult,
-  fireBookBody
+  MovieApiResult
 } from '../catalogue.model';
 import { forkJoin, of, Subject } from 'rxjs';
-import { SaveDataService } from 'src/app/services/userinfo_fire.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { FireCollectionApiService } from '../services';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { faBan } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.scss']
 })
-export class AddBookComponent implements OnInit, OnDestroy {
-
-  check = faCheck;
-  ban = faBan;
-
+export class AddBookComponent implements OnInit {
 
   starRating = faStar;
   searchData: string;
   errorVal: boolean;
   lastThreeSearches: string[] = [];
-  form: FormGroup;
-  status = Status;
   fb: FormBuilder;
-  submitted: boolean = false;
-
-  private unsubscribe$ = new Subject();
-
-  private _selectedBook: Book;
-
-  get getSelectedBook(): Book {
-    return this._selectedBook;
-  }
 
 
-  get timeToRead(): WhenToReadSelect[] {
-    return TIME_TO_READ;
-  }
+  private _selectedBook: Book; //tranfered
 
-  submit() {
-    this.submitted = true;
-    if (this.form.invalid) {
-      return;
-    }
-
-    const formValue = this.form.value;
-
-    const fireBody: fireBookBody = {
-      title: this._selectedBook.title,
-      rating: formValue.rating,
-      review: formValue.review,
-      status: formValue.status,
-      whenToRead: formValue.whenToRead ? formValue.whenToRead : null,
-      uid: this.currentUser.getCurrentUser().uid
-    }
-
-    //loading da addeed ragahc is axali dasamatebelia
-    //promisi iqneba es
-    this.store.postBookData(fireBody).subscribe(() => {
-      this.resetForm();
-    });
-
-  }
-
-  private resetForm() {
-    this.translateService.get("catalogue.TOASTR_BOOK_ADDED").subscribe(value => this.toastr.success(value));
-    //ფორმის ველიუს არესეტებს
-    this.form.reset();
-    this._selectedBook = null;
-    this.form.updateValueAndValidity();
-    this.submitted = false;
-
-    //ფორმის დარესეტების შემდეგ, საწყისი ველიუები რომ დავუთაგოთ
-    this.form.get("status").setValue(Status.Read);
-    this.form.get("rating").setValue(1);
-
-  }
-
-  get whenToRead(): boolean {
-    return !!this.form.get('whenToRead');
-  }
 
   pushInlastSearches(name: string) {
     if (this.lastThreeSearches.length < 3) {
@@ -215,48 +146,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
       this.lastThreeSearches = searchesInStorage;
     }
   }
-
-  createForm() {
-    this.form = new FormGroup({
-      rating: new FormControl(1),
-      review: new FormControl('', [Validators.required,
-      Validators.minLength(10)]),
-      status: new FormControl(Status.Read)
-    });
-  }
-
-  private addControlByStatus(status: Status) {
-    switch (status) {
-      case Status.ReadLater:
-        this.form.addControl(
-          "whenToRead",
-          new FormControl(null, Validators.required)
-        );
-        break;
-      case Status.Read:
-        this.form.removeControl('whenToRead');
-        break;
-    }
-  }
-
   ngOnInit(): void {
     this.restoreSearches();
-    this.createForm();
-
-    this.form.get('status').valueChanges.pipe(takeUntil(this.unsubscribe$))
-      //აქ ეროუ ფანქშენის გაერეშე ვერ გააყოლა ედდ კონტროლი, კონტექსტი ვერ შეგვინახა
-      .subscribe((status) => this.addControlByStatus(status));
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
-
-  getCountryFlag(country: Country) {
-    return `https://www.countryflags.io/${country.code}/shiny/64.png`
-  }
-  getCountryPopulation(country: Country) {
-    return `Population of ${country.code}: ${country.population}`;
   }
 }
