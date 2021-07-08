@@ -41,13 +41,10 @@ export class AddBookFacade {
     this.storage.set<string[]>("lastThreSearches", this.lastThreeSearches);
   }
 
-
   restoreSearches() {
     const searchesInStorage = this.storage.get<string[]>("lastThreSearches");
     if (searchesInStorage?.length > 0) {
       this.lastThreeSearches = searchesInStorage;
     }
   }
-
-
 }

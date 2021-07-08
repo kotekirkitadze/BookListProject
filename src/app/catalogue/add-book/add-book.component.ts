@@ -1,24 +1,7 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import { finalize, map, switchMap, catchError } from 'rxjs/operators';
-import { LoadingService } from 'src/app/services/loading.service';
-import { StorageService } from 'src/app/services/storage.service';
-import { BookApiService } from '../services/book-api.services';
+import { Component, OnInit } from '@angular/core';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import {
-  FormBuilder
-} from '@angular/forms';
-import {
-  Book,
-  Country,
-  CountryApiResult,
-  BookApiResult,
-  MovieApiResult
-} from '../catalogue.model';
-
-import { forkJoin, of } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
+import { Book } from '../catalogue.model';
 import { AddBookFacade } from './add-book.facade';
 
 @Component({
@@ -33,8 +16,6 @@ export class AddBookComponent implements OnInit {
 
   starRating = faStar;
   searchData: string; //tranfered
-
-
   fb: FormBuilder;
 
   get errorVal() {
@@ -42,7 +23,6 @@ export class AddBookComponent implements OnInit {
   }
 
   _selectedBook: Book; //tranfered
-
 
   get lastThreeSearches(): string[] {
     return this.facade.lastThreeSearches;
@@ -67,9 +47,6 @@ export class AddBookComponent implements OnInit {
       this._selectedBook = selectedBook;
     });
   }
-
-
-
 
   restoreSearches() {
     this.facade.restoreSearches();

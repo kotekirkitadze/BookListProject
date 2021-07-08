@@ -1,50 +1,31 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'src/app/services/auth.service';
-import { LoadingService } from 'src/app/services/loading.service';
-import { StorageService } from 'src/app/services/storage.service';
-import { BookApiService, FireCollectionApiService } from '../../services';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import {
   Book,
   Status,
   TIME_TO_READ,
   WhenToReadSelect,
-  Country,
-  CountryApiResult,
-  BookApiResult,
-  MovieApiResult,
-  fireBookBody
+  Country
 } from '../../catalogue.model';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faBan } from '@fortawesome/free-solid-svg-icons';
+import { BookInfoFacade } from './book-info.facade';
 
 
 
 @Component({
   selector: 'app-book-info',
   templateUrl: './book-info.component.html',
-  styleUrls: ['./book-info.component.scss']
+  styleUrls: ['./book-info.component.scss'],
+  providers: [BookInfoFacade]
 })
 export class BookInfoComponent implements OnInit, OnDestroy {
-
   @Input() _selectedBook: Book;
 
-  constructor(private loadingService: LoadingService,
-    private apiService: BookApiService,
-    private storage: StorageService,
-    private store: FireCollectionApiService,
-    private currentUser: AuthService,
-    private toastr: ToastrService,
-    private translateService: TranslateService) { }
+
+  constructor(private facade: BookInfoFacade) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -54,9 +35,9 @@ export class BookInfoComponent implements OnInit, OnDestroy {
       .subscribe((status) => this.addControlByStatus(status));
   }
 
-  submitted: boolean = false;
-  // private _selectedBook: Book;
-  form: FormGroup;
+  get submitted(): boolean {
+    return this.facade.submitted;
+  }
   private unsubscribe$ = new Subject();
 
   check = faCheck;
@@ -64,27 +45,15 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   status = Status;
 
   createForm() {
-    this.form = new FormGroup({
-      rating: new FormControl(1),
-      review: new FormControl('', [Validators.required,
-      Validators.minLength(10)]),
-      status: new FormControl(Status.Read)
-    });
+    this.facade.createForm();
   }
 
+  get form(): FormGroup {
+    return this.facade.form;
+  }
 
   private addControlByStatus(status: Status) {
-    switch (status) {
-      case Status.ReadLater:
-        this.form.addControl(
-          "whenToRead",
-          new FormControl(null, Validators.required)
-        );
-        break;
-      case Status.Read:
-        this.form.removeControl('whenToRead');
-        break;
-    }
+    this.facade.addControlByStatus(status)
   }
 
   get getSelectedBook(): Book {
@@ -95,64 +64,24 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     return TIME_TO_READ;
   }
 
-
   submit() {
-    this.submitted = true;
-    if (this.form.invalid) {
-      return;
-    }
-
-    const formValue = this.form.value;
-
-    const fireBody: fireBookBody = {
-      title: this._selectedBook.title,
-      rating: formValue.rating,
-      review: formValue.review,
-      status: formValue.status,
-      whenToRead: formValue.whenToRead ? formValue.whenToRead : null,
-      uid: this.currentUser.getCurrentUser().uid
-    }
-
-    //loading da addeed ragahc is axali dasamatebelia
-    //promisi iqneba es
-    this.store.postBookData(fireBody).subscribe(() => {
-      this.resetForm();
-    });
-
+    this.facade.submit(this._selectedBook.title).subscribe();
+    this._selectedBook = null
   }
-
-  private resetForm() {
-    this.translateService.get("catalogue.TOASTR_BOOK_ADDED").subscribe(value => this.toastr.success(value));
-    //ფორმის ველიუს არესეტებს
-    this.form.reset();
-    this._selectedBook = null;
-    this.form.updateValueAndValidity();
-    this.submitted = false;
-
-    //ფორმის დარესეტების შემდეგ, საწყისი ველიუები რომ დავუთაგოთ
-    this.form.get("status").setValue(Status.Read);
-    this.form.get("rating").setValue(1);
-
-  }
-
 
   getCountryFlag(country: Country) {
-    return `https://www.countryflags.io/${country.code}/shiny/64.png`
+    return this.facade.getCountryFlag(country)
   }
   getCountryPopulation(country: Country) {
-    return `Population of ${country.code}: ${country.population}`;
+    return this.facade.getCountryPopulation(country);
   }
-
 
   get whenToRead(): boolean {
     return !!this.form.get('whenToRead');
   }
 
-
   ngOnDestroy() {
-
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
 }
