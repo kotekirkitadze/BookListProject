@@ -6,6 +6,9 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { FireCollectionApiService } from '../services';
+import { finalize, map } from 'rxjs/operators';
+import { LoadingService } from 'src/app/services/loading.service';
 
 
 @Component({
@@ -21,11 +24,12 @@ export class UserComponent implements OnInit {
   editEmail: boolean = false;
   editPassword: boolean = false;
 
-  constructor(private http: HttpClient,
-    private auth: AuthService,
+  constructor(private auth: AuthService,
     private fireStoreService: SaveDataService,
     private toastr: ToastrService,
-    private translateService: TranslateService) { }
+    private translateService: TranslateService,
+    private catalogue: FireCollectionApiService,
+    private loadingService: LoadingService) { }
 
   ngOnInit(): void {
     this.fireStoreService.getItem().subscribe((user) => {
@@ -41,8 +45,14 @@ export class UserComponent implements OnInit {
   userPassword: string;
   deleteUser() {
 
-    //unsubscribe
-    this.auth.deleteUser().subscribe();
+    this.loadingService.start();
+    this.auth.deleteUser().pipe(finalize(() => this.loadingService.stop())).subscribe();
+    this.catalogue.getBooksData()
+      .pipe(map(val => {
+        val.map(el => {
+          this.catalogue.deleteBook(el.id);
+        })
+      })).subscribe();
   }
 
   edit(validator: string) {
@@ -69,6 +79,7 @@ export class UserComponent implements OnInit {
   updatePassword() {
     this.auth.updatePassword(this.userPassword).subscribe(
       () => this.editPassword = false);
+    //this.
     this.translateService.get("catalogue.UserPage.PASSWORD_CHANGED").subscribe((value) => this.toastr.success(value))
   }
 

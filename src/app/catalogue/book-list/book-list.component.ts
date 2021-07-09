@@ -61,9 +61,9 @@ export class BookListComponent implements OnInit {
   //გასატიპიზიირებელია
   //ასევე მეთვრამეტე ლექციის 1:25 წუთზე შეგიძლია აიდის დამატების მომენტი ნახო.
   fetch(): Observable<ListData[]> {
-    this.loadingService.start();
+
     return this.bookFireServie.getBooksData().pipe(
-      finalize(() => this.loadingService.stop()),
+      // finalize(() => this.loadingService.stop()),
       switchMap(fireData => {
         return forkJoin(fireData.map(eachfireData => this.addBookService.getBooksFromApi(eachfireData.title)
           .pipe(map<Book, ListData>(wholeData => {
