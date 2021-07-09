@@ -48,8 +48,7 @@ export class SignInComponent implements OnInit {
       pipe(finalize(() => this.loadingService.stop()))
       .subscribe(
         () => this.route.navigate(['catalogue']),
-        (error) => this.backErrorService.setBackEndError(error),
-        () => console.log("error in login",)
+        (error) => this.backErrorService.setBackEndError(error)
       );
   }
 

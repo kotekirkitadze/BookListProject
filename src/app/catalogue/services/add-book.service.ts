@@ -27,7 +27,13 @@ export class AddBookService {
   mapToMovie(filmData: MovieApiResult, bookData: BookApiResult) {
     if (filmData.Response == "True") {
       const countries = filmData.Country.split(', ');
-      return forkJoin(countries.map((countryCode) => this.apiService.getCountryByCode(countryCode))).pipe(
+      return forkJoin(countries.map((countryCode) => {
+        if (countryCode.includes(" ")) {
+          return null
+        } else {
+          this.apiService.getCountryByCode(countryCode)
+        }
+      })).pipe(
         map<CountryApiResult[], Country[]>((element) => {
           return element.map(el => {
             return {

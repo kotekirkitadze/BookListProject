@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { SignInFormUser, SignUpFormUser, ResetFormUser } from '../auth/index';
 import { SaveDataService } from './userinfo_fire.service';
 
