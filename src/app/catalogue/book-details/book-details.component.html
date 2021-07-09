@@ -6,18 +6,18 @@
       </div>
       <div class="right">
         <h1>{{book.title}}</h1>
-        <p><strong>Authors:</strong> {{book.authors}}</p>
+        <p><strong>{{"book.AUTHOR" | translate}}</strong> {{book.authors}}</p>
         <p><strong>Authors:</strong> {{book.description}}</p>
         <p><strong>Categories:</strong> {{book.categories}}</p>
-        <p><strong>Published Date:</strong> {{book.publishedDate}}</p>
+        <p><strong>{{"book.PUBLISH_DATE" | translate}} </strong> {{book.publishedDate}}</p>
         <p><strong>Publisher:</strong> {{book.publisher}}</p>
-        <p><strong>Rating:</strong> {{fireBook.rating}}</p>
+        <p><strong>{{"book.MINE_RATING" | translate}}</strong> {{fireBook.rating}}</p>
         <p><strong>Review:</strong> {{fireBook.review}}</p>
         <p><strong>Status:</strong> {{fireBook.status}}</p>
         <div>
           <div *ngFor="let element of whenToRead">
             <div *ngIf="fireBook.whenToRead == element.value">
-              <p><strong>When to read:</strong> {{element.label | translate}}</p>
+              <p><strong>{{"catalogue.WHEN_TO_READ" | translate}}</strong> {{element.label | translate}}</p>
             </div>
           </div>
         </div>
@@ -31,7 +31,6 @@
                   [title]="getCountryPopulation(i)"/>
             </div>
           </div>
-
         </div>
       </div>
     </div>

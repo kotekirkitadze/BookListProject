@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { finalize, switchMap, tap } from 'rxjs/operators';
@@ -7,12 +7,13 @@ import { AddBookService, FireCollectionApiService } from '../services';
 import { TIME_TO_READ, WhenToReadSelect } from '../catalogue.model'
 import { LoadingService } from 'src/app/services/loading.service';
 
+
 @Component({
   selector: 'app-book-details',
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss']
 })
-export class BookDetailsComponent implements OnInit {
+export class BookDetailsComponent implements OnInit, AfterViewInit {
   bookData$: Observable<Book>;
   fireData$: Observable<fireBookBody>;
 
@@ -33,7 +34,6 @@ export class BookDetailsComponent implements OnInit {
   }
 
   initBookDetail(): Observable<Book> {
-    this.loadingService.start();
     return this.fireApiService.getBookData(this.id)
       .pipe(finalize(() => this.loadingService.stop()), tap(fireValue => this.fireData$ = of(fireValue)), switchMap(fireData => {
         return this.addBookService.getBooksFromApi(fireData.title);
@@ -43,6 +43,13 @@ export class BookDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.bookData$ = this.initBookDetail()
+  }
+
+  //naxe kidev mere
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.loadingService.start();
+    }, 0)
   }
 
 

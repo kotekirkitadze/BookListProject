@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,7 @@ import { AddBookService, BookApiService, FireCollectionApiService } from '../ser
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.scss']
 })
-export class BookListComponent implements OnInit {
+export class BookListComponent implements OnInit, AfterViewInit {
 
   constructor(private bookFireServie: FireCollectionApiService,
     private bookApiService: BookApiService,
@@ -63,7 +63,7 @@ export class BookListComponent implements OnInit {
   fetch(): Observable<ListData[]> {
 
     return this.bookFireServie.getBooksData().pipe(
-      // finalize(() => this.loadingService.stop()),
+      finalize(() => this.loadingService.stop()),
       switchMap(fireData => {
         return forkJoin(fireData.map(eachfireData => this.addBookService.getBooksFromApi(eachfireData.title)
           .pipe(map<Book, ListData>(wholeData => {
@@ -85,6 +85,12 @@ export class BookListComponent implements OnInit {
     });
   }
 
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.loadingService.start();
+    }, 0)
+  }
 }
 
 
