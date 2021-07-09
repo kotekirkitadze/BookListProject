@@ -6,6 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import { AuthService } from "src/app/services/auth.service";
 import { FireCollectionApiService } from "../../services";
 import { finalize } from "rxjs/operators";
+import { EMPTY, of } from "rxjs";
 
 @Injectable()
 export class BookInfoFacade {
@@ -60,14 +61,14 @@ export class BookInfoFacade {
       return null;
     }
 
-    const formValue = this.form.value;
+    const formValue = this.form?.value;
 
     const fireBody: fireBookBody = {
       title: title,
-      rating: formValue.rating,
-      review: formValue.review,
-      status: formValue.status,
-      whenToRead: formValue.whenToRead ? formValue.whenToRead : null,
+      rating: formValue?.rating,
+      review: formValue?.review,
+      status: formValue?.status,
+      whenToRead: formValue?.whenToRead ? formValue.whenToRead : null,
       uid: this.currentUser.getCurrentUser().uid
     }
 

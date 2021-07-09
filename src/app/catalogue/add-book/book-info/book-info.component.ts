@@ -7,7 +7,7 @@ import {
   WhenToReadSelect,
   Country
 } from '../../catalogue.model';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faBan } from '@fortawesome/free-solid-svg-icons';
@@ -65,8 +65,10 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.facade.submit(this._selectedBook.title).subscribe();
-    this._selectedBook = null
+    this.facade.submit(this._selectedBook.title)?.pipe(
+      finalize(() => this._selectedBook = null)
+    ).subscribe();
+
   }
 
   getCountryFlag(country: Country) {

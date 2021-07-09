@@ -51,6 +51,7 @@ export class AddBookComponent implements OnInit {
 
   getBooksFromApi(name: string) {
     this.loadingService.start();
+
     this.facade.searchFromStoreData(name)
       .pipe(finalize(() => this.loadingService.stop()))
       .subscribe((selectedBook) => {

@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { of } from "rxjs";
 import { LoadingService } from "src/app/services/loading.service";
 import { StorageService } from "src/app/services/storage.service";
 import { AddBookService } from "../services/index";
@@ -20,8 +21,7 @@ export class AddBookFacade {
     if (!key || key == " ") {
       this.errorVal = true;
       this.loadingService.stop()
-      return null;
-
+      return of(null);
     }
     this.errorVal = false;
     this.pushInlastSearches(key);
