@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListData, TIME_TO_READ, WhenToReadSelect } from '../../catalogue.model';
 
@@ -12,6 +12,7 @@ export class BookListItemComponent implements OnInit {
 
   @Input() data: ListData;
   @Output() deleteBtn = new EventEmitter();
+
   constructor(private router: Router) { }
 
   get whenToRead(): WhenToReadSelect[] {
@@ -27,8 +28,9 @@ export class BookListItemComponent implements OnInit {
     this.router.navigate([`catalogue/${this.data.fireData.id}`])
   }
 
+
   ngOnInit(): void {
-    console.log(this.data.fireData.id);
+
   }
 
 }
