@@ -2,13 +2,13 @@
   display: flex;
   margin: 5% auto;
   // border: 2px solid rgb(92, 80, 80);
-  width: 70%;
+  width: 90%;
   height: 150%;
   border-radius: 85px;
   // background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(195,34,34,1) 100%);
   box-shadow: 0 0 20px 0 rgb(122, 111, 111);
 
-  background: linear-gradient(162deg, #1f4037 0%, #99f2c8 60%);
+  background: linear-gradient(162deg, #288169 0%, #99f2c8 60%);
 
 }
 
@@ -46,4 +46,23 @@ h1::after {
 
 .right p {
   margin: 17px;
+}
+
+.description{
+  display: flex;
+  flex-direction: row;
+}
+
+.description span {
+  margin-left: 5px;
+  // background-color: red;
+}
+
+p {
+  font-size: 20px;
+}
+
+
+.ref {
+  font-size: 23px;
 }

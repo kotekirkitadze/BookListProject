@@ -71,7 +71,8 @@
     "NOT_FOUND_TITLE": "404 PAGE NOT FOUND",
     "NOT_FOUND_TEXT_FIRST": "The page you are looking for might have been removed,",
     "NOT_FOUND_TEXT_SECOND": "had its name changed or is temporarily unavailable.",
-    "SEARCH_ERROR": "Please enter a book name"
+    "SEARCH_ERROR": "Please enter a book name",
+    "BOOK_NOT_FOUND": "Book can not be found"
   },
   "book": {
     "AUTHOR": "Author:",
@@ -79,6 +80,13 @@
     "PUBLISH_DATE": "Publish date:",
     "BOOK_ADAPTATION": "Film adaptation:",
     "COUNTRIES": "Film's countries:",
-    "MINE_RATING": "Rating given by you:"
-  }
+    "MINE_RATING": "Rating given by you:",
+    "BOOK_DESCRIPTION": "Description:",
+    "CATEGORIES": "Categories:",
+    "REVIEW": "Review:",
+    "STATUS": "Status:",
+    "FILM_DIRECTOR": "Film's director:",
+    "FILM_RELEASED_DATE": "Film's relased date"
+  },
+  "Read": "Read"
 }

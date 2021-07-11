@@ -13,6 +13,8 @@ export const environment = {
     appId: "1:345230584948:web:002af33ec3e271682d3521"
   },
   bookApi: 'https://www.googleapis.com/books/v1/volumes?q',
+  movieApi: 'http://www.omdbapi.com/?t',
+  countryApi: 'https://restcountries.eu/rest/v2/name'
 };
 
 /*

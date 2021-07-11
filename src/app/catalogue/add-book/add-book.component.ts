@@ -18,8 +18,9 @@ export class AddBookComponent implements OnInit {
     private loadingService: LoadingService) { }
 
   starRating = faStar;
-  searchData: string; //tranfered
-  fb: FormBuilder;
+  notFoundError: boolean = false;
+  searchData: string;
+  // fb: FormBuilder;
 
   get errorVal() {
     return this.facade.errorVal;
@@ -45,7 +46,9 @@ export class AddBookComponent implements OnInit {
       .pipe(finalize(() => this.loadingService.stop()))
       .subscribe((selectedBook) => {
         this._selectedBook = selectedBook;
-      });
+        this.notFoundError = false;
+      },
+        () => this.notFoundError = true);
 
   }
 
@@ -54,9 +57,12 @@ export class AddBookComponent implements OnInit {
 
     this.facade.searchFromStoreData(name)
       .pipe(finalize(() => this.loadingService.stop()))
-      .subscribe((selectedBook) => {
-        this._selectedBook = selectedBook;
-      });
+      .subscribe(
+        (selectedBook) => {
+          this._selectedBook = selectedBook;
+          this.notFoundError = false;
+        },
+        () => this.notFoundError = true);
   }
 
   restoreSearches() {

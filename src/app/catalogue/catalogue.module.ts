@@ -9,7 +9,7 @@ import { SharedModule } from '../shared-module/shared-module.module';
 import { UserComponent } from './user/user.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BookListComponent, BookListItemComponent } from './book-list/index';
-import { FireCollectionApiService, BOOK_API, BookApiService } from './services/index';
+import { FireCollectionApiService, BOOK_API, MOVIE_API, COUNTRY_API, BookApiService } from './services/index';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookInfoComponent } from './add-book/book-info/book-info.component';
 import { AddBookService } from './services/add-book.service';
@@ -37,6 +37,14 @@ import { AddBookService } from './services/add-book.service';
   providers: [BookApiService, AddBookService, FireCollectionApiService, {
     provide: BOOK_API,
     useValue: environment.bookApi
-  }]
+  },
+    {
+      provide: MOVIE_API,
+      useValue: environment.movieApi
+    },
+    {
+      provide: COUNTRY_API,
+      useValue: environment.countryApi
+    }]
 })
 export class CatalogueModule { }

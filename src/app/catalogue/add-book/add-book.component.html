@@ -8,6 +8,9 @@
       <div class="error-box" *ngIf="errorVal">
         {{"errors.SEARCH_ERROR" | translate}}
       </div>
+      <div class="error-box" *ngIf="notFoundError" >
+        {{"errors.BOOK_NOT_FOUND" | translate}}
+      </div>
       <button (click)="searchBook(searchData)">{{"catalogue.searchPage.ADD_BOOK_BTN" | translate}}</button>
     </div>
   </div>

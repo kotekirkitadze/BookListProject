@@ -68,9 +68,6 @@ export class AddBookService {
           switchMap((filmData) => this.mapToMovie(filmData, bookData))
         )
       }),
-      catchError(err => {
-        return of(null)
-      })
     );
   }
 
