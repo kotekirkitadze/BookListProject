@@ -3,17 +3,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SaveDataService } from 'src/app/catalogue/services/userinfo_fire.service';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { ToastrService } from 'ngx-toastr';
-import { TranslateService } from '@ngx-translate/core';
-import { FireCollectionApiService } from '../services';
-import { finalize, map } from 'rxjs/operators';
-import { LoadingService } from 'src/app/services/loading.service';
+import { UserFacade } from './user.facade';
 
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  providers: [UserFacade]
 })
 export class UserComponent implements OnInit {
 
@@ -22,13 +19,14 @@ export class UserComponent implements OnInit {
   editName: boolean = false;
   editEmail: boolean = false;
   editPassword: boolean = false;
+  userName: string;
+  userEmail: string;
+  newEmail: string;
+  userPassword: string;
 
   constructor(private auth: AuthService,
     private fireStoreService: SaveDataService,
-    private toastr: ToastrService,
-    private translateService: TranslateService,
-    private catalogue: FireCollectionApiService,
-    private loadingService: LoadingService) { }
+    private userFacade: UserFacade) { }
 
   ngOnInit(): void {
     this.fireStoreService.getItem().subscribe((user) => {
@@ -38,21 +36,6 @@ export class UserComponent implements OnInit {
   }
 
 
-  userName: string;
-  userEmail: string;
-  newEmail: string;
-  userPassword: string;
-  deleteUser() {
-
-    this.loadingService.start();
-    this.auth.deleteUser().pipe(finalize(() => this.loadingService.stop())).subscribe();
-    this.catalogue.getBooksData()
-      .pipe(map(val => {
-        val.map(el => {
-          this.catalogue.deleteBook(el.id);
-        })
-      })).subscribe();
-  }
 
   edit(validator: string) {
     if (validator == "name") {
@@ -65,26 +48,22 @@ export class UserComponent implements OnInit {
   }
 
   updateUserName() {
-    this.fireStoreService.updateUser({
-      uid: this.auth.getCurrentUser().uid,
-      name: this.userName
-    });
+    this.userFacade.updateUserName(this.userName);
     this.editName = false;
-    this.translateService.get("catalogue.UserPage.FULL_NAME_CHANGED").subscribe((value) => this.toastr.success(value))
-
   }
 
 
   updatePassword() {
-    this.auth.updatePassword(this.userPassword).subscribe(
-      () => this.editPassword = false);
-    this.translateService.get("catalogue.UserPage.PASSWORD_CHANGED").subscribe((value) => this.toastr.success(value))
+    this.userFacade.updatePassword(this.userPassword);
+    this.editPassword = false
   }
 
   updateEmail() {
-    this.auth.updateEmail(this.userEmail).subscribe(() => {
-      this.editEmail = false;
-    })
-    this.translateService.get("catalogue.UserPage.EMAIL_CHANGED").subscribe((value) => this.toastr.success(value))
+    this.userFacade.updateEmail(this.userEmail);
+    this.editEmail = false;
+  }
+
+  deleteUser() {
+    this.userFacade.deleteUser();
   }
 }

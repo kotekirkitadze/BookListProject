@@ -64,6 +64,10 @@
 	border: none;
 	cursor: pointer;
 	margin-bottom: 10px;
+  transition: all 0.5s ease;
+}
+.forgetBtn:hover {
+  color: rgb(168, 168, 168);
 }
 
 

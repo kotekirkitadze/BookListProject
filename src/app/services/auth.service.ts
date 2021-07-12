@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { from } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { from, of } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { SignInFormUser, SignUpFormUser, ResetFormUser, User } from '../auth/index';
 import { SaveDataService } from '../catalogue/services/userinfo_fire.service';
 
@@ -58,8 +58,6 @@ export class AuthService {
   resetUserPassword({ email }: ResetFormUser) {
     return from(this.auth.sendPasswordResetEmail(email));
   }
-
-
 
   deleteUser() {
     const user = {

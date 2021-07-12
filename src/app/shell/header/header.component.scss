@@ -93,7 +93,7 @@ header {
 }
 
 .signOutBtn:hover{
-	background: rgb(167, 5, 5);
+	background: rgb(196, 3, 3);
 }
 
 .book {
@@ -108,6 +108,11 @@ header {
 	cursor: pointer;
   color: white;
   background-color: rgb(6, 51, 53);
+  transition: all 0.5s ease;
+}
+
+.userBtn:hover {
+  background: rgb(4, 76, 80);
 }
 
 

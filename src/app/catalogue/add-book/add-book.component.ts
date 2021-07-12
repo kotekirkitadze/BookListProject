@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Book } from '../catalogue.model';
 import { AddBookFacade } from './add-book.facade';
 import { LoadingService } from 'src/app/services/loading.service';
@@ -16,13 +16,18 @@ export class AddBookComponent implements OnInit {
   constructor(private facade: AddBookFacade,
     private loadingService: LoadingService) { }
 
-  starRating = faStar;
+
+  faSearch = faSearch;
   notFoundError: boolean = false;
   searchData: string;
 
 
   get errorVal() {
     return this.facade.errorVal;
+  }
+
+  changEerrorVal() {
+    this.facade.errorVal = !this.facade.errorVal;
   }
 
   _selectedBook: Book;
@@ -46,8 +51,12 @@ export class AddBookComponent implements OnInit {
       .subscribe((selectedBook) => {
         this._selectedBook = selectedBook;
         this.notFoundError = false;
+
       },
-        () => this.notFoundError = true);
+        () => {
+          this.notFoundError = true;
+
+        });
 
   }
 

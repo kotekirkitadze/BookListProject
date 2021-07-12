@@ -11,7 +11,7 @@
       <div class="error-box" *ngIf="notFoundError" >
         {{"errors.BOOK_NOT_FOUND" | translate}}
       </div>
-      <button (click)="searchBook(searchData)">{{"catalogue.searchPage.ADD_BOOK_BTN" | translate}}</button>
+      <button (click)="searchBook(searchData)"><fa-icon [icon]="faSearch"></fa-icon> {{"catalogue.SEARCH" | translate}}</button>
     </div>
   </div>
   <ul class="lastThree">

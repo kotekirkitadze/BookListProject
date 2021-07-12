@@ -13,7 +13,6 @@ export class FireCollectionApiService {
   constructor(private store: AngularFirestore,
     private auth: AuthService) { }
 
-  //fireBookDataWithId
 
   postBookData(body: fireBookBody) {
     return from(this.store.collection("bookCatalogue").add(body));

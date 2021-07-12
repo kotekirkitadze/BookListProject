@@ -1,19 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { fireBookBody } from '../catalogue.model';
-import { AuthService } from '../../services/auth.service';
-import { LoadingService } from '../../services/loading.service';
-
-export interface User {
-  name?: string;
-  uid?: string;
-  password?: string;
-}
+import { User } from '../../auth/index'
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +19,7 @@ export class SaveDataService {
   itemDoc: AngularFirestoreDocument<User>;
 
   constructor(private afs: AngularFirestore,
-    private http: HttpClient,
-    private auth: AngularFireAuth,
-    private navRouting: Router,
-    private loadingService: LoadingService) {
+    private auth: AngularFireAuth) {
     this.userCollections = this.afs.collection('users');
     this.items = this.userCollections.valueChanges();
 
@@ -37,7 +28,7 @@ export class SaveDataService {
         // Logged ina
         if (user) {
           //value changes() returns collections as observable
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.afs.doc<User>(`users/${user?.uid}`).valueChanges();
         } else {
           // Logged out
           return of(null);
@@ -61,15 +52,11 @@ export class SaveDataService {
     this.itemDoc.delete();
   }
 
-
-
   updateUser(user: User) {
     this.itemDoc = this.afs.doc(`users/${user.uid}`);
     const reneWedUser: User = { name: user.name }
     this.itemDoc.update(reneWedUser);
   }
-
-
 }
 
 

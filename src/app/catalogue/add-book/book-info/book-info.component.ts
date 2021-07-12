@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faBan } from '@fortawesome/free-solid-svg-icons';
 import { BookInfoFacade } from './book-info.facade';
-
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -42,6 +42,7 @@ export class BookInfoComponent implements OnInit, OnDestroy {
 
   check = faCheck;
   ban = faBan;
+  faPlus = faPlus;
   status = Status;
 
   createForm() {

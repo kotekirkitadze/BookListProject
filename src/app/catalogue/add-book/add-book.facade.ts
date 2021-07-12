@@ -30,6 +30,7 @@ export class AddBookFacade {
   }
 
   searchFromStoreData(key: string) {
+    this.errorVal = false;
     return this.addBookService.getBooksFromApi(key);
   }
 
