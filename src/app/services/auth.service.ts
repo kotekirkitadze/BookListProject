@@ -1,44 +1,83 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { SignInFormUser, SignUpFormUser, ResetFormUser } from '../auth/index';
+import { Router } from '@angular/router';
+import { from, of } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { SignInFormUser, SignUpFormUser, ResetFormUser, User } from '../auth/index';
+import { SaveDataService } from '../catalogue/services/userinfo_fire.service';
 
-interface User {
-  uid: string;
-  email: string;
-}
+export const USER_DELETE_URL = new InjectionToken<string>("delete user API");
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private userChange: User;
+  private _userChange: User;
+  private _isInitiated: boolean = false;
 
-  isLoggedIn(): boolean {
-    return !!this.userChange;
+  getIsInitiated(): boolean {
+    return this._isInitiated;
   }
 
-  constructor(private auth: AngularFireAuth) { 
+  isLoggedIn(): boolean {
+    return !!this._userChange;
+  }
+
+  getCurrentUser(): User {
+    return !!this._userChange ? this._userChange : null;
+  }
+
+  constructor(private auth: AngularFireAuth,
+    private http: HttpClient,
+    private navRouting: Router,
+    @Inject(USER_DELETE_URL) private delete_user_url: string,
+    private saveData: SaveDataService) {
     this.auth.onAuthStateChanged((user) => {
-      console.log(user);
-      this.userChange = user;
+      this._userChange = user;
+      if (!this._isInitiated) {
+        this._isInitiated = true;
+      }
     });
   }
 
+  signInUser({ email, password }: SignInFormUser) {
+    return from(this.auth.signInWithEmailAndPassword(email, password));
 
-  signInUser({email, password}: SignInFormUser){
-    return this.auth.signInWithEmailAndPassword(email, password);
   }
 
-  signUpUser({email, password}: SignUpFormUser){
-      return this.auth.createUserWithEmailAndPassword(email, password);
+  signUpUser({ email, password }: SignUpFormUser) {
+    return from(this.auth.createUserWithEmailAndPassword(email, password));
   }
 
-  signOutUser(){
-    return this.auth.signOut();
+  signOutUser() {
+    return from(this.auth.signOut());
   }
 
-  resetUserPassword({email}: ResetFormUser){
-    return this.auth.sendPasswordResetEmail(email);
+  resetUserPassword({ email }: ResetFormUser) {
+    return from(this.auth.sendPasswordResetEmail(email));
+  }
+
+  deleteUser() {
+    const user = {
+      "userEmail": this._userChange.email
+    }
+    return this.http.post(this.delete_user_url, user).pipe(switchMap(() => {
+      this.saveData.deleteUserData(this._userChange);
+      return this.signOutUser().pipe(tap(() => {
+        this.navRouting.navigate(["sign-in"]);
+      }))
+    }))
+  }
+
+  updatePassword(newPassword: string) {
+    return from(this.auth.currentUser).pipe(tap(user => user.updatePassword(newPassword)))
+
+  }
+  updateEmail(newEmail: string) {
+    return from(this.auth.currentUser).pipe(tap(user => user.updateEmail(newEmail)));
   }
 }
+
+

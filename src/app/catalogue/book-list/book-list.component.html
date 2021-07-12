@@ -1,0 +1,6 @@
+<div class="item-container">
+  <div *ngFor="let eachBook of books$ | async">
+    <app-book-list-item [data]="eachBook"
+                        (deleteBtn)="deleteBook($event)"></app-book-list-item>
+  </div>
+</div>

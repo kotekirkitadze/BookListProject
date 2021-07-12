@@ -1,0 +1,70 @@
+.item {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+h2 {
+  text-shadow: 0 5px 5px rgba(0,0,0,.5);
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.btns-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.btns-div button {
+
+  border-radius: 5px;
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+  border-style: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.8s ease;
+}
+
+.deleteBtn{
+  background-color: red;
+  color: white;
+}
+
+.deleteBtn:hover {
+  background-color: rgb(216, 204, 204);
+  color: rgb(8, 8, 8);
+}
+
+
+.detailsBtn {
+  background-color: #256eff;
+  color: white;
+}
+
+.detailsBtn:hover {
+  background-color: rgb(216, 204, 204);
+  color: rgb(8, 8, 8);
+}
+
+
+.img {
+  height: 70%;
+}
+.anotherInfoDiv{
+  margin-top: 8px;
+  margin-bottom: 55px;
+}
+
+.anotherInfoDiv p, .whentoRead{
+
+}

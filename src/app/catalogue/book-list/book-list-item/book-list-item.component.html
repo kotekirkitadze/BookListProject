@@ -1,0 +1,27 @@
+<div class="item">
+  <div>
+    <img class="img" [src]="data?.allData?.imageLinks"/>
+      <div class="infoDiv">
+        <h2>{{data?.fireData.title}}</h2>
+        <div class="anotherInfoDiv">
+        <p><strong>{{"book.AUTHOR" | translate}} </strong>{{data?.allData?.authors}}</p>
+        <p><strong>{{"book.PUBLISH_DATE" | translate}} </strong>{{data?.allData?.publishedDate}}</p>
+        <p><strong>{{"book.BOOK_ADAPTATION" | translate}}</strong>
+        <span *ngIf="data?.allData?.movie.response">Yes</span>
+        <span *ngIf="!data?.allData?.movie.response">No</span></p>
+        <div *ngFor="let element of whenToRead" class="whentoRead">
+          <div *ngIf="data.fireData.whenToRead == element.value">
+              <strong>{{"catalogue.WHEN_TO_READ" | translate}}</strong> {{element.label | translate}}
+          </div>
+        </div>
+        <p><strong>{{"book.MINE_RATING" | translate}}</strong> {{data?.fireData?.rating}}</p>
+       </div>
+      </div>
+  </div>
+  <div class="btns-div">
+    <button (click)="goToDetails()"
+            class="detailsBtn">{{"catalogue.BOOK_DETAILS" | translate}}</button>
+    <button (click)="delete()"
+            class="deleteBtn">{{"catalogue.DELETE_BOOK_BTN" | translate}}</button>
+  </div>
+</div>

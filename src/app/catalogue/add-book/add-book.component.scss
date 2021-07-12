@@ -1,0 +1,92 @@
+.title {
+  background-color: burlywood;
+  text-align: center;
+  padding: 35px;
+  background: rgb(255,157,91);
+  background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(34,94,195,1) 100%);
+}
+
+.form {
+  height: 130px;
+}
+
+input {
+	border: 0;
+	background: none;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 4px solid #1d3a4d;
+	padding: 14px 10px;
+	width: 400px;
+	outline: none;
+	border-radius: 24px;
+	transition: 0.25s;
+}
+
+input:focus{
+	width: 450px;
+	border-color: #3b5044;
+}
+
+button{
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	padding: 14px 40px;
+	outline: none;
+	color: rgb(27, 25, 25);
+	border-radius: 24px;
+	transition: 0.25s;
+	cursor: pointer;
+  background: rgb(58, 160, 228);
+  font-size: 20px;
+}
+
+
+button:hover{
+	background: #37aedd;
+}
+
+
+.add-movie-container{
+  margin: 0 auto;
+  width: 100%;
+
+}
+
+
+.error-box {
+  background-color: rgb(226, 31, 31);
+  width: 400px;
+  text-align: center;
+  padding: 7px;
+  margin: auto;
+  border-radius: 10px;
+  margin-top: -16px;
+  margin-bottom: -16px;
+  color: white;
+  font-size: 15px;
+}
+
+.lastThree {
+  display: flex;
+  justify-content: center;
+   margin-top: 25px;
+}
+
+.lastThree  {
+  display: flex;
+  list-style-type: none;
+}
+
+.lastThree  li {
+  margin-left: 25px;
+  font-size: 20px;
+  background-color: rgb(117, 87, 4);
+  color: rgb(255, 239, 239);
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+

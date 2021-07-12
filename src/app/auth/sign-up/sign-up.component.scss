@@ -15,6 +15,8 @@
 	color: white;
 	text-transform: uppercase;
 	font-weight: 500;
+
+	margin-bottom: 25px;
 }
 
 .box input {
@@ -37,7 +39,7 @@
 	border-color: #2ecc71;
 }
 
-.logIn{
+.signUp{
 	border: 0;
 	background: none;
 	display: block;
@@ -50,8 +52,67 @@
 	border-radius: 24px;
 	transition: 0.25s;
 	cursor: pointer;
+	margin-top: 30px;
+	margin-bottom: -5px;
 }
 
-.logIn:hover{
+.signUp:hover{
 	background: #2ecc71;
 }
+
+
+
+.input-div {
+	display: flex;
+	flex-direction: row;
+	margin: -25px;
+
+}
+.input-div input {
+	position: relative;
+}
+
+.input-div div {
+	position: absolute;
+	margin-left: 100px;
+	margin-top: 14.5px;
+	width: 190px;
+	color: white;
+	padding-bottom: 7px;
+}
+
+
+
+
+
+.alert {
+	background: red;
+	box-shadow: 0 0 20px 0 #999;
+	padding: 3px;
+  padding-top: 5px;
+	font-size: .9em;
+	display: inline-block;
+	animation: 2s alertAnim forwards;
+	border-radius: 10px;
+	margin: 5px;
+  }
+
+.mustMatch {
+	padding-bottom: 7px;
+	color: white;
+	width: 250px;
+  margin-top: 25px;
+}
+
+
+  @keyframes alertAnim {
+	from{
+	  opacity: 0;
+	  transform: translateY(0);
+	}
+	to {
+	  opacity: 1;
+
+	  transform: translateY(-2px);
+	}
+  }

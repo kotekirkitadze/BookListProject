@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
-import { SharedModuleModule } from '../shared-module/shared-module.module';
+import { SharedModule } from '../shared-module/shared-module.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,
-    SharedModuleModule,
+    SharedModule,
     FontAwesomeModule
   ],
   exports: [HeaderComponent]

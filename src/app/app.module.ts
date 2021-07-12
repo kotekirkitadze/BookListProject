@@ -9,7 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { ShellModule } from './shell/shell.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+import { SharedModule } from './shared-module/shared-module.module';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { USER_DELETE_URL } from './services/auth.service';
 export function TranslateHttpLoaderFactory(
   http: HttpClient
 ): TranslateHttpLoader {
@@ -24,6 +29,9 @@ export function TranslateHttpLoaderFactory(
     HttpClientModule,
     AppRoutingModule,
     ShellModule,
+    SharedModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -32,9 +40,13 @@ export function TranslateHttpLoaderFactory(
       },
       defaultLanguage: "en"
     }),
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
-  providers: [HttpClient],
+  providers: [HttpClient, {
+    provide: USER_DELETE_URL,
+    useValue: environment.deleteFn_fire_cloud
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

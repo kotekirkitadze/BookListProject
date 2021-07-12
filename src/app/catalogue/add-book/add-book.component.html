@@ -1,0 +1,26 @@
+<div class="add-movie-container">
+  <h1 class="title">{{"catalogue.searchPage.TITLE" | translate}}</h1>
+  <div class="add-movie">
+    <div class="form">
+      <input [(ngModel)]="searchData"
+             type="text"
+             placeholder="{{'catalogue.searchPage.INPUT' | translate}}">
+      <div class="error-box" *ngIf="errorVal">
+        {{"errors.SEARCH_ERROR" | translate}}
+      </div>
+      <div class="error-box" *ngIf="notFoundError" >
+        {{"errors.BOOK_NOT_FOUND" | translate}}
+      </div>
+      <button (click)="searchBook(searchData)"><fa-icon [icon]="faSearch"></fa-icon> {{"catalogue.SEARCH" | translate}}</button>
+    </div>
+  </div>
+  <ul class="lastThree">
+    <li *ngFor="let name of lastThreeSearches"
+         (click)="getBooksFromApi(name)">
+      {{name}}
+    </li>
+  </ul>
+</div>
+
+<app-book-info [_selectedBook]="_selectedBook"></app-book-info>
+

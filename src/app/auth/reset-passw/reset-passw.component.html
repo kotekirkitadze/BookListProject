@@ -2,11 +2,24 @@
     <form #formData="ngForm"
           (ngSubmit)='resetPassword(formData.value)'>
 	    <h1>{{ "auth.RESET_PASSWORD_TITLE" | translate}}</h1>
-	    <input ngModel type="text" name="email"
-           placeholder="{{ 'auth.EMAIL' | translate}}">
-	    <button class="logIn">{{ "auth.RESET_BUTTON" | translate}}
-
-      </button>
+	    <div class="input-div">
+        <input type="text"
+             name="email"
+             placeholder="{{ 'auth.EMAIL' | translate}}"
+             required
+             ngModel>
+        <div *ngIf="formData.submitted && formData.invalid" class="error-container">
+            <div *ngIf="formData.controls.email?.errors?.required" class="alert">
+              {{ "errors.EMAIL_NEEDED" | translate}}
+            </div>
+        </div>
+      </div>
+	    <button class="logIn">{{ "auth.RESET_BUTTON" | translate}}</button>
+      <div *ngIf="formData.submitted" class="backend-error-container">
+        <div *ngIf="getError=='notUser'" class="alert">
+          {{ "auth.USER_NOT_FOUND" | translate}}
+        </div>
+      </div>
     </form>
 </div>
 

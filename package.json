@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:stats": "ng build --stats-json",
+    "analyze": "webpack-bundle-analyzer dist/my-book-project/stats.json"
+
+
   },
   "private": true,
   "dependencies": {
@@ -24,8 +28,10 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "firebase": "^7.0 || ^8.0",
+    "ngx-toastr": "^14.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
+    "webpack-bundle-analyzer": "^4.4.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

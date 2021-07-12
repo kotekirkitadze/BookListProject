@@ -1,0 +1,246 @@
+
+.rating {
+   display: flex;
+   transform:rotateY(180deg);
+   width: 35%;
+   margin-left: 6px;
+   margin-top: -25px;
+   padding-left: 0;
+}
+
+
+.rating input {
+   display: none;
+}
+
+.rating label {
+   display: block;
+   cursor: pointer;
+   width: 50px;
+}
+
+ .rating label:before {
+   content: '\2605';
+   position: relative;
+   display: block;
+   font-size: 50px;
+   color: #101010;
+ }
+
+.rating label:after {
+   content: '\2605';
+   position: absolute;
+   display: block;
+   font-size: 50px;
+   color: #1f9cff;
+   top: 0;
+   opacity: 0;
+   transition: 0.5s;
+   text-shadow: 0 2px 5px rgba(0,0,0,.5);
+ }
+
+
+ .rating label:hover:after,
+ .rating label:hover ~ label:after,
+ .rating input:checked ~ label:after{
+   opacity: 1;
+ }
+
+
+body {
+  background-color: #efefef;
+  font-family: sans-serif;
+}
+
+
+ .contact-box {
+     width: 70%;
+     background-color: #fff;
+     box-shadow: 0 0 20px 0 #999;
+      height: 45%;
+    margin: auto;
+    margin-top: 30px;
+    font-size: 25px;
+    margin-bottom: 35px;
+ }
+
+
+ form {
+  margin: 30px;
+  padding: 30px;
+  height: 300px;
+ }
+
+
+.input-field {
+  width: 400px;
+  height: 40px;
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #777;
+  border-radius: 14px;
+  outline: none;
+ }
+
+
+ .textarea-field {
+  height: 50px;
+  width: 500px;
+  padding-top: 10px;
+ }
+
+
+ .btn {
+  border-radius: 20px;
+  color: #fff;
+  margin-top: 18px;
+  padding: 15px;
+  background-color: #057e17;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  margin-left: 35%;
+  transition: all 0.5s ease;
+ }
+ .btn:hover {
+  background-color: #0d5f19;
+ }
+
+ .form-conatiner {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  margin: 10px;
+ }
+
+ .form-conatiner label {
+  margin-right: 35px;
+ }
+
+
+ .form-conatiner select {
+  margin-left: 10px;
+  width: 35%;
+  padding: 5px;
+  padding-left: 15px;
+  font-size: 15px;
+ }
+
+ .select-first{
+  width: 50%;
+ }
+
+ .select-second{
+   width: 50%;
+ }
+
+
+ .select-first option, .select-second option {
+  padding: 7px;
+}
+
+ .input-div {
+   display: flex;
+   position: relative;
+ }
+
+
+ .alert {
+  background: red;
+  padding-bottom: 4px;
+	font-size: .9em;
+	display: inline-block;
+	animation: 2s alertAnim forwards;
+	border-radius: 10px;
+	margin: 5px;
+	box-shadow: 0 0 20px 0 #999;
+  position: absolute;
+  margin-left: 15px;
+  margin-top: 15px;
+  width: 270px;
+  color: white;
+  text-align: center;
+ }
+
+
+ .timeToRead-div{
+   margin-left: 350px;
+ }
+
+
+.book-result {
+  margin: auto;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 5px;
+  display: flex;
+}
+
+ .form-conatiner select {
+   width: 40%;
+ }
+
+
+ .book-result img {
+    margin-right: 15px;
+ }
+
+
+ .book-result-div {
+   margin-top: -7px;
+ }
+
+
+ .countries {
+   display: flex;
+   align-items: center;
+
+ }
+
+
+ .countries p{
+   margin-right: 15px;
+ }
+
+
+ .image {
+   width: 14%;
+ }
+
+
+ .result {
+   display: flex;
+   flex-direction: column;
+ }
+
+
+ .check {
+   color: green;
+ }
+
+
+ .ban {
+  color: red;
+ }
+
+
+ .timeToReadError{
+  width: 370px;
+  margin-left: 20px;
+ }
+
+
+ @keyframes alertAnim {
+  from{
+    opacity: 0;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+
+    transform: translateY(-2px);
+  }
+  }
+
+
