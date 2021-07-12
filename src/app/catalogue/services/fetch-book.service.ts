@@ -23,17 +23,20 @@ export class AddBookService {
 
   searchData: string;
 
+  getCountries(filmData: MovieApiResult) {
+    const countries = filmData.Country.split(', ');
+    return forkJoin(countries.map((countryCode) => {
+      if (countryCode.includes(" ")) {
+        return null
+      } else {
+        this.apiService.getCountryByCode(countryCode)
+      }
+    }))
+  }
 
-  mapToMovie(filmData: MovieApiResult, bookData: BookApiResult) {
+  mapToFireData(filmData: MovieApiResult, bookData: BookApiResult) {
     if (filmData.Response == "True") {
-      const countries = filmData.Country.split(', ');
-      return forkJoin(countries.map((countryCode) => {
-        if (countryCode.includes(" ")) {
-          return null
-        } else {
-          this.apiService.getCountryByCode(countryCode)
-        }
-      })).pipe(
+      return this.getCountries(filmData).pipe(
         map<CountryApiResult[], Country[]>((element) => {
           return element.map(el => {
             return {
@@ -44,11 +47,11 @@ export class AddBookService {
         }),
         catchError((err) => of(null)),
         map<Country[], Book>(countryData => {
-          return this.mapBook(countryData, bookData, filmData);
+          return this.mapFireDataModel(countryData, bookData, filmData);
         })
       )
     } else {
-      return of(this.mapBook(null, bookData, null));
+      return of(this.mapFireDataModel(null, bookData, null));
     }
   }
 
@@ -63,13 +66,13 @@ export class AddBookService {
         const bookInfo = bookData?.items[0]?.volumeInfo
         const title = bookInfo.title;
         return this.apiService.getFilmByName(title).pipe(
-          switchMap((filmData) => this.mapToMovie(filmData, bookData))
+          switchMap((filmData) => this.mapToFireData(filmData, bookData))
         )
       }),
     );
   }
 
-  mapBook(countries: Country[], book: BookApiResult, movie: MovieApiResult): Book {
+  mapFireDataModel(countries: Country[], book: BookApiResult, movie: MovieApiResult): Book {
     return {
       title: book?.items[0].volumeInfo?.title,
       authors: book?.items[0].volumeInfo?.authors[0],

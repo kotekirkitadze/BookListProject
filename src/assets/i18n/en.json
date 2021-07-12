@@ -27,6 +27,8 @@
      "SEARCH": "Search Book",
      "TOASTR_BOOK_ADDED": "Book has been added",
      "WHEN_TO_READ": "When to read:",
+     "DELETE_BOOK_BTN": "Delete",
+     "BOOK_DETAILS": "Details",
      "DELETE_BOOK": "Book has been deleted",
      "searchPage": {
        "TITLE": "You can Search Book here",

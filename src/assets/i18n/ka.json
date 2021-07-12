@@ -28,6 +28,8 @@
     "TOASTR_BOOK_ADDED": "წიგნი დაემატა",
     "WHEN_TO_READ": "წაკითხვის დრო:",
     "DELETE_BOOK": "წიგნი წარმატებით წაიშალა",
+    "DELETE_BOOK_BTN": "წაშლა",
+    "BOOK_DETAILS": "დეტალები",
     "searchPage": {
       "TITLE": "თქვენ შეგიძლიათ მოძებნოთ წიგნი აქ",
       "INPUT": "წიგნის ძიება",

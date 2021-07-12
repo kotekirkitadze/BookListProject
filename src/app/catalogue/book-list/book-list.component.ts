@@ -46,12 +46,12 @@ export class BookListComponent implements OnInit, AfterViewInit {
   }
 
   deleteBook(id: string) {
+    this.loadingService.start();
     this.bookFireServie.deleteBook(id).subscribe(() => {
-      this.books$ = this.fetch()
+      this.books$ = this.fetch().pipe(finalize(() => this.loadingService.stop()))
       this.translateService.get("catalogue.DELETE_BOOK").subscribe(value => this.toastr.success(value))
     });
   }
-
 
   ngAfterViewInit() {
     setTimeout(() => {
