@@ -2,22 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
-import { from, of } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
-import { SaveDataService } from 'src/app/services/userinfo_fire.service';
+import { finalize } from 'rxjs/operators';
 import { BackEndErrorService } from '../backEndErrors/backEndErroro.service';
-
-export interface SignInFormUser {
-  email: string;
-  password: string;
-}
+import { SignInFormUser } from "../auth.model"
 
 
-export interface BakcEndError {
-  a: any;
-  code: string;
-  message: string;
-}
 
 @Component({
   selector: 'app-sign-in',

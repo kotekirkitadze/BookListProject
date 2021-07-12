@@ -9,7 +9,7 @@ import {
 import { forkJoin, of } from 'rxjs';
 import { LoadingService } from 'src/app/services/loading.service';
 import { finalize, map, switchMap, catchError } from 'rxjs/operators';
-import { BookApiService } from '.';
+import { AllDataApiService } from '.';
 
 
 
@@ -17,7 +17,7 @@ import { BookApiService } from '.';
 export class AddBookService {
 
   constructor(private loadingService: LoadingService,
-    private apiService: BookApiService) {
+    private apiService: AllDataApiService) {
 
   }
 
@@ -54,13 +54,11 @@ export class AddBookService {
 
 
   getBooksFromApi(name: string) {
-    //this.loadingService.start();
     return this.apiService.getBookByName(name).pipe(
       finalize(() => {
         this.loadingService.stop();
         this.searchData = "";
       }),
-      //map(bookData => bookData?.items[0].volumeInfo),
       switchMap((bookData) => {
         const bookInfo = bookData?.items[0]?.volumeInfo
         const title = bookInfo.title;

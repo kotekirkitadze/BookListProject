@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { SaveDataService } from 'src/app/services/userinfo_fire.service';
+import { SaveDataService } from 'src/app/catalogue/services/userinfo_fire.service';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
@@ -79,7 +78,6 @@ export class UserComponent implements OnInit {
   updatePassword() {
     this.auth.updatePassword(this.userPassword).subscribe(
       () => this.editPassword = false);
-    //this.
     this.translateService.get("catalogue.UserPage.PASSWORD_CHANGED").subscribe((value) => this.toastr.success(value))
   }
 
@@ -87,7 +85,6 @@ export class UserComponent implements OnInit {
     this.auth.updateEmail(this.userEmail).subscribe(() => {
       this.editEmail = false;
     })
-
     this.translateService.get("catalogue.UserPage.EMAIL_CHANGED").subscribe((value) => this.toastr.success(value))
   }
 }

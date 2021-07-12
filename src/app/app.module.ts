@@ -14,6 +14,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { USER_DELETE_URL } from './services/auth.service';
 export function TranslateHttpLoaderFactory(
   http: HttpClient
 ): TranslateHttpLoader {
@@ -42,7 +43,10 @@ export function TranslateHttpLoaderFactory(
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule
   ],
-  providers: [HttpClient],
+  providers: [HttpClient, {
+    provide: USER_DELETE_URL,
+    useValue: environment.deleteFn_fire_cloud
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

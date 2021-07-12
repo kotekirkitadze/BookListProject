@@ -1,17 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
-import { SignInFormUser, SignUpFormUser, ResetFormUser } from '../auth/index';
-import { SaveDataService } from './userinfo_fire.service';
+import { switchMap, tap } from 'rxjs/operators';
+import { SignInFormUser, SignUpFormUser, ResetFormUser, User } from '../auth/index';
+import { SaveDataService } from '../catalogue/services/userinfo_fire.service';
 
-interface User {
-  uid: string;
-  email: string;
-  name?: string;
-}
+export const USER_DELETE_URL = new InjectionToken<string>("delete user API");
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +32,7 @@ export class AuthService {
   constructor(private auth: AngularFireAuth,
     private http: HttpClient,
     private navRouting: Router,
+    @Inject(USER_DELETE_URL) private delete_user_url: string,
     private saveData: SaveDataService) {
     this.auth.onAuthStateChanged((user) => {
       this._userChange = user;
@@ -65,12 +62,10 @@ export class AuthService {
 
 
   deleteUser() {
-    //this.loadingService.start();
-    const url = "https://us-central1-book-catalogue-d3599.cloudfunctions.net/deleteUserByEmail";
     const user = {
       "userEmail": this._userChange.email
     }
-    return this.http.post(url, user).pipe(switchMap(() => {
+    return this.http.post(this.delete_user_url, user).pipe(switchMap(() => {
       this.saveData.deleteUserData(this._userChange);
       return this.signOutUser().pipe(tap(() => {
         this.navRouting.navigate(["sign-in"]);

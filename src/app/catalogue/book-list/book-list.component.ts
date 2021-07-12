@@ -1,12 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { Book, ListData } from '../catalogue.model';
-import { AddBookService, BookApiService, FireCollectionApiService } from '../services';
+import { AddBookService, FireCollectionApiService } from '../services';
 
 @Component({
   selector: 'app-book-list',
@@ -16,52 +15,20 @@ import { AddBookService, BookApiService, FireCollectionApiService } from '../ser
 export class BookListComponent implements OnInit, AfterViewInit {
 
   constructor(private bookFireServie: FireCollectionApiService,
-    private bookApiService: BookApiService,
-    private afs: AngularFirestore,
     private translateService: TranslateService,
     private toastr: ToastrService,
     private addBookService: AddBookService,
     private loadingService: LoadingService) { }
 
-  //ახლა ასნიკ პაიპით გადავყევით, მაგრამ ამის ალტერნატივა იქნებოდა
-  // აქ ფირებუქის ტიპის ერეის ცვლადი შეგვექმნა და ენჯიონინიტში
-  // this.bookFireServie.getBookData() - ს დავსაბსქრაიბებოდით
-  // და მოცემული მნიშვნელობა ამ ცვლადისთვის მიგვემაგრებინა.
-  // შემდეგ ენჯიფორით გადავყოლოდით ამ ცვლადს html - ში.
-  // მაგრამა ასე ასინკ პაიპით გაკეთება უფრო კარგი პრაქტიკააო.
-  // რადგან უფრო ნაკლები ბაგი იქნებაო, ტიესში დასაბსქრაიბებით კი შეიძლება
-  // რაღაც ავრიოთ. აქ ასინკებით კი ვერაფერს გავაფუჭებთ. უბრალოდ სტრიმი უნდა
-  // იყოს სწორი.
-  //და თუ გვინდა რაღაც საიდ ეფექტები გვქონდეს, რეალურად, მაგალითად ტოასტის გამოყვანა
-  // და ასე შემდეგ, აქვე შეგვიძლია საიდ ეფეტქებისთვის ტაპების გამოყენება პაიპში,
-  // საბსქრაიბებში რომ არ ვქნათ ტიესშივე თვითონ:
-  // // this.bookFireServie.getBookData().pipe(tap(()=>{........}))
-  // და ასე ტაპის გამოყენება კარგი პრაქტიკა არისო, რადგან ხელით არ ვუსაბსქრაიბდებითო.
-  // პ.ს.თუ ამ დათას რაღაც გვინდა ვუქნათ, მივწრათ მოვჭრათ და რამე, მაშინ ცვლადზე მიმაგრება
-  // შეიძლება და გასაგებიცაა ალბათ.მაგრამ თუ გვინდა რომ უბრალოდ ვაჩვენოთ დატა როგორც აქ,
-  // მაშინ ჯობია ასინკები გამოვიყენოთ.
-  //პ.ს. async as რაღაც - მთლიანად კოლექციაზე მიუთითებს - საბსქრაიბში შემოსულ ველიუზე.
-  books$: Observable<ListData[]> = null; //this.bookFireServie.getBookData();
-
+  books$: Observable<ListData[]> = null;
 
 
   ngOnInit() {
-    this.books$ = this.fetch()
-    // this.fetch().subscribe(x => console.log(x))
+    this.books$ = this.fetch();
   }
 
-  // სვიჩმეპიდ და ფორქ ჯოინი იმიტომ გვინდა აქ, რომ
-  // სვიჩმეპი წინა ობზერვებლს გვირეზოლვებს, გვაძლევს დატას და
-  // ამ დატებით ფორკჯოინში ვარექვესთებთ რაღაცეებს.
-  // ხომ ვინდა რომ წინა ობზერვებლი დავარეზოლვოთ რაღაცეები - ამას
-  // კი სვიჩმეპით ვაკეთებთ და გადავდივართ ახალ ობზერვებლზეც, თუ გვინდა.
 
-  // Observable<ListData>
-
-  //გასატიპიზიირებელია
-  //ასევე მეთვრამეტე ლექციის 1:25 წუთზე შეგიძლია აიდის დამატების მომენტი ნახო.
   fetch(): Observable<ListData[]> {
-
     return this.bookFireServie.getBooksData().pipe(
       finalize(() => this.loadingService.stop()),
       switchMap(fireData => {
@@ -99,7 +66,7 @@ export class BookListComponent implements OnInit, AfterViewInit {
 
 
 // fetch() {
-//   return this.bookFireServie.getBooksData().pipe(
+//   return this.AllDataApiService.getBooksData().pipe(
 //     switchMap(fireData => {
 //       return forkJoin(fireData.map(eachData => this.bookApiService.getBookByName(eachData.title).pipe(
 //         switchMap(eachBook => {

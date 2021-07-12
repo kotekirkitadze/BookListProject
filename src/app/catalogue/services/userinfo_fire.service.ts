@@ -5,9 +5,9 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { fireBookBody } from '../catalogue/catalogue.model';
-import { AuthService } from './auth.service';
-import { LoadingService } from './loading.service';
+import { fireBookBody } from '../catalogue.model';
+import { AuthService } from '../../services/auth.service';
+import { LoadingService } from '../../services/loading.service';
 
 export interface User {
   name?: string;
@@ -69,12 +69,6 @@ export class SaveDataService {
     this.itemDoc.update(reneWedUser);
   }
 
-  // updatePassword(newPassword: string) {
-  //   this.auth.currentUser.then((user) => user.updatePassword(newPassword));
-  // }
-  // updateEmail(newEmail: string) {
-  //   this.auth.currentUser.then(user => user.updateEmail(newEmail))
-  // }
 
 }
 

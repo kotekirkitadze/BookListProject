@@ -14,7 +14,8 @@ export const environment = {
   },
   bookApi: 'https://www.googleapis.com/books/v1/volumes?q',
   movieApi: 'http://www.omdbapi.com/?t',
-  countryApi: 'https://restcountries.eu/rest/v2/name'
+  countryApi: 'https://restcountries.eu/rest/v2/name',
+  deleteFn_fire_cloud: "https://us-central1-book-catalogue-d3599.cloudfunctions.net/deleteUserByEmail"
 };
 
 /*

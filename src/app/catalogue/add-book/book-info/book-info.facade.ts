@@ -6,7 +6,6 @@ import { ToastrService } from "ngx-toastr";
 import { AuthService } from "src/app/services/auth.service";
 import { FireCollectionApiService } from "../../services";
 import { finalize } from "rxjs/operators";
-import { EMPTY, of } from "rxjs";
 
 @Injectable()
 export class BookInfoFacade {
@@ -44,12 +43,10 @@ export class BookInfoFacade {
 
   private resetForm() {
     this.translateService.get("catalogue.TOASTR_BOOK_ADDED").subscribe(value => this.toastr.success(value));
-    //ფორმის ველიუს არესეტებს
+
     this.form.reset();
-    //this._selectedBook = null;
     this.form.updateValueAndValidity();
     this.submitted = false;
-    //ფორმის დარესეტების შემდეგ, საწყისი ველიუები რომ დავუთაგოთ
     this.form.get("status").setValue(Status.Read);
     this.form.get("rating").setValue(1);
 
@@ -72,8 +69,7 @@ export class BookInfoFacade {
       uid: this.currentUser.getCurrentUser().uid
     }
 
-    //loading da addeed ragahc is axali dasamatebelia
-    //promisi iqneba es
+
     return this.store.postBookData(fireBody).pipe(finalize(() => {
       this.resetForm();
     }));

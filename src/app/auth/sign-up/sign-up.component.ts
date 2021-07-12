@@ -4,14 +4,8 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
-import { SaveDataService } from 'src/app/services/userinfo_fire.service';
+import { SaveDataService } from 'src/app/catalogue/services/userinfo_fire.service';
 import { BackEndErrorService } from '../backEndErrors/backEndErroro.service';
-
-export interface SignUpFormUser {
-  fullName: string
-  email: string;
-  password: string;
-}
 
 
 @Component({

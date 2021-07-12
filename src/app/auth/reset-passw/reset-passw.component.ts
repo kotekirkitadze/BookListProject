@@ -2,14 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import { from } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { BackEndErrorService } from '../backEndErrors/backEndErroro.service';
-import { BakcEndError } from '../sign-in/sign-in.component';
-
-export interface ResetFormUser {
-  email: string;
-}
+import { ResetFormUser } from "../auth.model"
 
 @Component({
   selector: 'app-reset-passw',
@@ -34,17 +29,18 @@ export class ResetPasswComponent implements OnInit {
 
     this.auth.resetUserPassword({ email }).
       subscribe(
-        () => this.route.navigate(['sign-in']),
+        () => {
+          this.route.navigate(['sign-in']);
+          this.translateService
+            .get("auth.PASSWORD_HAS_SENT")
+            .subscribe((value) => this.toastr.success(value))
+        },
         (error) => this.backErrorService.setBackEndError(error)
       );
-    this.translateService.get("auth.PASSWORD_HAS_SENT").subscribe((value) => this.toastr.success(value))
 
   }
 
   get getError(): string {
     return this.backErrorService.getError;
   }
-
-
-
 }

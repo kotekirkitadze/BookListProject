@@ -21,8 +21,7 @@
               <div class="countries"  *ngIf="getSelectedBook.movie.response">
                 <p *ngIf="getSelectedBook.countries"><strong>{{"book.COUNTRIES" | translate}}</strong></p>
                 <span *ngFor="let element of getSelectedBook.countries">
-                  <!-- //ამას დააკვირდი მერე, სავარაუდოდ მაინც აღარ დაიბეჭდებოდა ენჯიიფის გარეშე  -->
-                  <ng-container *ngIf="element">
+                   <ng-container *ngIf="element">
                       <img [src]="getCountryFlag(element)"
                       [title]="getCountryPopulation(element)"/>
                   </ng-container>

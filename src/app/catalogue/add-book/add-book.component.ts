@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder } from '@angular/forms';
 import { Book } from '../catalogue.model';
 import { AddBookFacade } from './add-book.facade';
 import { LoadingService } from 'src/app/services/loading.service';
@@ -20,13 +19,13 @@ export class AddBookComponent implements OnInit {
   starRating = faStar;
   notFoundError: boolean = false;
   searchData: string;
-  // fb: FormBuilder;
+
 
   get errorVal() {
     return this.facade.errorVal;
   }
 
-  _selectedBook: Book; //tranfered
+  _selectedBook: Book;
 
   get lastThreeSearches(): string[] {
     return this.facade.lastThreeSearches;

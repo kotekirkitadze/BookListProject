@@ -103,7 +103,6 @@ body {
   margin-left: 35%;
  }
 
- //transfered
  .form-conatiner {
   display: flex;
   flex-direction: row;
@@ -111,12 +110,11 @@ body {
   margin: 10px;
  }
 
-  //transfered
  .form-conatiner label {
   margin-right: 35px;
  }
 
-  //transfered
+
  .form-conatiner select {
   margin-left: 10px;
   width: 35%;
@@ -145,8 +143,7 @@ body {
 
 
  .alert {
-  background: red; //#f2edda;
-	// padding: 3px;
+  background: red;
   padding-bottom: 4px;
 	font-size: .9em;
 	display: inline-block;
@@ -169,7 +166,6 @@ body {
 
 
 .book-result {
-  // border: 3px solid black;
   margin: auto;
   width: 100%;
   margin-bottom: 20px;

@@ -45,7 +45,6 @@ export class BookDetailsComponent implements OnInit, AfterViewInit {
     this.bookData$ = this.initBookDetail()
   }
 
-  //naxe kidev mere
   ngAfterViewInit() {
     setTimeout(() => {
       this.loadingService.start();

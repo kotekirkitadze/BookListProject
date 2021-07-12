@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
-
-
-export interface BakcEndError {
-  a: any;
-  code: string;
-  message: string;
-}
+import { BakcEndError } from "./backEndError.model"
 
 
 @Injectable()
 export class BackEndErrorService {
-
   setBackEndError(error: BakcEndError) {
     if (error.code == "auth/user-not-found") {
       this.backError = "notUser"
