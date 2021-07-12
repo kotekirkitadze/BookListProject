@@ -33,7 +33,7 @@
      "DELETE_BOOK": "Book has been deleted",
      "searchPage": {
        "TITLE": "You can Search Book here",
-       "INPUT": "Serch Book",
+       "INPUT": "Write down the name of the book",
        "ADD_BOOK_BTN": "Add Book",
        "REVIEW": "Review:",
        "RATING": "Rating:",

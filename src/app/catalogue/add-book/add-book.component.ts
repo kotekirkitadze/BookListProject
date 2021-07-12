@@ -51,6 +51,7 @@ export class AddBookComponent implements OnInit {
       .subscribe((selectedBook) => {
         this._selectedBook = selectedBook;
         this.notFoundError = false;
+        this.searchData = "";
 
       },
         () => {
@@ -64,11 +65,15 @@ export class AddBookComponent implements OnInit {
     this.loadingService.start();
 
     this.facade.searchFromStoreData(name)
-      .pipe(finalize(() => this.loadingService.stop()))
+      .pipe(finalize(() => {
+        this.loadingService.stop();
+        this.searchData = "";
+      }))
       .subscribe(
         (selectedBook) => {
           this._selectedBook = selectedBook;
           this.notFoundError = false;
+
         },
         () => this.notFoundError = true);
   }
