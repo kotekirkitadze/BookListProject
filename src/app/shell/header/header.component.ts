@@ -8,6 +8,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { SaveDataService } from 'src/app/catalogue/services/userinfo_fire.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +26,31 @@ export class HeaderComponent implements OnInit {
   constructor(private navRouting: Router,
     private auth: AuthService, private qq: AngularFireAuth,
     private loadingService: LoadingService,
-    private saveData: SaveDataService) {
+    private saveData: SaveDataService,
+    private translateService: TranslateService) {
+  }
+
+  private isLanguage(lang: string): boolean {
+    const defLang = this.translateService.defaultLang;
+    const currLang = this.translateService.currentLang;
+
+    return currLang ? currLang == lang : defLang == lang;
+  }
+
+  get isKa() {
+    return this.isLanguage('ka');
+  }
+
+  get isEn() {
+    return this.isLanguage('en');
+  }
+
+  useEn() {
+    this.translateService.use("en");
+  }
+
+  useGe() {
+    this.translateService.use("ka");
   }
 
   ngOnInit(): void {

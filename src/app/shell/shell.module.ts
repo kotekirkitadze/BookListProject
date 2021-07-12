@@ -4,21 +4,18 @@ import { HeaderComponent } from './header/header.component';
 import { SharedModule } from '../shared-module/shared-module.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FooterComponent } from './footer/footer.component';
-
 
 @NgModule({
   declarations: [
     HeaderComponent,
     NotFoundComponent,
-    FooterComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     FontAwesomeModule
   ],
-  exports: [HeaderComponent, FooterComponent]
+  exports: [HeaderComponent]
 })
 export class ShellModule { }
 

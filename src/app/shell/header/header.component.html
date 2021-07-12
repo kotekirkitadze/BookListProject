@@ -23,6 +23,17 @@
                       class="signOutBtn"
                       *ngIf="isLoggedIn">{{ "SIGN_OUT_HEADER" | translate}}
                     </button></li>
+          <li class="lngli">
+            <div class="languageBars">
+              <button class="langBtn en"
+                      (click)="useEn()"
+                      [class.inactive]="!isEn"></button>
+              <button class="langBtn ge"
+                      (click)="useGe()"
+                      [class.inactive]="!isKa"
+                       ></button>
+            </div>
+          </li>
         </ul>
        </ng-container>
     </nav>

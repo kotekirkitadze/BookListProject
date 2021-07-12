@@ -25,6 +25,10 @@ header {
 
 .nav_links {
 	list-style: none;
+  margin-right: -90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -104,4 +108,30 @@ header {
 	cursor: pointer;
   color: white;
   background-color: rgb(6, 51, 53);
+}
+
+
+.languageBars{
+  width: 100%;
+  // margin-left: 70px;
+
+}
+
+
+.langBtn{
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  &.en {
+    background: url('/assets/images/en.png');
+  }
+  &.ge {
+    background: url('/assets/images/ka.png');
+    margin-left: 15px;
+  }
+  &.inactive {
+    filter: grayscale(100%);
+  }
 }
