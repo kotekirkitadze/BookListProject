@@ -5,7 +5,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { Book, ListData } from '../catalogue.model';
-import { AddBookService, FireCollectionApiService } from '../services';
+import { FetchDataApi, FireCollectionApiService } from '../services';
 
 @Component({
   selector: 'app-book-list',
@@ -17,7 +17,7 @@ export class BookListComponent implements OnInit, AfterViewInit {
   constructor(private bookFireServie: FireCollectionApiService,
     private translateService: TranslateService,
     private toastr: ToastrService,
-    private addBookService: AddBookService,
+    private fetchDataApi: FetchDataApi,
     private loadingService: LoadingService) { }
 
   books$: Observable<ListData[]> = null;
@@ -32,7 +32,7 @@ export class BookListComponent implements OnInit, AfterViewInit {
     return this.bookFireServie.getBooksData().pipe(
       finalize(() => this.loadingService.stop()),
       switchMap(fireData => {
-        return forkJoin(fireData.map(eachfireData => this.addBookService.getBooksFromApi(eachfireData.title)
+        return forkJoin(fireData.map(eachfireData => this.fetchDataApi.getBooksFromApi(eachfireData.title)
           .pipe(map<Book, ListData>(wholeData => {
             return {
               fireData: eachfireData,

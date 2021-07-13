@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
-import { SaveDataService } from 'src/app/catalogue/services/userinfo_fire.service';
+import { UserFireInfoService } from 'src/app/catalogue/services/index';
 import { BackEndErrorService } from '../backEndErrors/backEndErroro.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -19,7 +19,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(private auth: AuthService, private route: Router,
     private loadingService: LoadingService,
-    private saveData: SaveDataService,
+    private userFireInfoService: UserFireInfoService,
     private backErrorService: BackEndErrorService,
     private translateService: TranslateService,
     private toastr: ToastrService) { }
@@ -45,7 +45,7 @@ export class SignUpComponent implements OnInit {
       subscribe(
         () => {
           this.route.navigate(['catalogue']);
-          this.saveData.registerData(this.auth.getCurrentUser()?.uid, fullName);
+          this.userFireInfoService.registerData(this.auth.getCurrentUser()?.uid, fullName);
           this.translateService.get("auth.USER_CREATED").subscribe((value) => this.toastr.success(value))
         },
         (error) => this.backErrorService.setBackEndError(error))

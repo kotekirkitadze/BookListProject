@@ -12,7 +12,7 @@ import { User } from '../../auth/index'
 @Injectable({
   providedIn: 'root'
 })
-export class SaveDataService {
+export class UserFireInfoService {
   private userCollections: AngularFirestoreCollection<User>;
   items: Observable<User[]>;
   currentUser$: Observable<User>;

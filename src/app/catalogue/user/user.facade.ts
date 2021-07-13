@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { LoadingService } from "src/app/services/loading.service";
-import { FireCollectionApiService } from "../services";
 import { AuthService } from 'src/app/services/auth.service';
 import { finalize, map } from "rxjs/operators";
-import { SaveDataService } from "../services/userinfo_fire.service";
+import { UserFireInfoService, FireCollectionApiService } from "../services/index";
 import { TranslateService } from "@ngx-translate/core";
 import { ToastrService } from "ngx-toastr";
 
@@ -14,7 +13,7 @@ export class UserFacade {
   constructor(private auth: AuthService,
     private catalogue: FireCollectionApiService,
     private loadingService: LoadingService,
-    private fireStoreService: SaveDataService,
+    private userFireInfoService: UserFireInfoService,
     private translateService: TranslateService,
     private toastr: ToastrService) {
 
@@ -39,7 +38,7 @@ export class UserFacade {
   }
 
   updateUserName(userName: string) {
-    this.fireStoreService.updateUser({
+    this.userFireInfoService.updateUser({
       uid: this.auth.getCurrentUser().uid,
       name: userName
     });

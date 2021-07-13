@@ -7,7 +7,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
 import { from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { SaveDataService } from 'src/app/catalogue/services/userinfo_fire.service';
+import { UserFireInfoService } from 'src/app/catalogue/services/index';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   constructor(private navRouting: Router,
     private auth: AuthService, private qq: AngularFireAuth,
     private loadingService: LoadingService,
-    private saveData: SaveDataService,
+    private userInfoFireService: UserFireInfoService,
     private translateService: TranslateService) {
   }
 
@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.saveData.getItem().subscribe((user) => {
+    this.userInfoFireService.getItem().subscribe((user) => {
       this.userName = user?.name;
     })
   }

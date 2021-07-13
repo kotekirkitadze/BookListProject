@@ -4,8 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from "@ngx-translate/core";
 import { ToastrService } from "ngx-toastr";
 import { AuthService } from "src/app/services/auth.service";
-import { FireCollectionApiService } from "../../services";
 import { finalize } from "rxjs/operators";
+import { FlagInfoService, FireCollectionApiService } from "../../services/index";
 
 @Injectable()
 export class BookInfoFacade {
@@ -13,7 +13,8 @@ export class BookInfoFacade {
   constructor(private translateService: TranslateService,
     private toastr: ToastrService,
     private currentUser: AuthService,
-    private store: FireCollectionApiService) { }
+    private store: FireCollectionApiService,
+    private flagInfo: FlagInfoService) { }
 
   form: FormGroup;
   submitted: boolean = false;
@@ -78,10 +79,10 @@ export class BookInfoFacade {
 
 
   getCountryFlag(country: Country) {
-    return `https://www.countryflags.io/${country.code}/shiny/64.png`
+    return this.flagInfo.getCountryFlag(country);
   }
 
   getCountryPopulation(country: Country) {
-    return `Population of ${country.code}: ${country.population}`;
+    return this.flagInfo.getCountryPopulation(country);
   }
 }

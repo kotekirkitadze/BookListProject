@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { SaveDataService } from 'src/app/catalogue/services/userinfo_fire.service';
+import { UserFireInfoService } from 'src/app/catalogue/services/index';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { UserFacade } from './user.facade';
@@ -25,11 +25,11 @@ export class UserComponent implements OnInit {
   userPassword: string;
 
   constructor(private auth: AuthService,
-    private fireStoreService: SaveDataService,
+    private userFireInfoService: UserFireInfoService,
     private userFacade: UserFacade) { }
 
   ngOnInit(): void {
-    this.fireStoreService.getItem().subscribe((user) => {
+    this.userFireInfoService.getItem().subscribe((user) => {
       this.userName = user?.name;
       this.userEmail = this.auth.getCurrentUser()?.email;
     })

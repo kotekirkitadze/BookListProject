@@ -83,6 +83,8 @@ export class BookInfoComponent implements OnInit, OnDestroy {
     return !!this.form.get('whenToRead');
   }
 
+
+
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

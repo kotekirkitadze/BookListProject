@@ -8,13 +8,13 @@ import {
 } from '../catalogue.model';
 import { forkJoin, of } from 'rxjs';
 import { LoadingService } from 'src/app/services/loading.service';
-import { finalize, map, switchMap, catchError } from 'rxjs/operators';
-import { AllDataApiService } from '.';
+import { finalize, map, switchMap, catchError, tap } from 'rxjs/operators';
+import { AllDataApiService } from './index';
 
 
 
 @Injectable()
-export class AddBookService {
+export class FetchDataApi {
 
   constructor(private loadingService: LoadingService,
     private apiService: AllDataApiService) {
@@ -29,7 +29,7 @@ export class AddBookService {
       if (countryCode.includes(" ")) {
         return null
       } else {
-        this.apiService.getCountryByCode(countryCode)
+        return this.apiService.getCountryByCode(countryCode)
       }
     }))
   }

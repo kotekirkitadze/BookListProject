@@ -45,7 +45,9 @@
        "TOMORROW": "Tomorrow",
        "THIS_WEEK": "This week",
        "THIS_MONTH": "This month",
-       "SELECT": "Select time..."
+       "SELECT": "Select time...",
+       "FILMS_COUNTRY": "Film's country:",
+       "COUNTRY_TOOLTIP": "Population of"
      },
      "UserPage": {
        "TITLE": "Admin Page",

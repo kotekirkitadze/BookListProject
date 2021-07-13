@@ -2,14 +2,14 @@ import { Injectable } from "@angular/core";
 import { of } from "rxjs";
 import { LoadingService } from "src/app/services/loading.service";
 import { StorageService } from "src/app/services/storage.service";
-import { AddBookService } from "../services/index";
+import { FetchDataApi } from "../services/index";
 
 @Injectable()
 
 export class AddBookFacade {
 
   constructor(private storage: StorageService,
-    private addBookService: AddBookService,
+    private fetchDataApi: FetchDataApi,
     private loadingService: LoadingService) {
 
   }
@@ -25,13 +25,13 @@ export class AddBookFacade {
     }
     this.errorVal = false;
     this.pushInlastSearches(key);
-    return this.addBookService.getBooksFromApi(key);
+    return this.fetchDataApi.getBooksFromApi(key);
 
   }
 
   searchFromStoreData(key: string) {
     this.errorVal = false;
-    return this.addBookService.getBooksFromApi(key);
+    return this.fetchDataApi.getBooksFromApi(key);
   }
 
   pushInlastSearches(name: string) {

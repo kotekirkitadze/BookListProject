@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { from, of } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { from } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { SignInFormUser, SignUpFormUser, ResetFormUser, User } from '../auth/index';
-import { SaveDataService } from '../catalogue/services/userinfo_fire.service';
+import { UserFireInfoService } from '../catalogue/services/index';
 
 export const USER_DELETE_URL = new InjectionToken<string>("delete user API");
 
@@ -33,7 +33,7 @@ export class AuthService {
     private http: HttpClient,
     private navRouting: Router,
     @Inject(USER_DELETE_URL) private delete_user_url: string,
-    private saveData: SaveDataService) {
+    private userInfoFireService: UserFireInfoService) {
     this.auth.onAuthStateChanged((user) => {
       this._userChange = user;
       if (!this._isInitiated) {
@@ -64,7 +64,7 @@ export class AuthService {
       "userEmail": this._userChange.email
     }
     return this.http.post(this.delete_user_url, user).pipe(switchMap(() => {
-      this.saveData.deleteUserData(this._userChange);
+      this.userInfoFireService.deleteUserData(this._userChange);
       return this.signOutUser().pipe(tap(() => {
         this.navRouting.navigate(["sign-in"]);
       }))

@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { Book, Country, fireBookBody } from '../catalogue.model';
-import { AddBookService, FireCollectionApiService } from '../services';
+import { FetchDataApi, FireCollectionApiService } from '../services/index';
 import { TIME_TO_READ, WhenToReadSelect } from '../catalogue.model'
 import { LoadingService } from 'src/app/services/loading.service';
+import { FlagInfoService } from '../services/index';
 
 
 @Component({
@@ -24,8 +25,9 @@ export class BookDetailsComponent implements OnInit, AfterViewInit {
   constructor(private activatedRoute: ActivatedRoute,
     private fireApiService: FireCollectionApiService,
     private router: Router,
-    private addBookService: AddBookService,
-    private loadingService: LoadingService) { }
+    private fetchDataApi: FetchDataApi,
+    private loadingService: LoadingService,
+    private flagInfo: FlagInfoService) { }
 
   id = this.activatedRoute.snapshot.params['id'];
 
@@ -36,7 +38,7 @@ export class BookDetailsComponent implements OnInit, AfterViewInit {
   initBookDetail(): Observable<Book> {
     return this.fireApiService.getBookData(this.id)
       .pipe(finalize(() => this.loadingService.stop()), tap(fireValue => this.fireData$ = of(fireValue)), switchMap(fireData => {
-        return this.addBookService.getBooksFromApi(fireData.title);
+        return this.fetchDataApi.getBooksFromApi(fireData.title);
       }))
 
   }
@@ -53,11 +55,11 @@ export class BookDetailsComponent implements OnInit, AfterViewInit {
 
 
   getCountryFlag(country: Country) {
-    return `https://www.countryflags.io/${country.code}/shiny/64.png`
+    return this.flagInfo.getCountryFlag(country);
   }
 
   getCountryPopulation(country: Country) {
-    return `Population of ${country.code}: ${country.population}`;
+    return this.flagInfo.getCountryPopulation(country);
   }
 
 }
