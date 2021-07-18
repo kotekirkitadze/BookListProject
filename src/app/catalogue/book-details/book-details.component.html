@@ -26,9 +26,10 @@
           <p><strong>{{"book.FILM_RELEASED_DATE" | translate}}</strong> {{book?.movie.released}}</p>
 
           <div *ngIf="book?.countries">
-            <div *ngFor="let i of book?.countries" class="flag">
+            <div class="flag">
               <p><strong>{{"catalogue.searchPage.FILMS_COUNTRY" | translate}}</strong></p>
-              <img [src]="getCountryFlag(i)"
+              <img *ngFor="let i of book?.countries"
+                  [src]="getCountryFlag(i)"
                   [title]="getCountryPopulation(i)"/>
             </div>
           </div>
