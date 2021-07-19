@@ -1,69 +1,102 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin, Observable } from 'rxjs';
-import { finalize, map, switchMap } from 'rxjs/operators';
+import {
+  finalize,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
-import { Book, ListData } from '../catalogue.model';
-import { FetchDataApi, FireCollectionApiService } from '../services';
+import {
+  Book,
+  ListData,
+} from '../catalogue.model';
+import {
+  FetchDataApi,
+  FireCollectionApiService,
+} from '../services';
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.scss']
+  styleUrls: ['./book-list.component.scss'],
 })
-export class BookListComponent implements OnInit, AfterViewInit {
-
-  constructor(private bookFireServie: FireCollectionApiService,
+export class BookListComponent
+  implements OnInit, AfterViewInit
+{
+  constructor(
+    private bookFireServie: FireCollectionApiService,
     private translateService: TranslateService,
     private toastr: ToastrService,
     private fetchDataApi: FetchDataApi,
-    private loadingService: LoadingService) { }
+    private loadingService: LoadingService
+  ) {}
 
   books$: Observable<ListData[]> = null;
-
 
   ngOnInit() {
     this.books$ = this.fetch();
   }
 
-
   fetch(): Observable<ListData[]> {
-    return this.bookFireServie.getBooksData().pipe(
-      finalize(() => this.loadingService.stop()),
-      switchMap(fireData => {
-        return forkJoin(fireData.map(eachfireData => this.fetchDataApi.getBooksFromApi(eachfireData.title)
-          .pipe(map<Book, ListData>(wholeData => {
-            return {
-              fireData: eachfireData,
-              allData: wholeData
-            }
-          }))
-        ))
-      })
-
-    )
+    return this.bookFireServie
+      .getBooksData()
+      .pipe(
+        finalize(() =>
+          this.loadingService.stop()
+        ),
+        switchMap((fireData) => {
+          return forkJoin(
+            fireData.map((eachfireData) =>
+              this.fetchDataApi
+                .getBooksFromApi(
+                  eachfireData.title
+                )
+                .pipe(
+                  map<Book, ListData>(
+                    (wholeData) => {
+                      return {
+                        fireData: eachfireData,
+                        allData: wholeData,
+                      };
+                    }
+                  )
+                )
+            )
+          );
+        })
+      );
   }
 
   deleteBook(id: string) {
     this.loadingService.start();
-    this.bookFireServie.deleteBook(id).subscribe(() => {
-      this.books$ = this.fetch().pipe(finalize(() => this.loadingService.stop()))
-      this.translateService.get("catalogue.DELETE_BOOK").subscribe(value => this.toastr.success(value))
-    });
+    this.bookFireServie
+      .deleteBook(id)
+      .subscribe(() => {
+        this.books$ = this.fetch().pipe(
+          finalize(() =>
+            this.loadingService.stop()
+          )
+        );
+        this.translateService
+          .get('catalogue.DELETE_BOOK')
+          .subscribe((value) =>
+            this.toastr.success(value)
+          );
+      });
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.loadingService.start();
-    }, 0)
+    }, 0);
   }
 }
-
-
-
-
-
 
 // fetch() {
 //   return this.AllDataApiService.getBooksData().pipe(

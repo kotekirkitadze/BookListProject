@@ -6,9 +6,8 @@
 //     justify-content: space-between;
 // }
 
-
 h2 {
-  text-shadow: 0 5px 5px rgba(0,0,0,.5);
+  text-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 img {
@@ -45,7 +44,6 @@ img {
 //   color: rgb(8, 8, 8);
 // }
 
-
 // .detailsBtn {
 //   background-color: #256eff;
 //   color: white;
@@ -55,7 +53,6 @@ img {
 //   background-color: rgb(216, 204, 204);
 //   color: rgb(8, 8, 8);
 // }
-
 
 // .img {
 //   height: 70%;
@@ -69,9 +66,6 @@ img {
 
 // }
 
-
-
-
 .book {
   width: 320px;
   margin: 10px;
@@ -79,12 +73,14 @@ img {
   // overflow: hidden;
   border-radius: 15px;
   background-color: #202020;
-  box-shadow: 4px 3px 8px 0px rgb(200 152 44 / 22%);
+  box-shadow: 4px 3px 8px 0px
+    rgb(200 152 44 / 22%);
   transition-duration: 0.3s;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 4px 3px 11px 6px rgb(200 152 44 / 46%);
+    box-shadow: 4px 3px 11px 6px
+      rgb(200 152 44 / 46%);
     transform: translateY(-3px);
   }
 
@@ -149,19 +145,14 @@ img {
   }
 }
 
-
 .book-description {
   margin-top: 400px;
 }
 
-
-
 .btn-container {
-   margin-top: -148px;
-   margin-left: 10px;
-
+  margin-top: -148px;
+  margin-left: 10px;
 }
-
 
 .deleteBtn {
   display: inline-block;
@@ -186,4 +177,8 @@ img {
 .deleteBtn-block {
   display: block;
   width: 100%;
+}
+
+.detailsBtn {
+  background-color: rgb(32, 100, 202);
 }

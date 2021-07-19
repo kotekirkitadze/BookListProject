@@ -2,8 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {
+  HttpClientModule,
+  HttpClient,
+} from '@angular/common/http';
+import {
+  TranslateModule,
+  TranslateLoader,
+} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { ShellModule } from './shell/shell.module';
@@ -18,12 +24,13 @@ import { USER_DELETE_URL } from './services/auth.service';
 export function TranslateHttpLoaderFactory(
   http: HttpClient
 ): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, 'assets/i18n/');
+  return new TranslateHttpLoader(
+    http,
+    'assets/i18n/'
+  );
 }
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -36,17 +43,22 @@ export function TranslateHttpLoaderFactory(
       loader: {
         provide: TranslateLoader,
         useFactory: TranslateHttpLoaderFactory,
-        deps: [HttpClient]
+        deps: [HttpClient],
       },
-      defaultLanguage: "en"
+      defaultLanguage: 'en',
     }),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFireModule.initializeApp(
+      environment.firebaseConfig
+    ),
+    AngularFirestoreModule,
   ],
-  providers: [HttpClient, {
-    provide: USER_DELETE_URL,
-    useValue: environment.deleteFn_fire_cloud
-  }],
-  bootstrap: [AppComponent]
+  providers: [
+    HttpClient,
+    {
+      provide: USER_DELETE_URL,
+      useValue: environment.deleteFn_fire_cloud,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

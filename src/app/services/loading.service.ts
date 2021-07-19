@@ -2,19 +2,17 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoadingService {
-
-  private _loading: Subject<boolean> = new Subject();
+  private _loading: Subject<boolean> =
+    new Subject();
 
   get getLoading$(): Observable<boolean> {
     return this._loading.asObservable();
   }
 
-  constructor() {
-
-  }
+  constructor() {}
 
   start() {
     this._loading.next(true);
@@ -23,5 +21,4 @@ export class LoadingService {
   stop() {
     this._loading.next(false);
   }
-
 }

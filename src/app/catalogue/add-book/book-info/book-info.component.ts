@@ -1,38 +1,52 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
   Book,
   Status,
   TIME_TO_READ,
   WhenToReadSelect,
-  Country
+  Country,
 } from '../../catalogue.model';
-import { finalize, takeUntil } from 'rxjs/operators';
+import {
+  finalize,
+  takeUntil,
+} from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faBan } from '@fortawesome/free-solid-svg-icons';
 import { BookInfoFacade } from './book-info.facade';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-
 @Component({
   selector: 'app-book-info',
   templateUrl: './book-info.component.html',
   styleUrls: ['./book-info.component.scss'],
-  providers: [BookInfoFacade]
+  providers: [BookInfoFacade],
 })
-export class BookInfoComponent implements OnInit, OnDestroy {
+export class BookInfoComponent
+  implements OnInit, OnDestroy
+{
   @Input() _selectedBook: Book;
 
-
-  constructor(private facade: BookInfoFacade) { }
+  constructor(private facade: BookInfoFacade) {}
 
   ngOnInit(): void {
     this.createForm();
 
-    this.form.get('status').valueChanges.pipe(takeUntil(this.unsubscribe$))
+    this.form
+      .get('status')
+      .valueChanges.pipe(
+        takeUntil(this.unsubscribe$)
+      )
       //აქ ეროუ ფანქშენის გაერეშე ვერ გააყოლა ედდ კონტროლი, კონტექსტი ვერ შეგვინახა
-      .subscribe((status) => this.addControlByStatus(status));
+      .subscribe((status) =>
+        this.addControlByStatus(status)
+      );
   }
 
   get submitted(): boolean {
@@ -54,7 +68,7 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   }
 
   private addControlByStatus(status: Status) {
-    this.facade.addControlByStatus(status)
+    this.facade.addControlByStatus(status);
   }
 
   get getSelectedBook(): Book {
@@ -66,24 +80,28 @@ export class BookInfoComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    this.facade.submit(this._selectedBook.title)?.pipe(
-      finalize(() => this._selectedBook = null)
-    ).subscribe();
-
+    this.facade
+      .submit(this._selectedBook.title)
+      ?.pipe(
+        finalize(
+          () => (this._selectedBook = null)
+        )
+      )
+      .subscribe();
   }
 
   getCountryFlag(country: Country) {
-    return this.facade.getCountryFlag(country)
+    return this.facade.getCountryFlag(country);
   }
   getCountryPopulation(country: Country) {
-    return this.facade.getCountryPopulation(country);
+    return this.facade.getCountryPopulation(
+      country
+    );
   }
 
   get whenToRead(): boolean {
     return !!this.form.get('whenToRead');
   }
-
-
 
   ngOnDestroy() {
     this.unsubscribe$.next();

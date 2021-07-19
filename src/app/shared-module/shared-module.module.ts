@@ -5,16 +5,17 @@ import { LoadingComponent } from './loading/loading.component';
 import { SpinnerComponent } from './loading/spinner/spinner.component';
 import { MustMatchDirective } from './directives/must-match.directive';
 
-
 @NgModule({
   declarations: [
     LoadingComponent,
     SpinnerComponent,
-    MustMatchDirective
+    MustMatchDirective,
   ],
-  imports: [
-    CommonModule
+  imports: [CommonModule],
+  exports: [
+    TranslateModule,
+    LoadingComponent,
+    MustMatchDirective,
   ],
-  exports: [TranslateModule, LoadingComponent, MustMatchDirective]
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -1,42 +1,38 @@
 export enum Status {
-  Read = "Read",
-  ReadLater = "Read Later"
+  Read = 'Read',
+  ReadLater = 'Read Later',
 }
-
 
 export enum WhenToRead {
-  today = "today",
-  tomorrow = "tomorrow",
-  thisWeek = "thisWeek",
-  thisMonth = "thisMonth"
+  today = 'today',
+  tomorrow = 'tomorrow',
+  thisWeek = 'thisWeek',
+  thisMonth = 'thisMonth',
 }
-
 
 export interface WhenToReadSelect {
   label: string;
-  value: WhenToRead
+  value: WhenToRead;
 }
-
 
 export const TIME_TO_READ: WhenToReadSelect[] = [
   {
     label: 'catalogue.searchPage.TODAY',
-    value: WhenToRead.today
+    value: WhenToRead.today,
   },
   {
     label: 'catalogue.searchPage.TOMORROW',
-    value: WhenToRead.tomorrow
+    value: WhenToRead.tomorrow,
   },
   {
     label: 'catalogue.searchPage.THIS_WEEK',
-    value: WhenToRead.thisWeek
+    value: WhenToRead.thisWeek,
   },
   {
     label: 'catalogue.searchPage.THIS_MONTH',
-    value: WhenToRead.thisMonth
+    value: WhenToRead.thisMonth,
   },
 ];
-
 
 export interface Book {
   title: string;
@@ -45,13 +41,14 @@ export interface Book {
   description: string;
   publishedDate: string;
   publisher: string;
-  imageLinks: string,
+  imageLinks: string;
   countries?: Country[];
-  movie?: Omit<Movie, "countries">;
+  movie?: Omit<Movie, 'countries'>;
 }
 
-
-export type fireBookDataWithId = fireBookBody & { id: string };
+export type fireBookDataWithId = fireBookBody & {
+  id: string;
+};
 
 export interface BookApiResult {
   items: {
@@ -62,11 +59,10 @@ export interface BookApiResult {
       description: string;
       publishedDate: string;
       publisher: string;
-      imageLinks: { smallThumbnail: string }
-    }
-  }[]
+      imageLinks: { smallThumbnail: string };
+    };
+  }[];
 }
-
 
 export interface MovieApiResult {
   Response: string;
@@ -90,8 +86,8 @@ export interface CountryApiResult {
 }
 
 export interface Country {
-  code: string,
-  population: number,
+  code: string;
+  population: number;
 }
 
 export interface fireBookBody {
@@ -103,8 +99,7 @@ export interface fireBookBody {
   whenToRead?: WhenToRead;
 }
 
-
 export interface ListData {
   fireData: fireBookDataWithId;
-  allData: Book
+  allData: Book;
 }

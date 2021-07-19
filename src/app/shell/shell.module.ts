@@ -13,11 +13,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   imports: [
     CommonModule,
     SharedModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
-  exports: [HeaderComponent]
+  exports: [HeaderComponent],
 })
-export class ShellModule { }
+export class ShellModule {}
 
 //here we do not need to export notFoundComponent
 //because its export/import is handled by router

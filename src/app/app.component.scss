@@ -1,7 +1,6 @@
-
-.container{
+.container {
   height: 1000px;
-  background-image: url("../assets/images/book1.jpg");
+  background-image: url('../assets/images/book1.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -17,13 +16,16 @@
 }
 
 @keyframes animate {
-  0%{
-      background-image: url("../assets/images/book1.jpg");
-  }30%{
-      background-image: url("../assets/images/book2.jpg");
-  }70%{
-      background-image: url("../assets/images/book3.jpg");
-  }100%{
-      background-image: url("../assets/images/book4.jpg");
+  0% {
+    background-image: url('../assets/images/book1.jpg');
+  }
+  30% {
+    background-image: url('../assets/images/book2.jpg');
+  }
+  70% {
+    background-image: url('../assets/images/book3.jpg');
+  }
+  100% {
+    background-image: url('../assets/images/book4.jpg');
   }
 }

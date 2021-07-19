@@ -4,18 +4,15 @@
   padding: 0;
 }
 
-
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Encode Sans SC', sans-serif;
-font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto Slab', serif;
 }
-
 
 body {
-  background-image: url("../src/assets/images/book1.jpg");
+  background-image: url('../src/assets/images/book1.jpg');
   background-size: cover;
   transition: 15s;
-
 }
-
-

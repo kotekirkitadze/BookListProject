@@ -9,18 +9,17 @@ import { finalize } from 'rxjs/operators';
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.scss'],
-  providers: [AddBookFacade]
+  providers: [AddBookFacade],
 })
 export class AddBookComponent implements OnInit {
-
-  constructor(private facade: AddBookFacade,
-    private loadingService: LoadingService) { }
-
+  constructor(
+    private facade: AddBookFacade,
+    private loadingService: LoadingService
+  ) {}
 
   faSearch = faSearch;
   notFoundError: boolean = false;
   searchData: string;
-
 
   get errorVal() {
     return this.facade.errorVal;
@@ -46,36 +45,41 @@ export class AddBookComponent implements OnInit {
 
   searchBook(key: string) {
     this.loadingService.start();
-    this.facade.searchBook(key)
-      .pipe(finalize(() => this.loadingService.stop()))
-      .subscribe((selectedBook) => {
-        this._selectedBook = selectedBook;
-        this.notFoundError = false;
-        this.searchData = "";
-
-      },
+    this.facade
+      .searchBook(key)
+      .pipe(
+        finalize(() => this.loadingService.stop())
+      )
+      .subscribe(
+        (selectedBook) => {
+          this._selectedBook = selectedBook;
+          this.notFoundError = false;
+          this.searchData = '';
+        },
         () => {
           this.notFoundError = true;
-
-        });
-
+        }
+      );
   }
 
   getBooksFromApi(name: string) {
     this.loadingService.start();
 
-    this.facade.searchFromStoreData(name)
-      .pipe(finalize(() => {
-        this.loadingService.stop();
-        this.searchData = "";
-      }))
+    this.facade
+      .searchFromStoreData(name)
+      .pipe(
+        finalize(() => {
+          this.loadingService.stop();
+          this.searchData = '';
+        })
+      )
       .subscribe(
         (selectedBook) => {
           this._selectedBook = selectedBook;
           this.notFoundError = false;
-
         },
-        () => this.notFoundError = true);
+        () => (this.notFoundError = true)
+      );
   }
 
   restoreSearches() {

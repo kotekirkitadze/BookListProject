@@ -1,56 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,600&display=swap');
 
-li{
-	font-family: sans-serif;
-	font-weight: 500;
-	font-size: 16px;
-	color: #edf0f1;
-	text-decoration: none;
+li {
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #edf0f1;
+  text-decoration: none;
 }
 
-.header-container{
+.header-container {
   width: 100%;
 }
 
-
 header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 15px 10%;
-  background-color: #24252A;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 10%;
+  background-color: #24252a;
 }
 
-
-
 .nav_links {
-	list-style: none;
+  list-style: none;
   margin-right: -90px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
 .nav_links li {
-	display: inline-block;
-	padding: 0px 20px;
+  display: inline-block;
+  padding: 0px 20px;
 }
 
-.signInBtns, .signUpBtns {
-	background-color: rgba(0,136,169,1);
- 	padding: 9px 25px;
-	border: none;
-	border-radius: 50px;
-	cursor: pointer;
-	transition: all 0.3s ease 0s;
-	color: white;
+.signInBtns,
+.signUpBtns {
+  background-color: rgba(0, 136, 169, 1);
+  padding: 9px 25px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: white;
 }
 
-
-.signInBtns:hover, .signUpBtns:hover {
-	color: white;
-	background-color: rgba(0,136,169,0.8);
+.signInBtns:hover,
+.signUpBtns:hover {
+  color: white;
+  background-color: rgba(0, 136, 169, 0.8);
 }
 
 .title {
@@ -82,18 +79,18 @@ header {
 //   width: 6%;
 // }
 
-.signOutBtn{
-	background-color: rgb(179, 3, 3);
-	padding: 9px 25px;
-	border: none;
-	border-radius: 50px;
-	cursor: pointer;
-	transition: all 0.3s ease 0s;
-	color: white;
+.signOutBtn {
+  background-color: rgb(179, 3, 3);
+  padding: 9px 25px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  color: white;
 }
 
-.signOutBtn:hover{
-	background: rgb(196, 3, 3);
+.signOutBtn:hover {
+  background: rgb(196, 3, 3);
 }
 
 .book {
@@ -101,11 +98,11 @@ header {
   color: white;
 }
 
-.userBtn{
-	padding: 9px 25px;
-	border: none;
-	border-radius: 10px;
-	cursor: pointer;
+.userBtn {
+  padding: 9px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
   color: white;
   background-color: rgb(6, 51, 53);
   transition: all 0.5s ease;
@@ -115,15 +112,12 @@ header {
   background: rgb(4, 76, 80);
 }
 
-
-.languageBars{
+.languageBars {
   width: 100%;
   // margin-left: 70px;
-
 }
 
-
-.langBtn{
+.langBtn {
   border: none;
   outline: none;
   cursor: pointer;

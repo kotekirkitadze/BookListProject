@@ -1,9 +1,15 @@
+.books {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 20px auto;
+}
+
 // .item-container {
 //   margin: 0 auto;
 //   display: grid;
 //   grid-template-columns: repeat(4, 1fr);
 //   grid-gap: 50px;
-
 
 // }
 
@@ -17,12 +23,3 @@
 //   border-radius: 15px;
 //   padding: 10px;
 // }
-
-
-.books {
-  display: flex;
-  flex-wrap: wrap;
-  // justify-content: center;
-  max-width: 1200px;
-  margin: 20px auto;
-}

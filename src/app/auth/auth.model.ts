@@ -8,7 +8,7 @@ export interface SignInFormUser {
 }
 
 export interface SignUpFormUser {
-  fullName: string
+  fullName: string;
   email: string;
   password: string;
 }
@@ -18,4 +18,3 @@ export interface User {
   email?: string;
   name?: string;
 }
-

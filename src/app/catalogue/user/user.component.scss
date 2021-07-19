@@ -1,4 +1,4 @@
-.userInfo{
+.userInfo {
   margin-top: 120px;
   background: greenyellow;
   width: 700px;
@@ -12,8 +12,12 @@
 }
 
 .headerTitle {
-  background: rgb(255,157,91);
-  background: linear-gradient(162deg, rgba(255,157,91,1) 0%, rgba(34,195,193,1) 100%);
+  background: rgb(255, 157, 91);
+  background: linear-gradient(
+    162deg,
+    rgba(255, 157, 91, 1) 0%,
+    rgba(34, 195, 193, 1) 100%
+  );
   text-align: center;
   padding: 30px;
 }
@@ -28,8 +32,7 @@
   font-size: 20px;
 }
 
-.userInfo ul li  {
-
+.userInfo ul li {
   list-style-type: none;
   padding: 15px;
   margin: 20px;
@@ -42,10 +45,9 @@
 .form-small-container {
   display: flex;
   width: 450px;
-
 }
 
-.form-small-container input{
+.form-small-container input {
   margin-left: 25px;
   width: 60%;
   padding: 3px;
@@ -55,14 +57,15 @@
   border: 1px solid black;
 }
 
-.editBtn, .checkBtn{
+.editBtn,
+.checkBtn {
   border: none;
   background-color: #fff;
   cursor: pointer;
   font-size: 20px;
 }
 
-.deleteBtn  {
+.deleteBtn {
   width: 70%;
   padding: 10px;
   border-radius: 15px;
@@ -81,7 +84,7 @@
   width: 45px;
   display: flex;
 }
-.smlBtn-container button{
+.smlBtn-container button {
   margin: 8px;
 }
 
@@ -89,6 +92,6 @@ span {
   margin-left: 25px;
 }
 
-.emailInput{
+.emailInput {
   margin-left: 230px;
 }

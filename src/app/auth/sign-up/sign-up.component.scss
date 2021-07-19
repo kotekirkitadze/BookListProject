@@ -1,118 +1,110 @@
- .box{
-	background: red;
-	width:  300px;
-	padding: 40px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background: #191919;
-	text-align: center;
+.box {
+  background: red;
+  width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #191919;
+  text-align: center;
   border-radius: 50px;
 }
 
 .box h1 {
-	color: white;
-	text-transform: uppercase;
-	font-weight: 500;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
 
-	margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .box input {
-	border: 0;
-	background: none;
-	display: block;
-	margin: 20px auto;
-	text-align: center;
-	border: 2px solid #3498db;
-	padding: 14px 10px;
-	width: 200px;
-	outline: none;
-	color: white;
-	border-radius: 24px;
-	transition: 0.25s;
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
 }
 
-.box input:focus{
-	width: 280px;
-	border-color: #2ecc71;
+.box input:focus {
+  width: 280px;
+  border-color: #2ecc71;
 }
 
-.signUp{
-	border: 0;
-	background: none;
-	display: block;
-	margin: 20px auto;
-	text-align: center;
-	border: 2px solid #2ecc71;
-	padding: 14px 40px;
-	outline: none;
-	color: white;
-	border-radius: 24px;
-	transition: 0.25s;
-	cursor: pointer;
-	margin-top: 30px;
-	margin-bottom: -5px;
+.signUp {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: -5px;
 }
 
-.signUp:hover{
-	background: #2ecc71;
+.signUp:hover {
+  background: #2ecc71;
 }
-
-
 
 .input-div {
-	display: flex;
-	flex-direction: row;
-	margin: -25px;
-
+  display: flex;
+  flex-direction: row;
+  margin: -25px;
 }
 .input-div input {
-	position: relative;
+  position: relative;
 }
 
 .input-div div {
-	position: absolute;
-	margin-left: 100px;
-	margin-top: 14.5px;
-	width: 190px;
-	color: white;
-	padding-bottom: 7px;
+  position: absolute;
+  margin-left: 100px;
+  margin-top: 14.5px;
+  width: 190px;
+  color: white;
+  padding-bottom: 7px;
 }
 
-
-
-
-
 .alert {
-	background: red;
-	box-shadow: 0 0 20px 0 #999;
-	padding: 3px;
+  background: red;
+  box-shadow: 0 0 20px 0 #999;
+  padding: 3px;
   padding-top: 5px;
-	font-size: .9em;
-	display: inline-block;
-	animation: 2s alertAnim forwards;
-	border-radius: 10px;
-	margin: 5px;
-  }
+  font-size: 0.9em;
+  display: inline-block;
+  animation: 2s alertAnim forwards;
+  border-radius: 10px;
+  margin: 5px;
+}
 
 .mustMatch {
-	padding-bottom: 7px;
-	color: white;
-	width: 250px;
+  padding-bottom: 7px;
+  color: white;
+  width: 250px;
   margin-top: 25px;
 }
 
-
-  @keyframes alertAnim {
-	from{
-	  opacity: 0;
-	  transform: translateY(0);
-	}
-	to {
-	  opacity: 1;
-
-	  transform: translateY(-2px);
-	}
+@keyframes alertAnim {
+  from {
+    opacity: 0;
+    transform: translateY(0);
   }
+  to {
+    opacity: 1;
+
+    transform: translateY(-2px);
+  }
+}

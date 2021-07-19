@@ -13,28 +13,31 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
   faBook = faBookReader;
   fauser = faUser;
   userName: string;
 
-
-
-  constructor(private navRouting: Router,
-    private auth: AuthService, private qq: AngularFireAuth,
+  constructor(
+    private navRouting: Router,
+    private auth: AuthService,
+    private qq: AngularFireAuth,
     private loadingService: LoadingService,
     private userInfoFireService: UserFireInfoService,
-    private translateService: TranslateService) {
-  }
+    private translateService: TranslateService
+  ) {}
 
   private isLanguage(lang: string): boolean {
-    const defLang = this.translateService.defaultLang;
-    const currLang = this.translateService.currentLang;
+    const defLang =
+      this.translateService.defaultLang;
+    const currLang =
+      this.translateService.currentLang;
 
-    return currLang ? currLang == lang : defLang == lang;
+    return currLang
+      ? currLang == lang
+      : defLang == lang;
   }
 
   get isKa() {
@@ -46,17 +49,19 @@ export class HeaderComponent implements OnInit {
   }
 
   useEn() {
-    this.translateService.use("en");
+    this.translateService.use('en');
   }
 
   useGe() {
-    this.translateService.use("ka");
+    this.translateService.use('ka');
   }
 
   ngOnInit(): void {
-    this.userInfoFireService.getItem().subscribe((user) => {
-      this.userName = user?.name;
-    })
+    this.userInfoFireService
+      .getItem()
+      .subscribe((user) => {
+        this.userName = user?.name;
+      });
   }
 
   toHome() {
@@ -76,15 +81,18 @@ export class HeaderComponent implements OnInit {
   }
 
   toUser() {
-    this.navRouting.navigate(["catalogue/user"]);
+    this.navRouting.navigate(['catalogue/user']);
   }
-
 
   signOut() {
     this.loadingService.start();
-    from(this.auth.signOutUser()).
-      pipe(finalize(() => this.loadingService.stop())).
-      subscribe(() => this.navRouting.navigate(['sign-in']));
+    from(this.auth.signOutUser())
+      .pipe(
+        finalize(() => this.loadingService.stop())
+      )
+      .subscribe(() =>
+        this.navRouting.navigate(['sign-in'])
+      );
   }
 
   get isLoggedIn(): boolean {
@@ -94,5 +102,4 @@ export class HeaderComponent implements OnInit {
   get isInitiated(): boolean {
     return this.auth.getIsInitiated();
   }
-
 }

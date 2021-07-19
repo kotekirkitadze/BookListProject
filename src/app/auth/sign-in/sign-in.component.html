@@ -1,44 +1,98 @@
 <div class="box">
-    <form #signInFromData="ngForm"
-      (ngSubmit)='signIn(signInFromData.value)'>
-	<h1>{{ "auth.LOGIN_TITLE" | translate}}</h1>
-	<div class="input-div">
-      <input type="text"
-               name="email"
-               class="email-input"
-               placeholder="{{ 'auth.EMAIL' | translate}}"
-               ngModel
-               required>
-         <div *ngIf="signInFromData.submitted && signInFromData.invalid" class="error-container">
-            <div *ngIf="signInFromData.controls.email?.errors?.required" class="alert">
-              {{ "errors.EMAIL_NEEDED" | translate}}
-            </div>
-         </div>
-   </div>
-   <div class="input-div">
-      <input type="password"
-               name="password"
-               placeholder="{{ 'auth.PASSWORD' | translate}}"
-               ngModel
-               required>
-      <div *ngIf="signInFromData.submitted && signInFromData.invalid" class="error-container">
-            <div *ngIf="signInFromData.controls.password?.errors?.required" class="alert">
-              {{ "errors.PASSWORD_NEEDED" | translate}}
-            </div>
+  <form
+    #signInFromData="ngForm"
+    (ngSubmit)="signIn(signInFromData.value)"
+  >
+    <h1>{{ 'auth.LOGIN_TITLE' | translate }}</h1>
+    <div class="input-div">
+      <input
+        type="text"
+        name="email"
+        class="email-input"
+        placeholder="{{
+          'auth.EMAIL' | translate
+        }}"
+        ngModel
+        required
+      />
+      <div
+        *ngIf="
+          signInFromData.submitted &&
+          signInFromData.invalid
+        "
+        class="error-container"
+      >
+        <div
+          *ngIf="
+            signInFromData.controls.email?.errors
+              ?.required
+          "
+          class="alert"
+        >
+          {{ 'errors.EMAIL_NEEDED' | translate }}
+        </div>
       </div>
-   </div>
-   <button class="logIn">{{ "auth.LOGIN" | translate}}</button>
-   </form>
-   <div class="bellow">
-      <button class="forgetBtn"
-           (click)="toResetPasswrd()">{{ "auth.FORGET_PASSWORD_BUTTON" | translate}}</button>
+    </div>
+    <div class="input-div">
+      <input
+        type="password"
+        name="password"
+        placeholder="{{
+          'auth.PASSWORD' | translate
+        }}"
+        ngModel
+        required
+      />
+      <div
+        *ngIf="
+          signInFromData.submitted &&
+          signInFromData.invalid
+        "
+        class="error-container"
+      >
+        <div
+          *ngIf="
+            signInFromData.controls.password
+              ?.errors?.required
+          "
+          class="alert"
+        >
+          {{
+            'errors.PASSWORD_NEEDED' | translate
+          }}
+        </div>
+      </div>
+    </div>
+    <button class="logIn">
+      {{ 'auth.LOGIN' | translate }}
+    </button>
+  </form>
+  <div class="bellow">
+    <button
+      class="forgetBtn"
+      (click)="toResetPasswrd()"
+    >
+      {{
+        'auth.FORGET_PASSWORD_BUTTON' | translate
+      }}
+    </button>
 
-          <div *ngIf="signInFromData.submitted" class="error-container" >
-            <div *ngIf="getError=='notUser'" class="alert backEndError">
-                {{"auth.USER_NOT_FOUND" | translate}}
-            </div>
-            <div *ngIf="getError=='notPassw'" class="alert backEndError">
-              {{"auth.USER_PASSW_ERROR" | translate}}
-            </div>
-         </div>
+    <div
+      *ngIf="signInFromData.submitted"
+      class="error-container"
+    >
+      <div
+        *ngIf="getError == 'notUser'"
+        class="alert backEndError"
+      >
+        {{ 'auth.USER_NOT_FOUND' | translate }}
+      </div>
+      <div
+        *ngIf="getError == 'notPassw'"
+        class="alert backEndError"
+      >
+        {{ 'auth.USER_PASSW_ERROR' | translate }}
+      </div>
+    </div>
+  </div>
 </div>
