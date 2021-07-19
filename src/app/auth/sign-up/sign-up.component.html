@@ -1,77 +1,155 @@
-<form class="box"
-      #signUpFromData="ngForm"
-      (ngSubmit)="signUp(signUpFromData)"
-      [mustMatch]="['password', 'repeate_password']">
-    <h1>{{ "auth.REGISTRATION_TITLE" | translate}}</h1>
-    <div class="input-div">
-       <input type="text"
-          name="fullName"
-          placeholder="{{ 'auth.FULL_NAME' | translate }}"
-          ngModel
-          required>
-       <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
-              <div *ngIf="signUpFromData.controls.fullName?.errors?.required"
-                    class="alert">
-                  {{ "errors.FULL_NAME_NEEDED" | translate}}
-              </div>
-       </div>
+<form
+  class="box"
+  #signUpFromData="ngForm"
+  (ngSubmit)="signUp(signUpFromData)"
+  [mustMatch]="['password', 'repeate_password']"
+>
+  <h1>
+    {{ 'auth.REGISTRATION_TITLE' | translate }}
+  </h1>
+  <div class="input-div">
+    <input
+      type="text"
+      name="fullName"
+      placeholder="{{
+        'auth.FULL_NAME' | translate
+      }}"
+      ngModel
+      required
+    />
+    <div
+      *ngIf="
+        signUpFromData.submitted &&
+        signUpFromData.invalid
+      "
+    >
+      <div
+        *ngIf="
+          signUpFromData.controls.fullName?.errors
+            ?.required
+        "
+        class="alert"
+      >
+        {{
+          'errors.FULL_NAME_NEEDED' | translate
+        }}
+      </div>
     </div>
-    <div class="input-div">
-       <input type="text"
-       name="email"
-       placeholder="{{ 'auth.EMAIL' | translate}}"
-       ngModel
-       required>
-       <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
-              <div  *ngIf="signUpFromData.controls.email?.errors?.required"
-                     class="alert">
-                  {{ "errors.EMAIL_NEEDED" | translate}}
-              </div>
-       </div>
+  </div>
+  <div class="input-div">
+    <input
+      type="text"
+      name="email"
+      placeholder="{{ 'auth.EMAIL' | translate }}"
+      ngModel
+      required
+    />
+    <div
+      *ngIf="
+        signUpFromData.submitted &&
+        signUpFromData.invalid
+      "
+    >
+      <div
+        *ngIf="
+          signUpFromData.controls.email?.errors
+            ?.required
+        "
+        class="alert"
+      >
+        {{ 'errors.EMAIL_NEEDED' | translate }}
+      </div>
     </div>
-    <div class="input-div">
-       <input type="password"
-           name="password"
-           #password="ngModel"
-           placeholder="{{ 'auth.PASSWORD' | translate}}"
-           ngModel
-           required>
-       <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
-              <div *ngIf="signUpFromData.controls.password?.errors?.required"
-                   class="alert">
-                  {{ "errors.PASSWORD_NEEDED" | translate}}
-              </div>
-       </div>
+  </div>
+  <div class="input-div">
+    <input
+      type="password"
+      name="password"
+      #password="ngModel"
+      placeholder="{{
+        'auth.PASSWORD' | translate
+      }}"
+      ngModel
+      required
+    />
+    <div
+      *ngIf="
+        signUpFromData.submitted &&
+        signUpFromData.invalid
+      "
+    >
+      <div
+        *ngIf="
+          signUpFromData.controls.password?.errors
+            ?.required
+        "
+        class="alert"
+      >
+        {{ 'errors.PASSWORD_NEEDED' | translate }}
+      </div>
     </div>
-    <div class="input-div">
-       <input type="password"
-           name="repeate_password"
-           #repeate_password="ngModel"
-           placeholder="{{ 'auth.REPEAT_PASSWORD' | translate}}"
-           ngModel
-           required>
-       <div  *ngIf="signUpFromData.submitted && signUpFromData.invalid">
-              <div *ngIf="signUpFromData.controls.repeate_password?.errors?.required"
-                   class="alert">
-                {{ "errors.REP_PASSWORD_NEEDED" | translate}}
-              </div>
-       </div>
+  </div>
+  <div class="input-div">
+    <input
+      type="password"
+      name="repeate_password"
+      #repeate_password="ngModel"
+      placeholder="{{
+        'auth.REPEAT_PASSWORD' | translate
+      }}"
+      ngModel
+      required
+    />
+    <div
+      *ngIf="
+        signUpFromData.submitted &&
+        signUpFromData.invalid
+      "
+    >
+      <div
+        *ngIf="
+          signUpFromData.controls.repeate_password
+            ?.errors?.required
+        "
+        class="alert"
+      >
+        {{
+          'errors.REP_PASSWORD_NEEDED' | translate
+        }}
+      </div>
     </div>
-    <button class="signUp">{{ "auth.REGISTRATION_BUTTIN" | translate}}</button>
-    <ng-container *ngIf="signUpFromData.submitted && signUpFromData.invalid"
-                  class="mustMatch-div">
-       <div *ngIf="signUpFromData.controls.repeate_password?.errors?.mustMatch"
-            class="alert mustMatch">
-              {{ "errors.MUST_MATCH_PASSWORD" | translate}}
-       </div>
-    </ng-container>
-    <ng-container *ngIf="signUpFromData.submitted"
-                  class="mustMatch-div">
-       <div *ngIf="backError=='emailInUse'"
-            class="alert mustMatch">
-              {{ "auth.EMAIL_IN_USE" | translate}}
-       </div>
-    </ng-container>
+  </div>
+  <button class="signUp">
+    {{ 'auth.REGISTRATION_BUTTIN' | translate }}
+  </button>
+  <ng-container
+    *ngIf="
+      signUpFromData.submitted &&
+      signUpFromData.invalid
+    "
+    class="mustMatch-div"
+  >
+    <div
+      *ngIf="
+        signUpFromData.controls.repeate_password
+          ?.errors?.mustMatch
+      "
+      class="alert mustMatch"
+    >
+      {{
+        'errors.MUST_MATCH_PASSWORD' | translate
+      }}
+    </div>
+  </ng-container>
+  <ng-container
+    *ngIf="signUpFromData.submitted"
+    class="mustMatch-div"
+  >
+    <div
+      *ngIf="backError == 'emailInUse'"
+      class="alert mustMatch"
+    >
+      {{ 'auth.EMAIL_IN_USE' | translate }}
+    </div>
+  </ng-container>
 </form>
-
-

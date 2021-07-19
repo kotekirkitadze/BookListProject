@@ -8,20 +8,18 @@ import { SharedModule } from '../shared-module/shared-module.module';
 import { ResetPasswComponent } from './reset-passw/reset-passw.component';
 import { BackEndErrorService } from './backEndErrors/backEndErroro.service';
 
-
-
 @NgModule({
   declarations: [
     SignInComponent,
     SignUpComponent,
-    ResetPasswComponent
+    ResetPasswComponent,
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [BackEndErrorService]
+  providers: [BackEndErrorService],
 })
-export class AuthModule { }
+export class AuthModule {}

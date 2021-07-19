@@ -1,70 +1,184 @@
-.item {
-    height: 100%;
+// .item {
+//     height: 100%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+// }
 
 h2 {
-  text-shadow: 0 5px 5px rgba(0,0,0,.5);
+  text-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 img {
   width: 100%;
-  height: auto;
+  height: 430px;
 }
 
-.btns-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+// .btns-div {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
 
-}
+// }
 
-.btns-div button {
+// .btns-div button {
 
-  border-radius: 5px;
-  width: 100px;
-  height: 30px;
+//   border-radius: 5px;
+//   width: 100px;
+//   height: 30px;
+//   cursor: pointer;
+//   border-style: none;
+//   font-weight: 500;
+//   font-size: 15px;
+//   transition: all 0.8s ease;
+// }
+
+// .deleteBtn{
+//   background-color: red;
+//   color: white;
+// }
+
+// .deleteBtn:hover {
+//   background-color: rgb(216, 204, 204);
+//   color: rgb(8, 8, 8);
+// }
+
+// .detailsBtn {
+//   background-color: #256eff;
+//   color: white;
+// }
+
+// .detailsBtn:hover {
+//   background-color: rgb(216, 204, 204);
+//   color: rgb(8, 8, 8);
+// }
+
+// .img {
+//   height: 70%;
+// }
+// .anotherInfoDiv{
+//   margin-top: 8px;
+//   margin-bottom: 55px;
+// }
+
+// .anotherInfoDiv p, .whentoRead{
+
+// }
+
+.book {
+  width: 320px;
+  margin: 10px;
+  height: 630px;
+  // overflow: hidden;
+  border-radius: 15px;
+  background-color: #202020;
+  box-shadow: 4px 3px 8px 0px
+    rgb(200 152 44 / 22%);
+  transition-duration: 0.3s;
   cursor: pointer;
-  border-style: none;
-  font-weight: 500;
+
+  &:hover {
+    box-shadow: 4px 3px 11px 6px
+      rgb(200 152 44 / 46%);
+    transform: translateY(-3px);
+  }
+
+  &-thumb-container {
+    background-color: #000;
+    // position: relative;
+    height: 22px;
+    color: #fff;
+    text-align: center;
+  }
+
+  &-thumbnail {
+    // // position: absolute;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // margin: 0 auto;
+    // height: 372px;
+  }
+
+  &-description {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    // justify-content: flex-end;
+    height: 257px;
+  }
+
+  &-name {
+    color: #fff;
+    font-weight: 700;
+    font-size: 22px;
+    // margin-bottom: -220px;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    // overflow: hidden;
+  }
+  &-author {
+    color: #fff;
+    font-weight: 400;
+    font-size: 18px;
+    margin-top: 10px;
+    // margin-bottom: -220px;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    // overflow: hidden;
+  }
+
+  &-rating {
+    color: #fff;
+    font-weight: 400;
+    font-size: 18px;
+    margin-top: 8px;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    // overflow: hidden;
+  }
+
+  &-platform {
+    width: 20px;
+    margin-right: 10px;
+  }
+}
+
+.book-description {
+  margin-top: 400px;
+}
+
+.btn-container {
+  margin-top: -148px;
+  margin-left: 10px;
+}
+
+.deleteBtn {
+  display: inline-block;
+  background: rgb(221, 4, 4);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
   font-size: 15px;
-  transition: all 0.8s ease;
+  font-family: inherit;
+}
+.deleteBtn:focus {
+  outline: none;
+}
+.deleteBtn:active {
+  transform: scale(0.98);
 }
 
-.deleteBtn{
-  background-color: red;
-  color: white;
+.deleteBtn-block {
+  display: block;
+  width: 100%;
 }
-
-.deleteBtn:hover {
-  background-color: rgb(216, 204, 204);
-  color: rgb(8, 8, 8);
-}
-
 
 .detailsBtn {
-  background-color: #256eff;
-  color: white;
-}
-
-.detailsBtn:hover {
-  background-color: rgb(216, 204, 204);
-  color: rgb(8, 8, 8);
-}
-
-
-.img {
-  height: 70%;
-}
-.anotherInfoDiv{
-  margin-top: 8px;
-  margin-bottom: 55px;
-}
-
-.anotherInfoDiv p, .whentoRead{
-
+  background-color: rgb(32, 100, 202);
 }

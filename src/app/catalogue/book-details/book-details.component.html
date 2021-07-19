@@ -1,35 +1,145 @@
-<div   *ngIf="bookData$ | async as book">
+<div *ngIf="bookData$ | async as book">
   <div *ngIf="fireData$ | async as fireBook">
     <div class="container">
       <div class="left">
-        <img [src]="book.imageLinks"/>
+        <img [src]="book.imageLinks" />
       </div>
       <div class="right">
-        <h1>{{book.title}}</h1>
-        <p><strong><span class="ref">{{"book.AUTHOR" | translate}}</span></strong> {{book.authors}}</p>
-        <p class="description"><strong><span class="ref">{{"book.BOOK_DESCRIPTION" | translate}}</span></strong> <span>{{book.description}}</span></p>
-        <p><strong><span class="ref">{{"book.CATEGORIES" | translate}}</span></strong> {{book.categories}}</p>
-        <p><strong><span class="ref">{{"book.PUBLISH_DATE" | translate}}</span> </strong> {{book.publishedDate}}</p>
-        <p><strong><span class="ref">{{"book.PUBLISHER" | translate}}</span></strong> {{book.publisher}}</p>
-        <p><strong><span class="ref">{{"book.MINE_RATING" | translate}}</span></strong> {{fireBook.rating}}</p>
-        <p><strong><span class="ref">{{"book.REVIEW" | translate}}</span></strong> {{fireBook.review}}</p>
-        <p><strong><span class="ref">{{"book.STATUS" | translate}}</span></strong> {{ fireBook.status| translate}}</p>
+        <h1>{{ book.title }}</h1>
+        <p>
+          <strong
+            ><span class="ref">{{
+              'book.AUTHOR' | translate
+            }}</span></strong
+          >
+          {{ book.authors }}
+        </p>
+        <p class="description">
+          <strong
+            ><span class="ref">{{
+              'book.BOOK_DESCRIPTION' | translate
+            }}</span></strong
+          >
+          <span>{{ book.description }}</span>
+        </p>
+        <p>
+          <strong
+            ><span class="ref">{{
+              'book.CATEGORIES' | translate
+            }}</span></strong
+          >
+          {{ book.categories }}
+        </p>
+        <p>
+          <strong
+            ><span class="ref">{{
+              'book.PUBLISH_DATE' | translate
+            }}</span>
+          </strong>
+          {{ book.publishedDate }}
+        </p>
+        <p>
+          <strong
+            ><span class="ref">{{
+              'book.PUBLISHER' | translate
+            }}</span></strong
+          >
+          {{ book.publisher }}
+        </p>
+        <p>
+          <strong
+            ><span class="ref">{{
+              'book.MINE_RATING' | translate
+            }}</span></strong
+          >
+          {{ fireBook.rating }}
+        </p>
+        <p>
+          <strong
+            ><span class="ref">{{
+              'book.REVIEW' | translate
+            }}</span></strong
+          >
+          {{ fireBook.review }}
+        </p>
+        <p>
+          <strong
+            ><span class="ref">{{
+              'book.STATUS' | translate
+            }}</span></strong
+          >
+          {{ fireBook.status | translate }}
+        </p>
         <div>
           <div *ngFor="let element of whenToRead">
-            <div *ngIf="fireBook.whenToRead == element.value">
-              <p><strong><span class="ref">{{"catalogue.WHEN_TO_READ" | translate}}</span></strong> {{element.label | translate}}</p>
+            <div
+              *ngIf="
+                fireBook.whenToRead ==
+                element.value
+              "
+            >
+              <p>
+                <strong
+                  ><span class="ref">{{
+                    'catalogue.WHEN_TO_READ'
+                      | translate
+                  }}</span></strong
+                >
+                {{ element.label | translate }}
+              </p>
             </div>
           </div>
         </div>
+        <p class="ref">
+          <strong>{{
+            'book.BOOK_ADAPTATION' | translate
+          }}</strong>
+          <span *ngIf="book.movie.response"
+            ><fa-icon
+              [icon]="check"
+              class="check"
+            ></fa-icon
+          ></span>
+          <span
+            *ngIf="!book.movie.response"
+            class="ban"
+            ><fa-icon [icon]="ban"></fa-icon
+          ></span>
+        </p>
         <div *ngIf="book?.movie.response">
-          <p *ngIf="book?.movie?.director !== 'N/A'"><strong><span class="ref">{{"book.FILM_DIRECTOR" | translate}}</span></strong> {{book?.movie.director}}</p>
-          <p><strong>{{"book.FILM_RELEASED_DATE" | translate}}</strong> {{book?.movie.released}}</p>
+          <p
+            *ngIf="
+              book?.movie?.director !== 'N/A'
+            "
+          >
+            <strong
+              ><span class="ref">{{
+                'book.FILM_DIRECTOR' | translate
+              }}</span></strong
+            >
+            {{ book?.movie.director }}
+          </p>
+          <p>
+            <strong>{{
+              'book.FILM_RELEASED_DATE'
+                | translate
+            }}</strong>
+            {{ book?.movie.released }}
+          </p>
 
           <div *ngIf="book?.countries">
-            <div *ngFor="let i of book?.countries" class="flag">
-              <p><strong>{{"catalogue.searchPage.FILMS_COUNTRY" | translate}}</strong></p>
-              <img [src]="getCountryFlag(i)"
-                  [title]="getCountryPopulation(i)"/>
+            <div class="flag">
+              <p>
+                <strong>{{
+                  'catalogue.searchPage.FILMS_COUNTRY'
+                    | translate
+                }}</strong>
+              </p>
+              <img
+                *ngFor="let i of book?.countries"
+                [src]="getCountryFlag(i)"
+                [title]="getCountryPopulation(i)"
+              />
             </div>
           </div>
         </div>

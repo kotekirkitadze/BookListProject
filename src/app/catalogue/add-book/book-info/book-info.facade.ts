@@ -1,20 +1,32 @@
-import { Injectable } from "@angular/core";
-import { Status, fireBookBody, Country } from '../../catalogue.model';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TranslateService } from "@ngx-translate/core";
-import { ToastrService } from "ngx-toastr";
-import { AuthService } from "src/app/services/auth.service";
-import { finalize } from "rxjs/operators";
-import { FlagInfoService, FireCollectionApiService } from "../../services/index";
+import { Injectable } from '@angular/core';
+import {
+  Status,
+  fireBookBody,
+  Country,
+} from '../../catalogue.model';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
+import { finalize } from 'rxjs/operators';
+import {
+  FlagInfoService,
+  FireCollectionApiService,
+} from '../../services/index';
 
 @Injectable()
 export class BookInfoFacade {
-
-  constructor(private translateService: TranslateService,
+  constructor(
+    private translateService: TranslateService,
     private toastr: ToastrService,
     private currentUser: AuthService,
     private store: FireCollectionApiService,
-    private flagInfo: FlagInfoService) { }
+    private flagInfo: FlagInfoService
+  ) {}
 
   form: FormGroup;
   submitted: boolean = false;
@@ -22,9 +34,11 @@ export class BookInfoFacade {
   createForm() {
     this.form = new FormGroup({
       rating: new FormControl(1),
-      review: new FormControl('', [Validators.required,
-      Validators.minLength(10)]),
-      status: new FormControl(Status.Read)
+      review: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
+      status: new FormControl(Status.Read),
     });
   }
 
@@ -32,8 +46,11 @@ export class BookInfoFacade {
     switch (status) {
       case Status.ReadLater:
         this.form.addControl(
-          "whenToRead",
-          new FormControl(null, Validators.required)
+          'whenToRead',
+          new FormControl(
+            null,
+            Validators.required
+          )
         );
         break;
       case Status.Read:
@@ -43,14 +60,17 @@ export class BookInfoFacade {
   }
 
   private resetForm() {
-    this.translateService.get("catalogue.TOASTR_BOOK_ADDED").subscribe(value => this.toastr.success(value));
+    this.translateService
+      .get('catalogue.TOASTR_BOOK_ADDED')
+      .subscribe((value) =>
+        this.toastr.success(value)
+      );
 
     this.form.reset();
     this.form.updateValueAndValidity();
     this.submitted = false;
-    this.form.get("status").setValue(Status.Read);
-    this.form.get("rating").setValue(1);
-
+    this.form.get('status').setValue(Status.Read);
+    this.form.get('rating').setValue(1);
   }
 
   submit(title: string) {
@@ -66,23 +86,26 @@ export class BookInfoFacade {
       rating: formValue?.rating,
       review: formValue?.review,
       status: formValue?.status,
-      whenToRead: formValue?.whenToRead ? formValue.whenToRead : null,
-      uid: this.currentUser.getCurrentUser().uid
-    }
+      whenToRead: formValue?.whenToRead
+        ? formValue.whenToRead
+        : null,
+      uid: this.currentUser.getCurrentUser().uid,
+    };
 
-
-    return this.store.postBookData(fireBody).pipe(finalize(() => {
-      this.resetForm();
-    }));
-
+    return this.store.postBookData(fireBody).pipe(
+      finalize(() => {
+        this.resetForm();
+      })
+    );
   }
-
 
   getCountryFlag(country: Country) {
     return this.flagInfo.getCountryFlag(country);
   }
 
   getCountryPopulation(country: Country) {
-    return this.flagInfo.getCountryPopulation(country);
+    return this.flagInfo.getCountryPopulation(
+      country
+    );
   }
 }

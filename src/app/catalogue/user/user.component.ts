@@ -5,15 +5,13 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { UserFacade } from './user.facade';
 
-
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
-  providers: [UserFacade]
+  providers: [UserFacade],
 })
 export class UserComponent implements OnInit {
-
   editIcon = faEdit;
   doneIcon = faCheck;
   editName: boolean = false;
@@ -24,25 +22,28 @@ export class UserComponent implements OnInit {
   newEmail: string;
   userPassword: string;
 
-  constructor(private auth: AuthService,
+  constructor(
+    private auth: AuthService,
     private userFireInfoService: UserFireInfoService,
-    private userFacade: UserFacade) { }
+    private userFacade: UserFacade
+  ) {}
 
   ngOnInit(): void {
-    this.userFireInfoService.getItem().subscribe((user) => {
-      this.userName = user?.name;
-      this.userEmail = this.auth.getCurrentUser()?.email;
-    })
+    this.userFireInfoService
+      .getItem()
+      .subscribe((user) => {
+        this.userName = user?.name;
+        this.userEmail =
+          this.auth.getCurrentUser()?.email;
+      });
   }
 
-
-
   edit(validator: string) {
-    if (validator == "name") {
+    if (validator == 'name') {
       this.editName = !this.editName;
-    } else if (validator == "email") {
+    } else if (validator == 'email') {
       this.editEmail = !this.editEmail;
-    } else if (validator == "password") {
+    } else if (validator == 'password') {
       this.editPassword = !this.editPassword;
     }
   }
@@ -52,10 +53,11 @@ export class UserComponent implements OnInit {
     this.editName = false;
   }
 
-
   updatePassword() {
-    this.userFacade.updatePassword(this.userPassword);
-    this.editPassword = false
+    this.userFacade.updatePassword(
+      this.userPassword
+    );
+    this.editPassword = false;
   }
 
   updateEmail() {

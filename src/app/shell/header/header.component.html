@@ -1,41 +1,70 @@
 <div class="header-container">
   <header>
-    <h2 class="title"
-    (click)="toHome()"><fa-icon [icon]="faBook" class="book"></fa-icon> {{ "TITLE" | translate}}</h2>
+    <h2 class="title" (click)="toHome()">
+      <fa-icon
+        [icon]="faBook"
+        class="book"
+      ></fa-icon>
+      {{ 'TITLE' | translate }}
+    </h2>
     <nav>
-       <ng-container *ngIf="isInitiated">
+      <ng-container *ngIf="isInitiated">
         <ul class="nav_links">
-          <li><button class="userBtn"
-                      *ngIf="isLoggedIn"
-                      (click)="toUser()">
-                      <fa-icon [icon]="fauser"
-                      ></fa-icon>
-                      {{userName}}</button></li>
+          <li>
+            <button
+              class="userBtn"
+              *ngIf="isLoggedIn"
+              (click)="toUser()"
+            >
+              <fa-icon [icon]="fauser"></fa-icon>
+              {{ userName }}
+            </button>
+          </li>
 
           <ng-container *ngIf="!isLoggedIn">
-            <li><button (click)="toSignIn()"
-              class="signInBtns">{{"SIGN_IN_HEADER" | translate}}</button></li>
-            <li><button (click)="toSignUp()"
-              class="signUpBtns">{{"SIGN_UP_HEADER" | translate}}</button></li>
+            <li>
+              <button
+                (click)="toSignIn()"
+                class="signInBtns"
+              >
+                {{ 'SIGN_IN_HEADER' | translate }}
+              </button>
+            </li>
+            <li>
+              <button
+                (click)="toSignUp()"
+                class="signUpBtns"
+              >
+                {{ 'SIGN_UP_HEADER' | translate }}
+              </button>
+            </li>
           </ng-container>
 
-          <li><button  (click)="signOut()"
-                      class="signOutBtn"
-                      *ngIf="isLoggedIn">{{ "SIGN_OUT_HEADER" | translate}}
-                    </button></li>
+          <li>
+            <button
+              (click)="signOut()"
+              class="signOutBtn"
+              *ngIf="isLoggedIn"
+            >
+              {{ 'SIGN_OUT_HEADER' | translate }}
+            </button>
+          </li>
           <li class="lngli">
             <div class="languageBars">
-              <button class="langBtn en"
-                      (click)="useEn()"
-                      [class.inactive]="!isEn"></button>
-              <button class="langBtn ge"
-                      (click)="useGe()"
-                      [class.inactive]="!isKa"
-                       ></button>
+              <button
+                class="langBtn en"
+                (click)="useEn()"
+                [class.inactive]="!isEn"
+              ></button>
+              <button
+                class="langBtn ge"
+                (click)="useGe()"
+                [class.inactive]="!isKa"
+              ></button>
             </div>
           </li>
         </ul>
-       </ng-container>
+      </ng-container>
     </nav>
   </header>
 </div>
@@ -47,5 +76,3 @@
           (click)="useGe()"
           [class.inactive]="!isKa"></button>
 </div> -->
-
-

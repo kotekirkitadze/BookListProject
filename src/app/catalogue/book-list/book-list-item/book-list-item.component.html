@@ -1,4 +1,51 @@
-<div class="item">
+<div class="book" (dblclick)="goToDetails()">
+  <div class="book-thumb-container">
+    <img
+      src="{{ data?.allData?.imageLinks }}"
+      alt="thumbnail"
+      class="game-thumbnail"
+      *ngIf="data?.allData?.imageLinks"
+    />
+    <p *ngIf="!data?.allData?.imageLinks">
+      {{ 'book.NO_IMAGE' | translate }}
+    </p>
+  </div>
+  <div class="book-description">
+    <h1 class="book-name">
+      {{ data?.fireData.title }}
+    </h1>
+    <p
+      class="book-author"
+      *ngIf="data?.allData?.authors"
+    >
+      <strong
+        >{{ 'book.AUTHOR' | translate }} </strong
+      >{{ data?.allData?.authors }}
+    </p>
+
+    <p class="book-rating">
+      <strong>{{
+        'book.MINE_RATING' | translate
+      }}</strong>
+      {{ data?.fireData?.rating }}
+    </p>
+  </div>
+  <div class="btn-container">
+    <button
+      (click)="goToDetails()"
+      class="deleteBtn detailsBtn"
+    >
+      {{ 'catalogue.BOOK_DETAILS' | translate }}
+    </button>
+    <button (click)="delete()" class="deleteBtn">
+      {{
+        'catalogue.DELETE_BOOK_BTN' | translate
+      }}
+    </button>
+  </div>
+</div>
+
+<!-- <div class="item">
   <div>
     <img class="img" [src]="data?.allData?.imageLinks"/>
       <div class="infoDiv">
@@ -21,7 +68,6 @@
   <div class="btns-div">
     <button (click)="goToDetails()"
             class="detailsBtn">{{"catalogue.BOOK_DETAILS" | translate}}</button>
-    <button (click)="delete()"
-            class="deleteBtn">{{"catalogue.DELETE_BOOK_BTN" | translate}}</button>
+
   </div>
-</div>
+</div> -->

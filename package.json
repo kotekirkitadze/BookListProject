@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build:stats": "ng build --stats-json",
-    "analyze": "webpack-bundle-analyzer dist/my-book-project/stats.json"
+    "analyze": "webpack-bundle-analyzer dist/my-book-project/stats.json",
+     "format": "prettier --write src"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +29,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "firebase": "^7.0 || ^8.0",
     "ngx-toastr": "^14.0.0",
+    "prettier": "^2.3.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "webpack-bundle-analyzer": "^4.4.2",

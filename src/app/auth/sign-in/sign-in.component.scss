@@ -1,138 +1,126 @@
-.box{
-	width:  300px;
-	padding: 40px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
+.box {
+  width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   margin: auto;
-	transform: translate(-50%, -50%);
-	background: #191919;
-	text-align: center;
+  transform: translate(-50%, -50%);
+  background: #191919;
+  text-align: center;
   border-radius: 50px;
-
 }
 
 .box h1 {
-	color: white;
-	text-transform: uppercase;
-	font-weight: 500;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .box input {
-	border: 0;
-	background: none;
-	display: block;
-	margin: 15px auto;
-	text-align: center;
-	border: 2px solid #3498db;
-	padding: 14px 10px;
-	width: 200px;
-	outline: none;
-	color: white;
-	border-radius: 24px;
-	transition: 0.25s;
+  border: 0;
+  background: none;
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
 }
 
-.box input:focus{
-	width: 280px;
-	border-color: #2ecc71;
+.box input:focus {
+  width: 280px;
+  border-color: #2ecc71;
 }
 
-.logIn{
-	border: 0;
-	background: none;
-	display: block;
-	margin: 20px auto;
-	text-align: center;
-	border: 2px solid #2ecc71;
-	padding: 14px 40px;
-	outline: none;
-	color: white;
-	border-radius: 24px;
-	transition: 0.25s;
-	cursor: pointer;
+.logIn {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
 }
 
-.logIn:hover{
-	background: #2ecc71;
+.logIn:hover {
+  background: #2ecc71;
 }
-
 
 .forgetBtn {
-	background: #191919;
-	color: white;
-	border: none;
-	cursor: pointer;
-	margin-bottom: 10px;
+  background: #191919;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
   transition: all 0.5s ease;
 }
 .forgetBtn:hover {
   color: rgb(168, 168, 168);
 }
 
-
-
 .alert {
-	background: red; //#f2edda;
-	// padding: 3px;
+  background: red; //#f2edda;
+  // padding: 3px;
   padding-top: 5px;
   // padding-bottom: -14px;
-	font-size: .9em;
-	display: inline-block;
-	animation: 2s alertAnim forwards;
-	border-radius: 10px;
-	margin: 5px;
-	box-shadow: 0 0 20px 0 #999;
-  }
-
-
-.bellow {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: -25px;
+  font-size: 0.9em;
+  display: inline-block;
+  animation: 2s alertAnim forwards;
+  border-radius: 10px;
+  margin: 5px;
+  box-shadow: 0 0 20px 0 #999;
 }
 
+.bellow {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -25px;
+}
 
 .input-div {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
   // margin: -15px;
   margin-top: 10px;
   margin-bottom: -20px;
-
 }
 
-
 .input-div input {
-	position: relative;
+  position: relative;
 }
 
 .input-div div {
-	position: absolute;
-	margin-left: 88px;
-	margin-top: 12px;
-	width: 190px;
-	color: white;
-	padding-bottom: 7px;
+  position: absolute;
+  margin-left: 88px;
+  margin-top: 12px;
+  width: 190px;
+  color: white;
+  padding-bottom: 7px;
 }
-
 
 .backEndError {
   color: white;
   padding: 5px;
   width: 65%;
 }
-  @keyframes alertAnim {
-	from{
-	  opacity: 0;
-	  transform: translateY(0);
-	}
-	to {
-	  opacity: 1;
-
-	  transform: translateY(-2px);
-	}
+@keyframes alertAnim {
+  from {
+    opacity: 0;
+    transform: translateY(0);
   }
+  to {
+    opacity: 1;
 
-
-
+    transform: translateY(-2px);
+  }
+}

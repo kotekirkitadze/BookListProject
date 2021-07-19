@@ -9,46 +9,61 @@ import { BackEndErrorService } from '../backEndErrors/backEndErroro.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-
-  constructor(private auth: AuthService, private route: Router,
+  constructor(
+    private auth: AuthService,
+    private route: Router,
     private loadingService: LoadingService,
     private userFireInfoService: UserFireInfoService,
     private backErrorService: BackEndErrorService,
     private translateService: TranslateService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   signUp(signUpForm: NgForm) {
     if (signUpForm.invalid) {
       return;
     }
 
-    const { email, password, fullName } = signUpForm.value;
+    const { email, password, fullName } =
+      signUpForm.value;
 
     if (!email || !password) {
       return;
     }
     this.loadingService.start();
-    this.auth.signUpUser({ email, password, fullName }).
-      pipe(finalize(() => {
-        this.loadingService.stop()
-      })).
-      subscribe(
+    this.auth
+      .signUpUser({ email, password, fullName })
+      .pipe(
+        finalize(() => {
+          this.loadingService.stop();
+        })
+      )
+      .subscribe(
         () => {
           this.route.navigate(['catalogue']);
-          this.userFireInfoService.registerData(this.auth.getCurrentUser()?.uid, fullName);
-          this.translateService.get("auth.USER_CREATED").subscribe((value) => this.toastr.success(value))
+          this.userFireInfoService.registerData(
+            this.auth.getCurrentUser()?.uid,
+            fullName
+          );
+          this.translateService
+            .get('auth.USER_CREATED')
+            .subscribe((value) =>
+              this.toastr.success(value)
+            );
         },
-        (error) => this.backErrorService.setBackEndError(error))
+        (error) =>
+          this.backErrorService.setBackEndError(
+            error
+          )
+      );
   }
 
   get backError(): string {
